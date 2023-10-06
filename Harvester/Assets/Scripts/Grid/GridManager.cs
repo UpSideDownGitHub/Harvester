@@ -8,6 +8,7 @@ public class GridManager : MonoBehaviour
     public Grid worldGrid;
     public GameObject tempObject;
 
+
     [Serializable]
     public struct borders
     {
