@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class GridManager : MonoBehaviour
 {
@@ -48,12 +50,49 @@ public class GridManager : MonoBehaviour
         // check if the clicked posision is within the bounds of the current area
         if (!isAboveLand(gridPosition, placeables.objects[ID].size))
         {
-            print("Error Not Above Land");
+            print("Error: Can Only Place Objects On Islands");
             return;
         }
 
-        // need to check if there is room to spawn the object
-        Instantiate(placeables.objects[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
+        var gridPositions = getObjectPositions(gridPosition, placeables.objects[ID].size);
+        if (isAboveAnotherObject(gridPositions))
+        {
+            print("Error: Cannot Place Object Over Another Object");
+            return;
+        }
+
+        var spawnedObject = Instantiate(placeables.objects[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
+        spawnedObjects.Add(spawnedObject);
+
+        foreach (var pos in gridPositions)
+        {
+            var data = new ObjectData(gridPositions, ID, spawnedObjects.Count - 1);
+            placedObjects[pos] = data;
+        }
+    }
+
+    public List<Vector3Int> getObjectPositions(Vector3Int gridPos, Vector2Int size)
+    {
+        List<Vector3Int> tempList = new();
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                Vector3Int pos = new Vector3Int(gridPos.x + i, gridPos.y + j, gridPos.z);
+                tempList.Add(pos);
+            }
+        }
+        return tempList;
+    }
+
+    public bool isAboveAnotherObject(List<Vector3Int> positions)
+    {
+        foreach (var pos in positions)
+        {
+            if (placedObjects.ContainsKey(pos))
+                return true;
+        }
+        return false;
     }
 
     public bool isAboveLand(Vector3Int gridPos, Vector2Int size)
