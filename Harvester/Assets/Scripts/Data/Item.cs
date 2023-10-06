@@ -14,4 +14,5 @@ public class Item : ScriptableObject
     public Sprite icon;
     public bool placeable;
     public int placeableObjectID;
+    public string description;
 }
