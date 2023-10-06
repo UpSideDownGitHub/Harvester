@@ -1,5 +1,0 @@
-
---------------------
-Changelog
-
-10/22/2021 v.1.0 - Initial Version Uploaded

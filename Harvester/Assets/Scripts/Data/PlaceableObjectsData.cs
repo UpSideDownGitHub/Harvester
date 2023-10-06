@@ -9,13 +9,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName= "Data Objects/Placeable Object")]
 public class PlaceableObjectsData : ScriptableObject
 {
-    public List<PlaceableObjects> objects;   
+    public List<PlaceableObjects> objects;
 }
 [Serializable]
 public struct PlaceableObjects
 {
     public string objectName;
     public int ID;
-    public Vector3Int size;
+    public Vector2Int size;
     public GameObject prefab;
 }

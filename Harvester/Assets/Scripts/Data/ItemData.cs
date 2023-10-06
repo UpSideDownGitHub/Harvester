@@ -11,18 +11,3 @@ public class ItemData : ScriptableObject
 {
     public List<Item> items;
 }
-[Serializable]
-[CreateAssetMenu(menuName = "Data Objects/Item")]
-public class Item : ScriptableObject
-{
-    public string itemName;
-    public int ID;
-    public Texture2D icon;
-    public bool placeAble;
-    public int placeableID;
-
-    public void SetCustomIcon()
-    {
-        EditorGUIUtility.SetIconForObject(this, icon);
-    }
-}

@@ -15,6 +15,5 @@ public struct CraftingStation
 {
     public string stationName;
     public int ID;
-    public Vector3Int size;
-    public GameObject prefab;
+    public Recipe[] recipies;
 }
