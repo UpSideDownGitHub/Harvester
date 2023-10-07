@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2682ef10bd6fa4fbf048b53e188113, type: 3}
+  m_Name: Tools
+  m_EditorClassIdentifier: 
+  Tools:
+  - toolName:
+    - Basic Pickaxe
+    toolID: 00000000
+    toolUseSpeed:
+    - 1
+    toolDamage:
+    - 1
+    toolIcons:
+    - {fileID: 21300000, guid: f8548e60f4966984a82a4130a88ff784, type: 3}
+    level: 0
+    type: 0
+  - toolName:
+    - Basic Axe
+    toolID: 01000000
+    toolUseSpeed:
+    - 1
+    toolDamage:
+    - 1
+    toolIcons:
+    - {fileID: 21300000, guid: d572bc12cf66182418605f3462a0e711, type: 3}
+    level: 0
+    type: 1
+  - toolName:
+    - Basic Shovel
+    toolID: 02000000
+    toolUseSpeed:
+    - 1
+    toolDamage:
+    - 1
+    toolIcons:
+    - {fileID: 21300000, guid: 6e19651e037566a4896b3074ab633f53, type: 3}
+    level: 0
+    type: 2
+  - toolName:
+    - Basic Sword
+    toolID: 03000000
+    toolUseSpeed:
+    - 1
+    toolDamage:
+    - 1
+    toolIcons:
+    - {fileID: 21300000, guid: 26d04d48924e1f6458e63e955accd46c, type: 3}
+    level: 0
+    type: 3

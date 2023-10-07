@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
     public Dictionary<Item, int> inventory = new();
+    public Dictionary<Item, bool> hotbar = new();
 
     [Header("UI")]
     public GameObject inventoryCanvas;
-    public List<int> equippedItems = new();
     public List<GameObject> currentItems = new();
     public Transform spawnLocation;
     public GameObject itemPrefab;
@@ -17,11 +18,25 @@ public class Inventory : MonoBehaviour
     [Header("Data")]
     public ItemData data;
 
+    [Header("Hotbar")]
+    public Transform hotBarSpawnLocation;
+    public GameObject hotbarItemPrefab;
+    public List<GameObject> currentHotbarItems = new();
+    
+
 
     // DELETE ME THIS IS FOR TESTING
     public void Start()
     {
-        AddItem(data.items[0], 10);
+        AddItem(data.items[0], 1);
+        AddItem(data.items[1], 10);
+        AddItem(data.items[2], 20);
+        AddItem(data.items[3], 1);
+        AddItem(data.items[4], 10);
+        AddItem(data.items[5], 1);
+        AddItem(data.items[6], 1);
+        AddItem(data.items[7], 1);
+        AddItem(data.items[8], 1);
     }
 
     public void Update()
@@ -40,7 +55,10 @@ public class Inventory : MonoBehaviour
             inventory[item] += count;
         }
         else
+        { 
             inventory.Add(item, count);
+            hotbar.Add(item, false);
+        }
 
         if (inventoryCanvas.activeInHierarchy)
             UpdateUI();
@@ -60,9 +78,43 @@ public class Inventory : MonoBehaviour
             currentItems.Add(inventoryItem);
             var itemUI = inventoryItem.GetComponent<InventoryItem>();
             itemUI.SetCount(item.Value.ToString());
-            itemUI.SetIcon(data.items[item.Key.ID].icon);
+            itemUI.SetIcon(data.items[item.Key.itemID].icon);
             itemUI.SaveInfo(item);
         }
+    }
+    public void UpdateHotbarUI()
+    {
+        for (int i = 0; i < currentHotbarItems.Count; i++)
+        {
+            Destroy(currentHotbarItems[i]);
+        }
+        currentHotbarItems.Clear();
+
+        foreach (KeyValuePair<Item, bool> item in hotbar)
+        {
+            if (item.Value)
+            {
+                var hotbarItem = Instantiate(hotbarItemPrefab, hotBarSpawnLocation);
+                currentHotbarItems.Add(hotbarItem);
+
+                var hotbarItemUi = hotbarItem.GetComponent<HotbarItem>();
+                hotbarItemUi.SetCount(inventory[item.Key].ToString());
+                hotbarItemUi.SetIcon(data.items[item.Key.itemID].icon);
+            }
+        }
+    }
+
+    public void PinToHotbar(Item itemToPin)
+    {
+        if (hotbar.ContainsKey(itemToPin))
+        {
+            hotbar.TryGetValue(itemToPin, out bool val);
+            if (val)
+                hotbar[itemToPin] = false;
+            else
+                hotbar[itemToPin] = true;
+        }
+        UpdateHotbarUI();
     }
 
     public void ToggleInventory()

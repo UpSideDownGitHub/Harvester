@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148a6422137557e4b96bb1b1993d6d7b, type: 3}
   m_Name: Placeables
   m_EditorClassIdentifier: 
-  objects:
-  - objectName: Basic Bench
-    ID: 0
-    size: {x: 3, y: 2, z: 0}
+  placeables:
+  - placeableName: Basic Bench
+    placeableID: 0
+    size: {x: 3, y: 2}
     prefab: {fileID: 5094439927628118762, guid: 6f11a534608fc954aa1455192ec39022, type: 3}

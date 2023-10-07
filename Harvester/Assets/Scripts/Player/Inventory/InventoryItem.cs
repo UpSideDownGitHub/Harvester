@@ -18,15 +18,16 @@ public class InventoryItem : MonoBehaviour
 
     private KeyValuePair<Item, int> item;
 
-    public void Start()
+    public void Awake()
     {
         info = GameObject.FindGameObjectWithTag("InventoryInfo").GetComponent<InventoryInfo>();
     }
     public void SetInfo()
     {
-        info.SetName(data.items[item.Key.ID].itemName);
-        info.SetIcon(data.items[item.Key.ID].icon);
-        info.SetDescription(data.items[item.Key.ID].description);
+        info.SetName(data.items[item.Key.itemID].itemName);
+        info.SetIcon(data.items[item.Key.itemID].icon);
+        info.SetDescription(data.items[item.Key.itemID].description);
+        info.SetItem(item.Key);
     }
     public void SaveInfo(KeyValuePair<Item, int> givenItem)
     {

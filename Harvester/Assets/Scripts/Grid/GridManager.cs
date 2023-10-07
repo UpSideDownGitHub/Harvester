@@ -48,20 +48,20 @@ public class GridManager : MonoBehaviour
         var gridPosition = worldGrid.WorldToCell(worldPosision);
 
         // check if the clicked posision is within the bounds of the current area
-        if (!isAboveLand(gridPosition, placeables.objects[ID].size))
+        if (!isAboveLand(gridPosition, placeables.placeables[ID].size))
         {
             print("Error: Can Only Place Objects On Islands");
             return;
         }
 
-        var gridPositions = getObjectPositions(gridPosition, placeables.objects[ID].size);
+        var gridPositions = getObjectPositions(gridPosition, placeables.placeables[ID].size);
         if (isAboveAnotherObject(gridPositions))
         {
             print("Error: Cannot Place Object Over Another Object");
             return;
         }
 
-        var spawnedObject = Instantiate(placeables.objects[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
+        var spawnedObject = Instantiate(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
         spawnedObjects.Add(spawnedObject);
 
         foreach (var pos in gridPositions)

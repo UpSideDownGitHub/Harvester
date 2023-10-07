@@ -14,6 +14,6 @@ public class CraftingStationData : ScriptableObject
 public struct CraftingStation
 {
     public string stationName;
-    public int ID;
+    public int stationID;
     public Recipe[] recipies;
 }

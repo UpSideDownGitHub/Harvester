@@ -10,7 +10,7 @@ using UnityEngine;
 public class Recipe : ScriptableObject
 {
     public string recipeName;
-    public int ID;
+    public int recipeID;
     public float time;
     [SerializeField]
     [Tooltip("ID & Amount")]

@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Processed Wood
   m_EditorClassIdentifier: 
   itemName: Processed Wood
-  ID: 1
+  description: Wood that has been processed and is ready to be used
+  itemID: 2
   icon: {fileID: -1807965491, guid: 16493ca86dabce0458503e970e4f6551, type: 3}
   placeable: 0
   placeableObjectID: 0
-  description: Wood that has been processed and is ready to be used
+  consumable: 0
+  consumableObjectID: 0
+  tool: 0
+  toolID: 0

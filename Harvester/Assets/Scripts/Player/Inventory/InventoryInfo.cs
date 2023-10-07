@@ -11,6 +11,19 @@ public class InventoryInfo : MonoBehaviour
     public Image icon;
     public TMP_Text description;
 
+    [Header("Hotbar")]
+    public Inventory inventory;
+    private Item item;
+
+    public void SetItem(Item givenItem)
+    {
+        item = givenItem;
+    }
+
+    public void PinPressed()
+    {
+        inventory.PinToHotbar(item);
+    }
     public void SetName(string name)
     {
         objectName.text = name;

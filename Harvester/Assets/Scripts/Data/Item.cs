@@ -10,9 +10,19 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName;
-    public int ID;
+    public string description;
+    public int itemID;
     public Sprite icon;
+    
+    // placeable
     public bool placeable;
     public int placeableObjectID;
-    public string description;
+
+    // consumable
+    public bool consumable;
+    public int consumableObjectID;
+
+    // tool
+    public bool tool;
+    public int toolID;
 }
