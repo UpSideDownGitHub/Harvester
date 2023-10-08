@@ -58,6 +58,8 @@ public class Inventory : MonoBehaviour
         {
             // increase the amount held
             inventory[item] += count;
+            if (hotbar[item])
+                UpdateHotbarUI();
         }
         else
         { 

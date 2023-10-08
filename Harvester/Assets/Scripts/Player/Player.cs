@@ -37,6 +37,9 @@ public class Player : MonoBehaviour
     [Range(0,1)]
     public float maxStaminaToNotIncrease;
 
+    [Header("Placing Consumables")]
+    public GridManager gridManager;
+
     [Header("Data")]
     public ConsumableObjectData consumableData;
     public ItemData itemData;
@@ -137,11 +140,6 @@ public class Player : MonoBehaviour
         if (itemType.consumable) // consumable
         {
             print("Consumable");
-            // use the consumable and increase the stamina of the player by the 
-            // given amount of the consumalbe then take 1 of the consumables from the player
-            // if the player then has 0 consumables then remove the consuamable from the 
-            // players inventory
-
             if (staminaSlider.value / staminaSlider.maxValue < maxStaminaToNotIncrease)
             {
                 var staminaIncreaseAmount = consumableData.consumables[itemType.consumableObjectID].staminaIncrease;
@@ -152,6 +150,9 @@ public class Player : MonoBehaviour
         else if (itemType.placeable) // placeable
         {
             print("Placeable");
+            gridManager.placeObject(itemType.placeableObjectID, Input.mousePosition);
+            inventory.RemoveItem(itemType, 1, true);
+
         }
         else if (itemType.tool) // tool
         {
