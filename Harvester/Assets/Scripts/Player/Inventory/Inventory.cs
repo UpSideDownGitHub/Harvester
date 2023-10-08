@@ -24,6 +24,10 @@ public class Inventory : MonoBehaviour
     public List<GameObject> currentHotbarItems = new();
     public Player player;
     
+    public bool isInventoryOpen()
+    {
+        return inventoryCanvas.activeInHierarchy;
+    }
 
 
     // DELETE ME THIS IS FOR TESTING
@@ -64,6 +68,22 @@ public class Inventory : MonoBehaviour
         if (inventoryCanvas.activeInHierarchy)
             UpdateUI();
     }
+    public void RemoveItem(Item item, int count, bool keepSelect = false)
+    {
+        if (!inventory.ContainsKey(item))
+            return;
+
+        inventory[item] -= count;
+        if (inventory[item] <= 0)
+        {
+            inventory.Remove(item);
+            hotbar.Remove(item);
+        }
+
+        if (inventoryCanvas.activeInHierarchy)
+            UpdateUI();
+        UpdateHotbarUI(keepSelect);
+    }
 
     public void UpdateUI()
     {
@@ -83,7 +103,7 @@ public class Inventory : MonoBehaviour
             itemUI.SaveInfo(item);
         }
     }
-    public void UpdateHotbarUI()
+    public void UpdateHotbarUI(bool keepSelected = false)
     {
         for (int i = 0; i < currentHotbarItems.Count; i++)
         {
@@ -106,7 +126,7 @@ public class Inventory : MonoBehaviour
                 j++;
             }
         }
-        player.currentHotbarItems(hotbar, currentHotbarItems);
+        player.currentHotbarItems(hotbar, currentHotbarItems, keepSelected);
     }
 
     public void PinToHotbar(Item itemToPin)

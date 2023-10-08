@@ -2,6 +2,7 @@ using MonoFN.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -32,9 +33,20 @@ public class Player : MonoBehaviour
     public Color selectedColor;
     public Color defaultColor;
 
+    [Header("Eating Consumables")]
+    [Range(0,1)]
+    public float maxStaminaToNotIncrease;
 
-    public void currentHotbarItems(Dictionary<Item, bool> newHotbar, List<GameObject> UIObjects)
+    [Header("Data")]
+    public ConsumableObjectData consumableData;
+    public ItemData itemData;
+    public PlaceableObjectsData placeableData;
+    public ToolObjectData toolData;
+
+
+    public void currentHotbarItems(Dictionary<Item, bool> newHotbar, List<GameObject> UIObjects, bool keepSelected = false)
     {
+        var previousSelected = curSelectedItem;
         curSelectedItem = 0;
         hotbar.Clear();
         hotbarUIObjects = UIObjects;
@@ -48,6 +60,8 @@ public class Player : MonoBehaviour
             objectIcon.sprite = null;
             return;
         }
+        if (keepSelected)
+            curSelectedItem = previousSelected >= hotbar.Count ? hotbar.Count - 1 : previousSelected;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
@@ -71,7 +85,7 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-        // Hotbar
+        // HOTBAR
         if (Input.mouseScrollDelta.y > 0)
         {
             var itemToSelect = curSelectedItem + 1 >= hotbarUIObjects.Count ? 0 : curSelectedItem + 1;
@@ -82,7 +96,14 @@ public class Player : MonoBehaviour
             var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
             SetSelected(itemToSelect);
         }
-
+        
+        // ITEM USAGE
+        // used button pressed when not in the inventory
+        if(Input.GetMouseButtonDown(0) && !inventory.isInventoryOpen() && 
+            !EventSystem.current.IsPointerOverGameObject())
+        {
+            UseItem();
+        }
 
         // Stamina & Health
         if (stainaRanOut)
@@ -105,6 +126,41 @@ public class Player : MonoBehaviour
                 _timeSinceLastHealthDecrease = Time.time;
                 stainaRanOut = true;
             }
+        }
+    }
+
+    public void UseItem()
+    {
+        if (hotbar.Count == 0)
+            return;
+        Item itemType = hotbar[curSelectedItem];
+        if (itemType.consumable) // consumable
+        {
+            print("Consumable");
+            // use the consumable and increase the stamina of the player by the 
+            // given amount of the consumalbe then take 1 of the consumables from the player
+            // if the player then has 0 consumables then remove the consuamable from the 
+            // players inventory
+
+            if (staminaSlider.value / staminaSlider.maxValue < maxStaminaToNotIncrease)
+            {
+                var staminaIncreaseAmount = consumableData.consumables[itemType.consumableObjectID].staminaIncrease;
+                IncreaseStamina(staminaIncreaseAmount);
+                inventory.RemoveItem(itemType, 1, true);
+            }
+        }
+        else if (itemType.placeable) // placeable
+        {
+            print("Placeable");
+        }
+        else if (itemType.tool) // tool
+        {
+            print("Tool");
+        }
+        else
+        {
+            // materials cannot be used and are only used in crafting recipies
+            print("This Item Is A Material");
         }
     }
 
