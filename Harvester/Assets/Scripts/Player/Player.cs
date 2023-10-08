@@ -22,6 +22,45 @@ public class Player : MonoBehaviour
     public float decreaseHealthTime;
     private float _timeSinceLastHealthDecrease;
 
+    [Header("Hotbar/ItemUsage")]
+    public Inventory inventory;
+    public List<Item> hotbar = new();
+    public List<GameObject> hotbarUIObjects = new();
+    public int curSelectedItem;
+    public SpriteRenderer objectIcon;
+
+    public Color selectedColor;
+    public Color defaultColor;
+
+
+    public void currentHotbarItems(Dictionary<Item, bool> newHotbar, List<GameObject> UIObjects)
+    {
+        curSelectedItem = 0;
+        hotbar.Clear();
+        hotbarUIObjects = UIObjects;
+        foreach (KeyValuePair<Item, bool> item in newHotbar)
+        {
+            if (item.Value)
+                hotbar.Add(item.Key);
+        }
+        if (hotbar.Count == 0)
+        {
+            objectIcon.sprite = null;
+            return;
+        }
+        objectIcon.sprite = hotbar[curSelectedItem].icon;
+        hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
+    }
+
+    public void SetSelected(int itemToSelect)
+    {
+        if (hotbarUIObjects.Count == 0)
+            return;
+        hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = defaultColor;
+        curSelectedItem = itemToSelect;
+        objectIcon.sprite = hotbar[curSelectedItem].icon;
+        hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
+    }
 
     public void Start()
     {
@@ -32,6 +71,20 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+        // Hotbar
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            var itemToSelect = curSelectedItem + 1 >= hotbarUIObjects.Count ? 0 : curSelectedItem + 1;
+            SetSelected(itemToSelect);
+        }
+        else if (Input.mouseScrollDelta.y < 0)
+        {
+            var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
+            SetSelected(itemToSelect);
+        }
+
+
+        // Stamina & Health
         if (stainaRanOut)
         {
             if (currentStamina > staminaSlider.minValue)

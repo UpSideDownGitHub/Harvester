@@ -22,6 +22,7 @@ public class Inventory : MonoBehaviour
     public Transform hotBarSpawnLocation;
     public GameObject hotbarItemPrefab;
     public List<GameObject> currentHotbarItems = new();
+    public Player player;
     
 
 
@@ -90,6 +91,7 @@ public class Inventory : MonoBehaviour
         }
         currentHotbarItems.Clear();
 
+        int j = 0;
         foreach (KeyValuePair<Item, bool> item in hotbar)
         {
             if (item.Value)
@@ -100,8 +102,11 @@ public class Inventory : MonoBehaviour
                 var hotbarItemUi = hotbarItem.GetComponent<HotbarItem>();
                 hotbarItemUi.SetCount(inventory[item.Key].ToString());
                 hotbarItemUi.SetIcon(data.items[item.Key.itemID].icon);
+                hotbarItemUi.SetID(j, player);
+                j++;
             }
         }
+        player.currentHotbarItems(hotbar, currentHotbarItems);
     }
 
     public void PinToHotbar(Item itemToPin)
