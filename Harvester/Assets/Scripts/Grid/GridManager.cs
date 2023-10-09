@@ -36,6 +36,19 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public GameObject ObjectClicked(Vector3 clickPos)
+    {
+        var worldPosision = Camera.main.ScreenToWorldPoint(clickPos);
+        var gridPosition = worldGrid.WorldToCell(worldPosision);
+
+        List<Vector3Int> clickPositions = new List<Vector3Int>() { gridPosition };
+        if (isAboveAnotherObject(clickPositions))
+        {
+            return spawnedObjects[placedObjects[gridPosition].objectIndex];
+        }
+        return null;
+    }
+
     public void placeObject(int ID, Vector3 clickPosition)
     {
         // get the position of the mouse

@@ -19,7 +19,7 @@ MonoBehaviour:
     toolUseSpeed:
     - 1
     toolDamage:
-    - 1
+    - 10
     toolIcons:
     - {fileID: 21300000, guid: f8548e60f4966984a82a4130a88ff784, type: 3}
     level: 0

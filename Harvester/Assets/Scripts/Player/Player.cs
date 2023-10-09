@@ -157,6 +157,15 @@ public class Player : MonoBehaviour
         else if (itemType.tool) // tool
         {
             print("Tool");
+            var clickedObject = gridManager.ObjectClicked(Input.mousePosition);
+            if (clickedObject != null)
+            {
+                var placeable = clickedObject.GetComponent<PlaceableObject>();
+                if (placeable.placeable.breakType == toolData.Tools[itemType.toolID].type)
+                {
+                    placeable.TakeDamage(toolData.Tools[itemType.toolID].toolDamage[toolData.Tools[itemType.toolID].level]);
+                }
+            }
         }
         else
         {
