@@ -1542,7 +1542,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 230604622698873674}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3971266018767468555}
+        m_TargetAssemblyTypeName: CraftingStationObject, Assembly-CSharp
+        m_MethodName: SetMax
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5126181656912540616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,7 +2197,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6860326296046131193}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3971266018767468555}
+        m_TargetAssemblyTypeName: CraftingStationObject, Assembly-CSharp
+        m_MethodName: SetToOne
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6869716951944496141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,7 +2415,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4681708609929281131}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3971266018767468555}
+        m_TargetAssemblyTypeName: CraftingStationObject, Assembly-CSharp
+        m_MethodName: DecreaseCraft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7267066902714368010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2780,7 +2816,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3307671933661905050}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3971266018767468555}
+        m_TargetAssemblyTypeName: CraftingStationObject, Assembly-CSharp
+        m_MethodName: IncreaseCraft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8862772629932850709
 GameObject:
   m_ObjectHideFlags: 0

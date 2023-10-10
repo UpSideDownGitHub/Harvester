@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
     // DELETE ME THIS IS FOR TESTING
     public void Start()
     {
-        AddItem(data.items[0], 1);
+        AddItem(data.items[0], 100);
         AddItem(data.items[1], 10);
         AddItem(data.items[2], 20);
         AddItem(data.items[3], 1);

@@ -78,10 +78,8 @@ public class CraftingStationObject : MonoBehaviour
             var neededCount = stationData.stations[stationID].recipies[ID].materials[i].count;
             var haveCount = inventory.inventory.ContainsKey(stationData.stations[stationID].recipies[ID].materials[i].item) ? 
                 inventory.inventory[stationData.stations[stationID].recipies[ID].materials[i].item] : 0;
-            infoItem.itemCount.text = haveCount * count + "/" + neededCount * count;
+            infoItem.itemCount.text = haveCount + "/" + neededCount * count;
         }
-
-        SetToOne();
     }
 
     public void SetToOne()
@@ -92,7 +90,7 @@ public class CraftingStationObject : MonoBehaviour
     }
     public void SetMax()
     {
-        var smallest = 0;
+        var smallest = 9999;
         for (int i = 0; i < stationData.stations[stationID].recipies[currentSelectedRecipieID].materials.Length; i++)
         {
             var neededCount = stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].count;
@@ -101,7 +99,7 @@ public class CraftingStationObject : MonoBehaviour
 
             smallest = haveCount / neededCount < smallest ? haveCount / neededCount : smallest;
         }
-        currentCraftCount = smallest;
+        currentCraftCount = smallest <= 0 ? 1 : smallest;
         craftCount.text = "x" + currentCraftCount.ToString();
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
