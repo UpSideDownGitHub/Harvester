@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CraftingStationInfoItem : MonoBehaviour
 {
     [Header("UI")]
-    public SpriteRenderer icon;
+    public Image icon;
     public TMP_Text itemName;
-    public TMP_Text itemAmounts;
+    public TMP_Text itemCount;
 }

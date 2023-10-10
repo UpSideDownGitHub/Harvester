@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491700660697862270}
   - component: {fileID: 4473795216399361535}
+  - component: {fileID: 3417180990405970099}
   m_Layer: 5
   m_Name: Recipe Item
   m_TagString: Untagged
@@ -82,6 +83,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3417180990405970099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2740472527706158954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ca24b3402799b44baed8de1cd47acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 3294885334101345986}
+  itemName: {fileID: 8910936352210244412}
+  ID: 0
+  button: {fileID: 4473795216399361535}
+  craftingManager: {fileID: 0}
 --- !u!1 &3622608070603047019
 GameObject:
   m_ObjectHideFlags: 0
