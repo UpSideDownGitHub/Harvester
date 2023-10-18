@@ -10,6 +10,11 @@ public class CraftingStationObject : MonoBehaviour
     [Header("Inventory")]
     public Inventory inventory;
 
+    [Header("World Object")]
+    public GameObject UI;
+    public Button closeMenuButton;
+    public bool inRange;
+
     [Header("Station ID")]
     public CraftingStationData stationData;
     public int stationID;
@@ -53,13 +58,50 @@ public class CraftingStationObject : MonoBehaviour
             recipieItem.ID = i;
             recipieItem.craftingManager = this;
         }
+
+        closeMenuButton.onClick.AddListener(() => CloseMenu());
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && inRange)
+        {
+            if (UI.activeInHierarchy)
+                UI.SetActive(false);
+            else
+                UI.SetActive(true);
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            inRange = true;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            inRange = false;
+            UI.SetActive(false);
+        }
+    }
+
+    public void OpenMenu()
+    {
+        UI.SetActive(true);
+    }
+    public void CloseMenu()
+    {
+        UI.SetActive(false);
     }
 
     public void ItemPressed(int ID, int count = 1)
     {
         currentCraftCount = count;
         currentSelectedRecipieID = ID;
-
         for (int i = 0; i < itemAmountParent.childCount; i++)
         {
             Destroy(itemAmountParent.GetChild(i).gameObject);
@@ -76,8 +118,10 @@ public class CraftingStationObject : MonoBehaviour
             infoItem.icon.sprite = stationData.stations[stationID].recipies[ID].materials[i].item.icon;
             infoItem.itemName.text = stationData.stations[stationID].recipies[ID].materials[i].item.itemName;
             var neededCount = stationData.stations[stationID].recipies[ID].materials[i].count;
+
             var haveCount = inventory.inventory.ContainsKey(stationData.stations[stationID].recipies[ID].materials[i].item) ? 
                 inventory.inventory[stationData.stations[stationID].recipies[ID].materials[i].item] : 0;
+
             infoItem.itemCount.text = haveCount + "/" + neededCount * count;
         }
     }
