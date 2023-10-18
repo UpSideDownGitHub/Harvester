@@ -435,7 +435,7 @@ MonoBehaviour:
   closeMenuButton: {fileID: 6855682102624526971}
   inRange: 0
   stationData: {fileID: 11400000, guid: 3d8ca212d43cab24b83188eb468fbfb0, type: 2}
-  stationID: 0
+  stationID: 1
   stationName: {fileID: 2864245630451821474}
   craftCount: {fileID: 5588918260862053774}
   currentCraftCount: 0
@@ -765,10 +765,22 @@ PrefabInstance:
     - target: {fileID: 5928881178439010068, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5094439927628118762}
+      objectReference: {fileID: 1688224856362671231}
     - target: {fileID: 5928881178439010068, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928881178439010068, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Craft
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928881178439010068, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CraftingStationObject, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928881178439010068, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5997385091202777305, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

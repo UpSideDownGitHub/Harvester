@@ -126,6 +126,24 @@ public class CraftingStationObject : MonoBehaviour
         }
     }
 
+    public void Craft()
+    {
+        if (currentCraftCount > MaxCraftable() || currentCraftCount <= 0)
+            return;
+
+        // take off the given ammount of materials
+        for (int i = 0; i < stationData.stations[stationID].recipies[currentSelectedRecipieID].materials.Length; i++)
+        {
+            inventory.RemoveItem(stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].item,
+                stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].count * currentCraftCount);
+        }
+
+        // give the player the crafted amount of items
+        inventory.AddItem(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
+            stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count * currentCraftCount);
+        
+    }
+
     public void SetToOne()
     {
         currentCraftCount = 1;
@@ -134,15 +152,7 @@ public class CraftingStationObject : MonoBehaviour
     }
     public void SetMax()
     {
-        var smallest = 9999;
-        for (int i = 0; i < stationData.stations[stationID].recipies[currentSelectedRecipieID].materials.Length; i++)
-        {
-            var neededCount = stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].count;
-            var haveCount = inventory.inventory.ContainsKey(stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].item) ?
-                inventory.inventory[stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].item] : 0;
-
-            smallest = haveCount / neededCount < smallest ? haveCount / neededCount : smallest;
-        }
+        var smallest = MaxCraftable();
         currentCraftCount = smallest <= 0 ? 1 : smallest;
         craftCount.text = "x" + currentCraftCount.ToString();
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
@@ -159,5 +169,23 @@ public class CraftingStationObject : MonoBehaviour
         currentCraftCount = currentCraftCount - 1 <= 0 ? 1 : currentCraftCount - 1;
         craftCount.text = "x" + currentCraftCount.ToString();
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
+    }
+
+    /// <summary>
+    /// return the maximum craftable of the current selected recipie
+    /// </summary>
+    /// <returns>smallest - whichever ingredient is lacking the most as this will effect the max amount craftable</returns>
+    public int MaxCraftable()
+    {
+        var smallest = 9999;
+        for (int i = 0; i < stationData.stations[stationID].recipies[currentSelectedRecipieID].materials.Length; i++)
+        {
+            var neededCount = stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].count;
+            var haveCount = inventory.inventory.ContainsKey(stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].item) ?
+                inventory.inventory[stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].item] : 0;
+
+            smallest = haveCount / neededCount < smallest ? haveCount / neededCount : smallest;
+        }
+        return smallest;
     }
 }

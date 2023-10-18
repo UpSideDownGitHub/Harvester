@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Crafting Stations
   m_EditorClassIdentifier: 
   stations:
+  - stationName: Basic Crafting
+    stationID: 0
+    recipies:
+    - {fileID: 11400000, guid: f27baf222722a334793c6e4815f5e8a8, type: 2}
   - stationName: Basic Bench
-    ID: 0
+    stationID: 1
     recipies:
     - {fileID: 11400000, guid: a2d718f2ca5500049ae4dd282b6f5ab2, type: 2}

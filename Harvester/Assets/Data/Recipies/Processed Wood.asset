@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Processed Wood
   m_EditorClassIdentifier: 
   recipeName: Processed Wood
-  recipeID: 0
+  recipeID: 1
   time: 1
   materials:
   - item: {fileID: 11400000, guid: 3ea6abc5ed911fe418447771de6e28cb, type: 2}

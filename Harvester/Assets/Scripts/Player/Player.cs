@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MonoFN.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +40,9 @@ public class Player : MonoBehaviour
 
     [Header("Placing Consumables")]
     public GridManager gridManager;
+
+    [Header("Basic Crafting")]
+    public CraftingStationObject basicCrafting;
 
     [Header("Data")]
     public ConsumableObjectData consumableData;
@@ -88,6 +92,15 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+        // Basic Crafting Station
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (basicCrafting.UI.activeInHierarchy)
+                basicCrafting.CloseMenu();
+            else
+                basicCrafting.OpenMenu();
+        }
+
         // HOTBAR
         if (Input.mouseScrollDelta.y > 0)
         {
@@ -150,8 +163,9 @@ public class Player : MonoBehaviour
         else if (itemType.placeable) // placeable
         {
             print("Placeable");
-            gridManager.placeObject(itemType.placeableObjectID, Input.mousePosition);
-            inventory.RemoveItem(itemType, 1, true);
+            var placed = gridManager.placeObject(itemType.placeableObjectID, Input.mousePosition);
+            if (placed)
+                inventory.RemoveItem(itemType, 1, true);
 
         }
         else if (itemType.tool) // tool

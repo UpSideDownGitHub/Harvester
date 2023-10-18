@@ -48,8 +48,18 @@ public class GridManager : MonoBehaviour
         }
         return null;
     }
-
-    public void placeObject(int ID, Vector3 clickPosition)
+    public void RemoveObject(Vector3 position)
+    {
+        var gridPosition = worldGrid.WorldToCell(position);
+        var data = placedObjects[gridPosition];
+        var index = placedObjects[gridPosition].objectIndex;
+        for (int i = 0; i < data.gridSpaces.Count; i++)
+        {
+            placedObjects.Remove(data.gridSpaces[i]);
+        }
+        spawnedObjects.RemoveAt(index);
+    }
+    public bool placeObject(int ID, Vector3 clickPosition)
     {
         // get the position of the mouse
         var worldPosision = Camera.main.ScreenToWorldPoint(clickPosition);
@@ -59,14 +69,14 @@ public class GridManager : MonoBehaviour
         if (!isAboveLand(gridPosition, placeables.placeables[ID].size))
         {
             print("Error: Can Only Place Objects On Islands");
-            return;
+            return false;
         }
 
         var gridPositions = getObjectPositions(gridPosition, placeables.placeables[ID].size);
         if (isAboveAnotherObject(gridPositions))
         {
             print("Error: Cannot Place Object Over Another Object");
-            return;
+            return false;
         }
 
         var spawnedObject = Instantiate(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
@@ -77,6 +87,7 @@ public class GridManager : MonoBehaviour
             var data = new ObjectData(gridPositions, ID, spawnedObjects.Count - 1);
             placedObjects[pos] = data;
         }
+        return true;
     }
 
     public List<Vector3Int> getObjectPositions(Vector3Int gridPos, Vector2Int size)

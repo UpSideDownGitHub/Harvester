@@ -46,5 +46,7 @@ public class PlaceableObject : MonoBehaviour
                 placeable.drops[i].count,
                 placeable.drops[i].item.icon);
         }
+        GridManager gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
+        gridManager.RemoveObject(transform.position);
     }
 }
