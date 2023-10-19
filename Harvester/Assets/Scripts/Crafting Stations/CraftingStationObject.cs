@@ -58,6 +58,7 @@ public class CraftingStationObject : MonoBehaviour
             recipieItem.ID = i;
             recipieItem.craftingManager = this;
         }
+        ItemPressed(0);
 
         closeMenuButton.onClick.AddListener(() => CloseMenu());
     }
@@ -102,6 +103,7 @@ public class CraftingStationObject : MonoBehaviour
     {
         currentCraftCount = count;
         currentSelectedRecipieID = ID;
+        craftCount.text = "x" + currentCraftCount.ToString();
         for (int i = 0; i < itemAmountParent.childCount; i++)
         {
             Destroy(itemAmountParent.GetChild(i).gameObject);
@@ -141,33 +143,31 @@ public class CraftingStationObject : MonoBehaviour
         // give the player the crafted amount of items
         inventory.AddItem(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
             stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count * currentCraftCount);
-        
+
+        ItemPressed(currentSelectedRecipieID);
+
+
     }
 
     public void SetToOne()
     {
         currentCraftCount = 1;
-        craftCount.text = "x" + currentCraftCount.ToString();
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
     public void SetMax()
     {
         var smallest = MaxCraftable();
         currentCraftCount = smallest <= 0 ? 1 : smallest;
-        craftCount.text = "x" + currentCraftCount.ToString();
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
     public void IncreaseCraft()
     {
         currentCraftCount++;
-        craftCount.text = "x" + currentCraftCount.ToString();
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
     public void DecreaseCraft()
     {
-
         currentCraftCount = currentCraftCount - 1 <= 0 ? 1 : currentCraftCount - 1;
-        craftCount.text = "x" + currentCraftCount.ToString();
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
 

@@ -25,17 +25,6 @@ public class GridManager : MonoBehaviour
     }
     public borders[] areaBorders;
 
-    // THIS IS JUST FOR TESTING PURPOSES SO PLEASE DELETE
-    public void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            // try and spawn an object
-            //placeObject(0, Input.mousePosition);
-
-        }
-    }
-
     public GameObject ObjectClicked(Vector3 clickPos)
     {
         var worldPosision = Camera.main.ScreenToWorldPoint(clickPos);
