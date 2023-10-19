@@ -8,7 +8,7 @@ public class GridManager : MonoBehaviour
     public GameObject tempObject;
 
     [Header("Grid Information")]
-    public List<GameObject> spawnedObjects = new();
+    //public List<GameObject> spawnedObjects = new();
     public Dictionary<Vector3Int, ObjectData> placedObjects = new();
 
     [Header("Data")]
@@ -44,7 +44,7 @@ public class GridManager : MonoBehaviour
         List<Vector3Int> clickPositions = new List<Vector3Int>() { gridPosition };
         if (isAboveAnotherObject(clickPositions))
         {
-            return spawnedObjects[placedObjects[gridPosition].objectIndex];
+            return placedObjects[gridPosition].spawnedObject;
         }
         return null;
     }
@@ -52,12 +52,10 @@ public class GridManager : MonoBehaviour
     {
         var gridPosition = worldGrid.WorldToCell(position);
         var data = placedObjects[gridPosition];
-        var index = placedObjects[gridPosition].objectIndex;
         for (int i = 0; i < data.gridSpaces.Count; i++)
         {
             placedObjects.Remove(data.gridSpaces[i]);
         }
-        spawnedObjects.RemoveAt(index);
     }
     public bool placeObject(int ID, Vector3 clickPosition)
     {
@@ -80,11 +78,10 @@ public class GridManager : MonoBehaviour
         }
 
         var spawnedObject = Instantiate(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
-        spawnedObjects.Add(spawnedObject);
 
         foreach (var pos in gridPositions)
         {
-            var data = new ObjectData(gridPositions, ID, spawnedObjects.Count - 1);
+            var data = new ObjectData(gridPositions, ID, spawnedObject);
             placedObjects[pos] = data;
         }
         return true;
@@ -137,47 +134,18 @@ public class GridManager : MonoBehaviour
 
     bool inRange(Vector3Int pos, int xMin = -100, int xMax = 100, int yMin = -100, int yMax = 100) =>
         ((pos.x - xMin) * (pos.x - xMax) <= 0) && ((pos.y - yMin) * (pos.y - yMax) <= 0);
-
-
-    /*
-    // Start is called before the first frame update
-    void Start()
-    {
-        for (int i = 0; i < areaBorders.Length; i++)
-        {
-            Instantiate(tempObject, worldGrid.CellToWorld(areaBorders[i].TL), Quaternion.identity);
-            Instantiate(tempObject, worldGrid.CellToWorld(areaBorders[i].BR), Quaternion.identity);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            var mousePosition = Input.mousePosition;
-            var worldPosision = Camera.main.ScreenToWorldPoint(mousePosition);
-            var gridPosition = worldGrid.WorldToCell(worldPosision);
-            print("CELL ->" + gridPosition);
-            Instantiate(tempObject, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
-        }
-    }
-    */
-
 }
 
 public class ObjectData
 {
     public List<Vector3Int> gridSpaces;
     public int ID;
-    public int objectIndex;
+    public GameObject spawnedObject;
 
-    public ObjectData(List<Vector3Int> gridSpaces, int ID, int objectIndex)
+    public ObjectData(List<Vector3Int> gridSpaces, int ID, GameObject spawnedObject)
     {
         this.gridSpaces = gridSpaces;
         this.ID = ID;
-        this.objectIndex = objectIndex;
+        this.spawnedObject = spawnedObject;
     }
 }
