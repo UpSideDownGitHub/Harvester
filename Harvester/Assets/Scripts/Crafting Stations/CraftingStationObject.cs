@@ -35,6 +35,15 @@ public class CraftingStationObject : MonoBehaviour
     public Transform itemAmountParent;
     public GameObject itemAmountPrefab;
 
+    [Header("Time To Craft")]
+    public bool instantCrafting;
+    public Slider craftTimeSlider;
+    public Transform itemSpawnPosition;
+    public GameObject pickupPrefab;
+    public GameObject craftingUI;
+    public Image itemIcon;
+    public bool crafting;
+
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<Inventory>();
@@ -65,12 +74,12 @@ public class CraftingStationObject : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && inRange)
+        if (Input.GetKeyDown(KeyCode.E) && inRange && !crafting)
         {
             if (UI.activeInHierarchy)
-                UI.SetActive(false);
+                CloseMenu();
             else
-                UI.SetActive(true);
+                OpenMenu();
         }
     }
 
@@ -140,13 +149,43 @@ public class CraftingStationObject : MonoBehaviour
                 stationData.stations[stationID].recipies[currentSelectedRecipieID].materials[i].count * currentCraftCount);
         }
 
-        // give the player the crafted amount of items
-        inventory.AddItem(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
+        if (instantCrafting)
+        {
+            inventory.AddItem(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
             stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count * currentCraftCount);
+        }
+        else
+            StartCoroutine(AnimateSliderOverTime(stationData.stations[stationID].recipies[currentSelectedRecipieID].time, currentCraftCount));
 
         ItemPressed(currentSelectedRecipieID);
+    }
 
+    IEnumerator AnimateSliderOverTime(float seconds, int count)
+    {
+        crafting = true;
+        CloseMenu();
+        craftingUI.SetActive(true);
+        itemIcon.sprite = stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.icon;
+        for (int i = 0; i < count; i++)
+        {
+            float animationTime = 0f;
+            while (animationTime < seconds)
+            {
+                animationTime += Time.deltaTime;
+                float lerpValue = animationTime / seconds;
+                craftTimeSlider.value = Mathf.Lerp(0, 1, lerpValue);
+                yield return null;
+            }
 
+            var pickup = Instantiate(pickupPrefab, itemSpawnPosition.position, Quaternion.identity).GetComponentInParent<Pickup>();
+            pickup.SetPickup(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
+                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count,
+                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.icon);
+            yield return null;
+            //inventory.AddItem(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item, stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count * currentCraftCount);
+        }
+        craftingUI.SetActive(false);
+        crafting = false;
     }
 
     public void SetToOne()

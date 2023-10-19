@@ -15,6 +15,10 @@ public class PlaceableObject : MonoBehaviour
     public GameObject UICanvas;
     public Slider healthSlider;
 
+    [Header("Crafting Station")]
+    public bool isCraftingStation;
+    public CraftingStationObject craftingStation;
+
     public void Start()
     {
         currentHealth = placeable.health;
@@ -25,6 +29,12 @@ public class PlaceableObject : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isCraftingStation)
+        {
+            if (craftingStation.crafting)
+                return;
+        }
+
         if (!UICanvas.activeInHierarchy)
             UICanvas.SetActive(true);
 
