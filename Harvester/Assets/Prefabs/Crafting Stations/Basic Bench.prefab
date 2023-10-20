@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 3706773040502825646}
   - component: {fileID: 1688224856362671231}
   - component: {fileID: 2710106379216498539}
+  - component: {fileID: -1539805261950023474}
   m_Layer: 0
   m_Name: Basic Bench
   m_TagString: Untagged
@@ -561,6 +562,8 @@ MonoBehaviour:
   pickupItem: {fileID: 5406424375258037428, guid: f54cd20370977f444aff0a2972552ba3, type: 3}
   UICanvas: {fileID: 3228631717761661}
   healthSlider: {fileID: 6456479866562019663}
+  isCraftingStation: 0
+  craftingStation: {fileID: 0}
 --- !u!61 &3706773040502825646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -686,6 +689,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6817589, y: 2.007065}
   m_EdgeRadius: 0
+--- !u!114 &-1539805261950023474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094439927628118762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
+  _networkBehaviours: []
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  SerializedTransformProperties:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    LocalScale: {x: 0, y: 0, z: 0}
+  _isNetworked: 1
+  _isGlobal: 0
+  _initializeOrder: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: 0
+  <SpawnableCollectionId>k__BackingField: 0
+  _scenePathHash: 0
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 17036639684582929855
 --- !u!1 &6273158374911627645
 GameObject:
   m_ObjectHideFlags: 0

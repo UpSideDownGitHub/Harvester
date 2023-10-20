@@ -1,11 +1,7 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
+using FishNet.Object;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class HotbarItem : MonoBehaviour
 {
@@ -20,7 +16,7 @@ public class HotbarItem : MonoBehaviour
     public void SetID(int ID, Player player)
     {
         hotbarID = ID;
-        button.onClick.AddListener(() => player.SetSelected(hotbarID));
+        button.onClick.AddListener(() => player.SetSelected(hotbarID, player));
     }    
     public void SetCount(string count)
     {

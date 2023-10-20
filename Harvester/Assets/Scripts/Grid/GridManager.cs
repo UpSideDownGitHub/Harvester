@@ -1,8 +1,10 @@
+using FishNet.Object;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+public class GridManager : NetworkBehaviour
 {
     public Grid worldGrid;
     public GameObject tempObject;
@@ -14,6 +16,12 @@ public class GridManager : MonoBehaviour
     [Header("Data")]
     public PlaceableObjectsData placeables;
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!base.IsOwner)
+            GetComponent<GridManager>().enabled = false;
+    }
 
     [Serializable]
     public struct borders
@@ -46,6 +54,7 @@ public class GridManager : MonoBehaviour
             placedObjects.Remove(data.gridSpaces[i]);
         }
     }
+
     public bool placeObject(int ID, Vector3 clickPosition)
     {
         // get the position of the mouse
@@ -66,14 +75,26 @@ public class GridManager : MonoBehaviour
             return false;
         }
 
-        var spawnedObject = Instantiate(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity);
+        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID, this);
 
+        return true;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void Spawn(GameObject objectToSpawn, Vector3 pos, Quaternion rot, List<Vector3Int> gridPositions, int ID, GridManager script)
+    {
+        var spawnedObject = Instantiate(objectToSpawn, pos, rot);
+        ServerManager.Spawn(spawnedObject);
+        SetSpawnedObjects(spawnedObject, gridPositions, ID, script);
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
+    {
         foreach (var pos in gridPositions)
         {
             var data = new ObjectData(gridPositions, ID, spawnedObject);
-            placedObjects[pos] = data;
+            script.placedObjects[pos] = data;
         }
-        return true;
     }
 
     public List<Vector3Int> getObjectPositions(Vector3Int gridPos, Vector2Int size)

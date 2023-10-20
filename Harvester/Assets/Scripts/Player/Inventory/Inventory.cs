@@ -1,8 +1,6 @@
-using System.Collections;
+using FishNet.Object;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -23,12 +21,12 @@ public class Inventory : MonoBehaviour
     public GameObject hotbarItemPrefab;
     public List<GameObject> currentHotbarItems = new();
     public Player player;
-    
+
+
     public bool isInventoryOpen()
     {
         return inventoryCanvas.activeInHierarchy;
     }
-
 
     // DELETE ME THIS IS FOR TESTING
     public void Start()

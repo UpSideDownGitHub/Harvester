@@ -1,12 +1,10 @@
-using JetBrains.Annotations;
-using MonoFN.Cecil.Cil;
-using System.Collections;
+using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     [Header("Health")]
     public int maxHealth;
@@ -50,6 +48,12 @@ public class Player : MonoBehaviour
     public PlaceableObjectsData placeableData;
     public ToolObjectData toolData;
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!base.IsOwner)
+            gameObject.GetComponent<Player>().enabled = false;
+    }
 
     public void currentHotbarItems(Dictionary<Item, bool> newHotbar, List<GameObject> UIObjects, bool keepSelected = false)
     {
@@ -73,14 +77,15 @@ public class Player : MonoBehaviour
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
 
-    public void SetSelected(int itemToSelect)
+    [ServerRpc(RequireOwnership = false)]
+    public void SetSelected(int itemToSelect, Player script)
     {
-        if (hotbarUIObjects.Count == 0)
+        if (script.hotbarUIObjects.Count == 0)
             return;
-        hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = defaultColor;
-        curSelectedItem = itemToSelect;
-        objectIcon.sprite = hotbar[curSelectedItem].icon;
-        hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
+        script.hotbarUIObjects[script.curSelectedItem].GetComponent<Image>().color = script.defaultColor;
+        script.curSelectedItem = itemToSelect;
+        script.objectIcon.sprite = script.hotbar[script.curSelectedItem].icon;
+        script.hotbarUIObjects[script.curSelectedItem].GetComponent<Image>().color = script.selectedColor;
     }
 
     public void Start()
@@ -88,6 +93,7 @@ public class Player : MonoBehaviour
         curHealth = maxHealth;
         staminaSlider.value = maxStamina;
         currentStamina = maxStamina;
+        gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
     }
 
     public void Update()
@@ -105,12 +111,12 @@ public class Player : MonoBehaviour
         if (Input.mouseScrollDelta.y > 0)
         {
             var itemToSelect = curSelectedItem + 1 >= hotbarUIObjects.Count ? 0 : curSelectedItem + 1;
-            SetSelected(itemToSelect);
+            SetSelected(itemToSelect, this);
         }
         else if (Input.mouseScrollDelta.y < 0)
         {
             var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
-            SetSelected(itemToSelect);
+            SetSelected(itemToSelect, this);
         }
         
         // ITEM USAGE
