@@ -1,5 +1,6 @@
 using FishNet.Object;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -48,10 +49,28 @@ public class Player : NetworkBehaviour
     public PlaceableObjectsData placeableData;
     public ToolObjectData toolData;
 
+    [Header("Holding Sync")]
+    public PlayerHolding playerHolding;
+    private bool isOwner = false;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (!base.IsOwner)
+        if (base.IsOwner)
+        {
+            isOwner = true;
+            gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
+            var uiManager = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>();
+            healthIcons = uiManager.healthIcons;
+            staminaSlider = uiManager.staminaSlider;
+            inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
+            basicCrafting = GameObject.FindGameObjectWithTag("Manager").GetComponent<CraftingStationObject>();
+            curHealth = maxHealth;
+            staminaSlider.value = maxStamina;
+            currentStamina = maxStamina;
+            inventory.player = this;
+        }
+        else
             gameObject.GetComponent<Player>().enabled = false;
     }
 
@@ -74,30 +93,27 @@ public class Player : NetworkBehaviour
         if (keepSelected)
             curSelectedItem = previousSelected >= hotbar.Count ? hotbar.Count - 1 : previousSelected;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
+        playerHolding.SetHolding(hotbar[curSelectedItem].itemID);
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void SetSelected(int itemToSelect, Player script)
+    public void SetSelected(int itemToSelect)
     {
-        if (script.hotbarUIObjects.Count == 0)
-            return;
-        script.hotbarUIObjects[script.curSelectedItem].GetComponent<Image>().color = script.defaultColor;
-        script.curSelectedItem = itemToSelect;
-        script.objectIcon.sprite = script.hotbar[script.curSelectedItem].icon;
-        script.hotbarUIObjects[script.curSelectedItem].GetComponent<Image>().color = script.selectedColor;
-    }
+        if (hotbarUIObjects.Count == 0)
 
-    public void Start()
-    {
-        curHealth = maxHealth;
-        staminaSlider.value = maxStamina;
-        currentStamina = maxStamina;
-        gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
+            return;
+        hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = defaultColor;
+        curSelectedItem = itemToSelect;
+        objectIcon.sprite = hotbar[curSelectedItem].icon;
+        playerHolding.SetHolding(hotbar[curSelectedItem].itemID);
+        hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
 
     public void Update()
     {
+        if (!isOwner)
+            return;
+
         // Basic Crafting Station
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -111,12 +127,12 @@ public class Player : NetworkBehaviour
         if (Input.mouseScrollDelta.y > 0)
         {
             var itemToSelect = curSelectedItem + 1 >= hotbarUIObjects.Count ? 0 : curSelectedItem + 1;
-            SetSelected(itemToSelect, this);
+            SetSelected(itemToSelect);
         }
         else if (Input.mouseScrollDelta.y < 0)
         {
             var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
-            SetSelected(itemToSelect, this);
+            SetSelected(itemToSelect);
         }
         
         // ITEM USAGE

@@ -16,7 +16,7 @@ public class HotbarItem : MonoBehaviour
     public void SetID(int ID, Player player)
     {
         hotbarID = ID;
-        button.onClick.AddListener(() => player.SetSelected(hotbarID, player));
+        button.onClick.AddListener(() => player.SetSelected(hotbarID));
     }    
     public void SetCount(string count)
     {

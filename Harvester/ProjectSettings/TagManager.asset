@@ -7,6 +7,8 @@ TagManager:
   - InventoryInfo
   - InventoryManager
   - GridManager
+  - Manager
+  - UI
   layers:
   - Default
   - TransparentFX

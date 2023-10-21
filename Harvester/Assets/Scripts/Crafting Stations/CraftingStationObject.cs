@@ -46,7 +46,7 @@ public class CraftingStationObject : MonoBehaviour
 
     void Start()
     {
-        inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
 
         // spawn and set all of the information
         // station name
@@ -102,6 +102,7 @@ public class CraftingStationObject : MonoBehaviour
     public void OpenMenu()
     {
         UI.SetActive(true);
+        ItemPressed(0);
     }
     public void CloseMenu()
     {
