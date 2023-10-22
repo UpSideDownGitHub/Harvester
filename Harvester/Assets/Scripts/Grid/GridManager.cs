@@ -1,4 +1,5 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,6 +13,8 @@ public class GridManager : NetworkBehaviour
     [Header("Grid Information")]
     //public List<GameObject> spawnedObjects = new();
     public Dictionary<Vector3Int, ObjectData> placedObjects = new();
+    [SyncVar(OnChange = "SetData")] public Dictionary<Vector3Int, ObjectData> syncInfo = new();
+    [SyncVar(OnChange = "RemoveData")] public Dictionary<Vector3Int, ObjectData> syncInfo2 = new();
 
     [Header("Data")]
     public PlaceableObjectsData placeables;
@@ -45,6 +48,8 @@ public class GridManager : NetworkBehaviour
         }
         return null;
     }
+
+    [ServerRpc(RequireOwnership = false)]
     public void RemoveObject(Vector3 position)
     {
         var gridPosition = worldGrid.WorldToCell(position);
@@ -53,6 +58,14 @@ public class GridManager : NetworkBehaviour
         {
             placedObjects.Remove(data.gridSpaces[i]);
         }
+        syncInfo2 = placedObjects;
+    }
+    public void RemoveData(Dictionary<Vector3Int, ObjectData> oldValue, Dictionary<Vector3Int, ObjectData> newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+
+        placedObjects = newValue;
     }
 
     public bool placeObject(int ID, Vector3 clickPosition)
@@ -85,15 +98,30 @@ public class GridManager : NetworkBehaviour
     {
         var spawnedObject = Instantiate(objectToSpawn, pos, rot);
         ServerManager.Spawn(spawnedObject);
+
+
         SetSpawnedObjects(spawnedObject, gridPositions, ID, script);
     }
     [ServerRpc(RequireOwnership = false)]
     public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
     {
+        Dictionary<Vector3Int, ObjectData> preSync = new();
         foreach (var pos in gridPositions)
         {
             var data = new ObjectData(gridPositions, ID, spawnedObject);
-            script.placedObjects[pos] = data;
+            placedObjects[pos] = data;
+            preSync.Add(pos, data);
+        }
+        syncInfo = preSync;
+    }
+    public void SetData(Dictionary<Vector3Int, ObjectData> oldValue, Dictionary<Vector3Int, ObjectData> newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+
+        foreach (KeyValuePair<Vector3Int, ObjectData> item in newValue)
+        {
+            placedObjects[item.Key] = item.Value;
         }
     }
 
@@ -152,6 +180,7 @@ public class ObjectData
     public int ID;
     public GameObject spawnedObject;
 
+    public ObjectData() { }
     public ObjectData(List<Vector3Int> gridSpaces, int ID, GameObject spawnedObject)
     {
         this.gridSpaces = gridSpaces;

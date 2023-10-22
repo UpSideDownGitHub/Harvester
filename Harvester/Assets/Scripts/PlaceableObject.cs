@@ -1,14 +1,16 @@
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlaceableObject : MonoBehaviour
+public class PlaceableObject : NetworkBehaviour
 {
     [Header("Personal Data")]
     public Placeable placeable;
-    public float currentHealth;
+    [SyncVar(OnChange = "syncHealth")]public float currentHealth;
     public GameObject pickupItem;
 
     [Header("UI")]
@@ -27,6 +29,26 @@ public class PlaceableObject : MonoBehaviour
         healthSlider.value = healthSlider.maxValue;
     }
 
+    public void syncHealth(float oldValue, float newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+
+        if (!UICanvas.activeInHierarchy && currentHealth < placeable.health)
+            UICanvas.SetActive(true);
+
+        currentHealth = newValue;
+        healthSlider.value = currentHealth;
+
+        if (currentHealth == 0)
+        {
+            DropItems();
+            ServerManager.Despawn(gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
     public void TakeDamage(float damage)
     {
         if (isCraftingStation)
@@ -43,6 +65,7 @@ public class PlaceableObject : MonoBehaviour
         if (currentHealth == 0)
         {
             DropItems();
+            ServerManager.Despawn(gameObject);
             Destroy(gameObject);
         }
     }
@@ -56,6 +79,7 @@ public class PlaceableObject : MonoBehaviour
                 placeable.drops[i].count,
                 placeable.drops[i].item.icon);
         }
+        ServerManager.Despawn(gameObject);
         GridManager gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
         gridManager.RemoveObject(transform.position);
     }

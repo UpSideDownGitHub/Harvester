@@ -1,8 +1,10 @@
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class Pickup : NetworkBehaviour
 {
     [Header("Pickup Info")]
     public Item item;
@@ -16,6 +18,7 @@ public class Pickup : MonoBehaviour
 
     [Header("Sprite")]
     public SpriteRenderer spriteRenderer;
+
 
     public void SetPickup(Item item, int count, Sprite icon)
     {
@@ -33,7 +36,7 @@ public class Pickup : MonoBehaviour
             if (dist < pickupDistance)
             {
                 player.GetComponent<Player>().inventory.AddItem(item, count);
-                Destroy(gameObject);
+                ServerManager.Despawn(gameObject);
             }
         }
     }
