@@ -17,5 +17,5 @@ MonoBehaviour:
   health: 100
   breakType: 0
   drops:
-  - item: {fileID: 11400000, guid: 3ea6abc5ed911fe418447771de6e28cb, type: 2}
+  - item: {fileID: 3022631752790519219, guid: 45dada03676d12548aba7d4a3c9d17ee, type: 3}
     count: 10

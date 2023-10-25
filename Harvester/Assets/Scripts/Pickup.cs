@@ -20,8 +20,6 @@ public class Pickup : NetworkBehaviour
     [Header("Sprite")]
     public SpriteRenderer spriteRenderer;
 
-    [SyncVar] public bool destroy = false;
-
     public void SetPickup(Item item, int count, Sprite icon)
     {
         this.item = item;
@@ -31,28 +29,25 @@ public class Pickup : NetworkBehaviour
 
     void Update()
     {
-        if (destroy)
-            Destroy(gameObject);
-
         if (inRange)
         { 
             transform.position = Vector3.Lerp(transform.position, player.transform.position, lerpSpeed); 
             var dist = Vector2.Distance(transform.position, player.transform.position);
             if (dist < pickupDistance)
             {
-                player.GetComponent<Player>().inventory.AddItem(item, count);
-                enabled = false;
-                PickupUsed(this, true);
+                print("ADDED THE OBJCT TO INVENTROY: " + count);
+                inRange = false;
+                DestroyItem(this, gameObject);
             }
         }
     }
 
-    [ServerRpc]
-    public void PickupUsed(Pickup script, bool isDestroyed)
+    [ServerRpc(RequireOwnership = false)]
+    public void DestroyItem(Pickup script, GameObject ojectToDestroy)
     {
-        this.destroy = isDestroyed;
+        script.player.GetComponent<Player>().inventory.AddItem(item, count);
+        ServerManager.Despawn(ojectToDestroy);
     }
-
 
     public void OnTriggerEnter2D(Collider2D collision)
     {

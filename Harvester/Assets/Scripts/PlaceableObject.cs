@@ -1,8 +1,5 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,11 +38,7 @@ public class PlaceableObject : NetworkBehaviour
         healthSlider.value = currentHealth;
 
         if (currentHealth == 0)
-        {
-            DropItems();
             ServerManager.Despawn(gameObject);
-            //Destroy(gameObject);
-        }
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -64,23 +57,16 @@ public class PlaceableObject : NetworkBehaviour
         healthSlider.value = currentHealth;
         if (currentHealth == 0)
         {
-            DropItems();
+            for (int i = 0; i < placeable.drops.Length; i++)
+            {
+                GameObject drop = Instantiate(placeable.drops[i].item, transform.position, Quaternion.identity);
+                drop.GetComponent<Pickup>().count = placeable.drops[i].count;
+                ServerManager.Spawn(drop);
+            }
             ServerManager.Despawn(gameObject);
-            //Destroy(gameObject);
+            GridManager gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
+            gridManager.RemoveObject(transform.position);
+            ServerManager.Despawn(gameObject);
         }
-    }
-
-    public void DropItems()
-    {
-        for (int i = 0; i < placeable.drops.Length; i++)
-        {
-            var pickup = Instantiate(pickupItem, transform.position, Quaternion.identity);
-            pickup.GetComponent<Pickup>().SetPickup(placeable.drops[i].item,
-                placeable.drops[i].count,
-                placeable.drops[i].item.icon);
-        }
-        ServerManager.Despawn(gameObject);
-        GridManager gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
-        gridManager.RemoveObject(transform.position);
     }
 }

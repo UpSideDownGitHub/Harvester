@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777c48536583b1f4d86d85a11ca292e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 0}
   _networkObjectCache: {fileID: 0}
   item: {fileID: 0}
@@ -108,7 +108,6 @@ MonoBehaviour:
   player: {fileID: 0}
   pickupDistance: 1
   spriteRenderer: {fileID: 3443012546372271262}
-  destroy: 0
 --- !u!58 &9036666985714637275
 CircleCollider2D:
   m_ObjectHideFlags: 0
