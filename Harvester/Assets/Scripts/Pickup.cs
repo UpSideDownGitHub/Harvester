@@ -1,4 +1,5 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,6 +20,7 @@ public class Pickup : NetworkBehaviour
     [Header("Sprite")]
     public SpriteRenderer spriteRenderer;
 
+    [SyncVar] public bool destroy = false;
 
     public void SetPickup(Item item, int count, Sprite icon)
     {
@@ -29,6 +31,9 @@ public class Pickup : NetworkBehaviour
 
     void Update()
     {
+        if (destroy)
+            Destroy(gameObject);
+
         if (inRange)
         { 
             transform.position = Vector3.Lerp(transform.position, player.transform.position, lerpSpeed); 
@@ -36,10 +41,18 @@ public class Pickup : NetworkBehaviour
             if (dist < pickupDistance)
             {
                 player.GetComponent<Player>().inventory.AddItem(item, count);
-                ServerManager.Despawn(gameObject);
+                enabled = false;
+                PickupUsed(this, true);
             }
         }
     }
+
+    [ServerRpc]
+    public void PickupUsed(Pickup script, bool isDestroyed)
+    {
+        this.destroy = isDestroyed;
+    }
+
 
     public void OnTriggerEnter2D(Collider2D collision)
     {

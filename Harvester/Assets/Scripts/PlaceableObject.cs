@@ -44,7 +44,7 @@ public class PlaceableObject : NetworkBehaviour
         {
             DropItems();
             ServerManager.Despawn(gameObject);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
@@ -66,7 +66,7 @@ public class PlaceableObject : NetworkBehaviour
         {
             DropItems();
             ServerManager.Despawn(gameObject);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 

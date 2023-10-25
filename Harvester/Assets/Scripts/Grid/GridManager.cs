@@ -2,6 +2,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -53,10 +54,15 @@ public class GridManager : NetworkBehaviour
     public void RemoveObject(Vector3 position)
     {
         var gridPosition = worldGrid.WorldToCell(position);
-        var data = placedObjects[gridPosition];
+        ObjectData data;
+        if (placedObjects.ContainsKey(gridPosition))
+            data = placedObjects[gridPosition];
+        else
+            return;
         for (int i = 0; i < data.gridSpaces.Count; i++)
         {
-            placedObjects.Remove(data.gridSpaces[i]);
+            if (placedObjects.ContainsKey(data.gridSpaces[i]))
+                placedObjects.Remove(data.gridSpaces[i]);
         }
         syncInfo2 = placedObjects;
     }
