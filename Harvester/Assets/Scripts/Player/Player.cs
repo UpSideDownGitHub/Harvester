@@ -120,16 +120,21 @@ public class Player : NetworkBehaviour
             if (basicCrafting.UI.activeInHierarchy)
                 basicCrafting.CloseMenu();
             else
-                basicCrafting.OpenMenu();
+            {
+                if (inventory.isInventoryOpen())
+                    return;
+
+                basicCrafting.OpenMenu(); 
+            }
         }
 
         // HOTBAR
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y < 0)
         {
             var itemToSelect = curSelectedItem + 1 >= hotbarUIObjects.Count ? 0 : curSelectedItem + 1;
             SetSelected(itemToSelect);
         }
-        else if (Input.mouseScrollDelta.y < 0)
+        else if (Input.mouseScrollDelta.y > 0)
         {
             var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
             SetSelected(itemToSelect);

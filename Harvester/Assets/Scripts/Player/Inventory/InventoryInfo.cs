@@ -16,9 +16,19 @@ public class InventoryInfo : MonoBehaviour
     public Inventory inventory;
     private Item item;
 
+    [Header("Quick Pin0")]
+    public bool canPin;
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && canPin)
+            PinPressed();
+    }
+
     public void SetItem(Item givenItem)
     {
         item = givenItem;
+        canPin = true;
     }
 
     public void PinPressed()

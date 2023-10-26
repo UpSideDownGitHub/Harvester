@@ -199,10 +199,6 @@ public class CraftingStationObject : NetworkBehaviour
                 yield return null;
             }
 
-            //var pickup = Instantiate(pickupPrefab, itemSpawnPosition.position, Quaternion.identity).GetComponentInParent<Pickup>();
-            //pickup.SetPickup(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
-            //    stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count,
-            //    stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.icon);
 
             GameObject drop = Instantiate(pickupPrefab, itemSpawnPosition.position, Quaternion.identity);
             ServerManager.Spawn(drop);

@@ -9,6 +9,7 @@ public class Inventory : MonoBehaviour
 
     [Header("UI")]
     public GameObject inventoryCanvas;
+    public GameObject craftingCanvas;
     public List<GameObject> currentItems = new();
     public Transform spawnLocation;
     public GameObject itemPrefab;
@@ -44,10 +45,8 @@ public class Inventory : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            AddItem(data.items[1], 10);
-        if (Input.GetKeyDown(KeyCode.O))
-            AddItem(data.items[0], 1);
+        if (Input.GetKeyDown(KeyCode.Space))
+            ToggleInventory();
     }
 
     public void AddItem(Item item, int count)
@@ -151,6 +150,9 @@ public class Inventory : MonoBehaviour
     }
     public void OpenInventory()
     {
+        if (craftingCanvas.activeInHierarchy)
+            return;
+
         inventoryCanvas.SetActive(true);
         UpdateUI();
     }
