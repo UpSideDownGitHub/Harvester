@@ -1,11 +1,14 @@
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
-public class CraftingStationObject : MonoBehaviour
+public class CraftingStationObject : NetworkBehaviour
 {
     [Header("Inventory")]
     public Inventory inventory;
@@ -43,6 +46,7 @@ public class CraftingStationObject : MonoBehaviour
     public GameObject craftingUI;
     public Image itemIcon;
     public bool crafting;
+    [SyncVar] public int[] items = new int[2]{ 0, 0 };
 
     void Start()
     {
@@ -74,6 +78,11 @@ public class CraftingStationObject : MonoBehaviour
 
     public void Update()
     {
+        if (items[1] == 1 && !crafting)
+        {
+            StartCoroutine(AnimateSliderOverTime(stationData.stations[stationID].recipies[currentSelectedRecipieID].time, items[0]));
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && inRange && !crafting)
         {
             if (UI.activeInHierarchy)
@@ -138,6 +147,7 @@ public class CraftingStationObject : MonoBehaviour
         }
     }
 
+    
     public void Craft()
     {
         if (currentCraftCount > MaxCraftable() || currentCraftCount <= 0)
@@ -156,9 +166,17 @@ public class CraftingStationObject : MonoBehaviour
             stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count * currentCraftCount);
         }
         else
-            StartCoroutine(AnimateSliderOverTime(stationData.stations[stationID].recipies[currentSelectedRecipieID].time, currentCraftCount));
+        {
+            setItems(currentCraftCount);
+        }
 
         ItemPressed(currentSelectedRecipieID);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void setItems(int itemCount)
+    {
+        items = new int[] { itemCount, 1 };
     }
 
     IEnumerator AnimateSliderOverTime(float seconds, int count)
@@ -167,8 +185,11 @@ public class CraftingStationObject : MonoBehaviour
         CloseMenu();
         craftingUI.SetActive(true);
         itemIcon.sprite = stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.icon;
+
+        print("Should Run: " + count + " Times");
         for (int i = 0; i < count; i++)
         {
+            print("RUN: " + i);
             float animationTime = 0f;
             while (animationTime < seconds)
             {
@@ -178,15 +199,20 @@ public class CraftingStationObject : MonoBehaviour
                 yield return null;
             }
 
-            var pickup = Instantiate(pickupPrefab, itemSpawnPosition.position, Quaternion.identity).GetComponentInParent<Pickup>();
-            pickup.SetPickup(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
-                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count,
-                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.icon);
+            //var pickup = Instantiate(pickupPrefab, itemSpawnPosition.position, Quaternion.identity).GetComponentInParent<Pickup>();
+            //pickup.SetPickup(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item,
+            //    stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count,
+            //    stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.icon);
+
+            GameObject drop = Instantiate(pickupPrefab, itemSpawnPosition.position, Quaternion.identity);
+            ServerManager.Spawn(drop);
+            drop.GetComponent<Pickup>().info = new int[2] { stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.itemID,
+                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count };
             yield return null;
-            //inventory.AddItem(stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item, stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count * currentCraftCount);
         }
         craftingUI.SetActive(false);
         crafting = false;
+        items = new int[] { 0, 0 };
     }
 
     public void SetToOne()

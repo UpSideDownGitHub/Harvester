@@ -24,6 +24,10 @@ public class Pickup : NetworkBehaviour
     public ItemData items;
     [SyncVar(OnChange = "UpdatePickup")] public int[] info;
 
+    [Header("WaitTime")]
+    public float waitTime;
+    private float _timeOfSpawn;
+
     public void UpdatePickup(int[] oldValue, int[] newValue, bool asServer)
     {
         if (asServer)
@@ -39,15 +43,20 @@ public class Pickup : NetworkBehaviour
         spriteRenderer.sprite = icon;
     }
 
+    public void Start()
+    {
+        _timeOfSpawn = Time.time;
+    }
+
     void Update()
     {
-        if (inRange)
+        if (inRange && Time.time > _timeOfSpawn + waitTime)
         { 
             transform.position = Vector3.Lerp(transform.position, player.transform.position, lerpSpeed); 
             var dist = Vector2.Distance(transform.position, player.transform.position);
             if (dist < pickupDistance)
             {
-                print("ADDED THE OBJCT TO INVENTROY: " + count);
+                print("ADDED THE OBJCT TO INVENTORY: " + count);
                 inRange = false;
                 player.GetComponent<Player>().inventory.AddItem(item, count);
                 DespawnObject(gameObject);
