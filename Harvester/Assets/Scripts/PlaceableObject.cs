@@ -59,13 +59,14 @@ public class PlaceableObject : NetworkBehaviour
         {
             for (int i = 0; i < placeable.drops.Length; i++)
             {
-                GameObject drop = Instantiate(placeable.drops[i].item, transform.position, Quaternion.identity);
-                drop.GetComponent<Pickup>().count = placeable.drops[i].count;
+                GameObject drop = Instantiate(pickupItem, transform.position, Quaternion.identity);
                 ServerManager.Spawn(drop);
+                drop.GetComponent<Pickup>().info = new int[2] { placeable.drops[i].item.itemID, placeable.drops[i].count };
             }
-            ServerManager.Despawn(gameObject);
+
             GridManager gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
             gridManager.RemoveObject(transform.position);
+
             ServerManager.Despawn(gameObject);
         }
     }

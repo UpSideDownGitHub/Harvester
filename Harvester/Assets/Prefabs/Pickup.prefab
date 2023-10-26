@@ -108,6 +108,8 @@ MonoBehaviour:
   player: {fileID: 0}
   pickupDistance: 1
   spriteRenderer: {fileID: 3443012546372271262}
+  items: {fileID: 11400000, guid: e937d76e256ae214ea49ad6c5775dc16, type: 2}
+  info: 0000000000000000
 --- !u!58 &9036666985714637275
 CircleCollider2D:
   m_ObjectHideFlags: 0

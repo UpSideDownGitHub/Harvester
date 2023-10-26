@@ -20,6 +20,18 @@ public class Pickup : NetworkBehaviour
     [Header("Sprite")]
     public SpriteRenderer spriteRenderer;
 
+    [Header("Synced info")]
+    public ItemData items;
+    [SyncVar(OnChange = "UpdatePickup")] public int[] info;
+
+    public void UpdatePickup(int[] oldValue, int[] newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+
+        SetPickup(items.items[newValue[0]], newValue[1], items.items[newValue[0]].icon);
+    }
+
     public void SetPickup(Item item, int count, Sprite icon)
     {
         this.item = item;
@@ -37,16 +49,16 @@ public class Pickup : NetworkBehaviour
             {
                 print("ADDED THE OBJCT TO INVENTROY: " + count);
                 inRange = false;
-                DestroyItem(this, gameObject);
+                player.GetComponent<Player>().inventory.AddItem(item, count);
+                DespawnObject(gameObject);
             }
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void DestroyItem(Pickup script, GameObject ojectToDestroy)
+    public void DespawnObject(GameObject toDestroy)
     {
-        script.player.GetComponent<Player>().inventory.AddItem(item, count);
-        ServerManager.Despawn(ojectToDestroy);
+        Despawn(toDestroy);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

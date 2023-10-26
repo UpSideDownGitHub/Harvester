@@ -13,11 +13,5 @@ public class Placeable : ScriptableObject
     public int placeableID;
     public float health;
     public ToolType breakType;
-    public itemDrops[] drops;
-}
-[Serializable]
-public struct itemDrops
-{
-    public GameObject item;
-    public int count;
+    public itemCount[] drops;
 }
