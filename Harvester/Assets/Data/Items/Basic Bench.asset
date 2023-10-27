@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Basic Bench
   description: Allows for crafting of basic items
   itemID: 3
-  icon: {fileID: -1450470716, guid: 16493ca86dabce0458503e970e4f6551, type: 3}
+  icon: {fileID: -1760652095, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1
   placeableObjectID: 0
   consumable: 0

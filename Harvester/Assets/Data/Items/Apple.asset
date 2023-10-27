@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   itemName: Apple
-  description: Restores a small ammount of stamina
-  itemID: 4
-  icon: {fileID: -1450470716, guid: 16493ca86dabce0458503e970e4f6551, type: 3}
+  description: Restores a Medium ammount of stamina
+  itemID: 8
+  icon: {fileID: -1430880529, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 0
   placeableObjectID: 0
   consumable: 1
-  consumableObjectID: 0
+  consumableObjectID: 1
   tool: 0
   toolID: 0

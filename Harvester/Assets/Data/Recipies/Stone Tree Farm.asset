@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aadd631dd2083941a999c997f2ef9e7, type: 3}
+  m_Name: Stone Tree Farm
+  m_EditorClassIdentifier: 
+  recipeName: Stone Tree Farm
+  recipeID: 12
+  time: 1
+  materials:
+  - item: {fileID: 11400000, guid: b59fd04cc3caf6c4a9e047b3854d7b4a, type: 2}
+    count: 200
+  - item: {fileID: 11400000, guid: 54051ae4813f505489c6710650a7b2c2, type: 2}
+    count: 200
+  - item: {fileID: 11400000, guid: 14059427d7e23d54790a2b61e35d913c, type: 2}
+    count: 50
+  produces:
+    item: {fileID: 11400000, guid: a61ba3cce5e6dce4d9e38a7ac4664e49, type: 2}
+    count: 1

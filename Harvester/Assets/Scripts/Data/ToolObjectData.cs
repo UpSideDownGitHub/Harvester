@@ -28,6 +28,5 @@ public enum ToolType
 {
     PICKAXE,
     AXE,
-    SHOVEL,
     SWORD
 }

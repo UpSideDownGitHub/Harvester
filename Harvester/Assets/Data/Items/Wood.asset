@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   itemName: Wood
-  ID: 0
-  icon: {fileID: -1873375485, guid: 16493ca86dabce0458503e970e4f6551, type: 3}
+  description: raw wood freshly cut from a tree
+  itemID: 0
+  icon: {fileID: -1783056006, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 0
   placeableObjectID: 0
-  description: raw wood freshly cut from a tree
+  consumable: 0
+  consumableObjectID: 0
+  tool: 0
+  toolID: 0

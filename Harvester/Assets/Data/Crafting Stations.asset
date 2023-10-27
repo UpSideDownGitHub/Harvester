@@ -21,3 +21,36 @@ MonoBehaviour:
     stationID: 1
     recipies:
     - {fileID: 11400000, guid: a2d718f2ca5500049ae4dd282b6f5ab2, type: 2}
+  - stationName: Furnace
+    stationID: 2
+    recipies:
+    - {fileID: 11400000, guid: c10fe01905a9301478a547f973303d45, type: 2}
+    - {fileID: 11400000, guid: 5983776fffadff84c8e0936c430b2694, type: 2}
+  - stationName: Foundry
+    stationID: 3
+    recipies:
+    - {fileID: 11400000, guid: b816137b6a612b142a1073089f883673, type: 2}
+    - {fileID: 11400000, guid: 033a235751509674fb536b15a0527001, type: 2}
+    - {fileID: 11400000, guid: 300c7c030fa15cf44b8cd707c7511703, type: 2}
+    - {fileID: 11400000, guid: b2f05d8c87580274d885429eaa256d06, type: 2}
+    - {fileID: 11400000, guid: c45e183a75e2ba040b5152aa9d0e0b44, type: 2}
+    - {fileID: 11400000, guid: 49b1896adaa23524eaf299417f1a526d, type: 2}
+    - {fileID: 11400000, guid: 7ea8e242710ff344aba78bcb07db4ce2, type: 2}
+    - {fileID: 11400000, guid: 049643b0b6fbb0c4d90e9895527c348b, type: 2}
+    - {fileID: 11400000, guid: c18ab759149f47644934b4cfc2346886, type: 2}
+    - {fileID: 11400000, guid: 3eac3755fa034644abfbde93b91d1380, type: 2}
+    - {fileID: 11400000, guid: 89863ff0308727c468f1c3c61fc2fd56, type: 2}
+    - {fileID: 11400000, guid: 6b045690b1629b5459b92b004b7ed0e8, type: 2}
+  - stationName: Refinery
+    stationID: 4
+    recipies:
+    - {fileID: 11400000, guid: 6a7acae109615f0478b725d68835e106, type: 2}
+    - {fileID: 11400000, guid: 0b0ef6f25bc41234097e798397e534a7, type: 2}
+    - {fileID: 11400000, guid: d82f327f5f1cc5f4e99914330276667e, type: 2}
+    - {fileID: 11400000, guid: f7795deba5cbcbb4dadc5e172c357756, type: 2}
+  - stationName: Radiant Bench
+    stationID: 5
+    recipies:
+    - {fileID: 11400000, guid: df92a3715991fb045a06668dff73b66a, type: 2}
+    - {fileID: 11400000, guid: 94cb23a7da2134349ac1464f5074b471, type: 2}
+    - {fileID: 11400000, guid: cf88e6db7073e2b4d8003446d3775e69, type: 2}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85088d60dc528254291be42c26032f18, type: 3}
+  m_Name: Radiant Bench
+  m_EditorClassIdentifier: 
+  placeableName: Radiant bench
+  placeableID: 8
+  health: 100
+  breakType: 0
+  drops:
+  - item: {fileID: 11400000, guid: b59fd04cc3caf6c4a9e047b3854d7b4a, type: 2}
+    count: 200
+  - item: {fileID: 11400000, guid: 6ff6b4a24ce5e544d9ec1c220bd64c33, type: 2}
+    count: 100
+  - item: {fileID: 11400000, guid: 14059427d7e23d54790a2b61e35d913c, type: 2}
+    count: 50
+  - item: {fileID: 11400000, guid: d8c1b59ce3a8ef044bb37f405849f931, type: 2}
+    count: 20

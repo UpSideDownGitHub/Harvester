@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Processed Wood
   description: Wood that has been processed and is ready to be used
   itemID: 2
-  icon: {fileID: -1807965491, guid: 16493ca86dabce0458503e970e4f6551, type: 3}
+  icon: {fileID: -272701749, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 0
   placeableObjectID: 0
   consumable: 0

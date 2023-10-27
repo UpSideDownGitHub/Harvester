@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: Consumables
   m_EditorClassIdentifier: 
   consumables:
-  - consumableName: Apple
+  - consumableName: Berry
     consumableID: 0
     staminaIncrease: 5
+  - consumableName: Apple
+    consumableID: 1
+    staminaIncrease: 10
+  - consumableName: Glowing Berry
+    consumableID: 2
+    staminaIncrease: 20

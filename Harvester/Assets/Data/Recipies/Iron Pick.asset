@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aadd631dd2083941a999c997f2ef9e7, type: 3}
+  m_Name: Iron Pick
+  m_EditorClassIdentifier: 
+  recipeName: Iron Pick
+  recipeID: 20
+  time: 1
+  materials:
+  - item: {fileID: 11400000, guid: 14059427d7e23d54790a2b61e35d913c, type: 2}
+    count: 35
+  - item: {fileID: 11400000, guid: 65a8484d7cb31fe42a9acc0e48cd0003, type: 2}
+    count: 10
+  produces:
+    item: {fileID: 11400000, guid: afabaccd2db4c3441980e2b58d913f1f, type: 2}
+    count: 1
