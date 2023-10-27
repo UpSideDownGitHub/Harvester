@@ -16,6 +16,7 @@ public class FarmObject : NetworkBehaviour
     [Header("World Object")]
     public GameObject UI;
     public Button closeMenuButton;
+    public Button collectButton;
     public bool inRange;
 
     [Header("Station ID")]
@@ -50,12 +51,16 @@ public class FarmObject : NetworkBehaviour
 
     void Start()
     {
+        _timeOfLastClose = Time.time;
+
         inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
 
         // farm name
         stationName.text = farmData.Farms[farmID].farmName;
 
         closeMenuButton.onClick.AddListener(() => CloseMenu());
+        collectButton.onClick.AddListener(() => CollectPressed());
+
     }
 
     public void CollectPressed()

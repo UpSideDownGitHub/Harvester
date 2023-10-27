@@ -16,6 +16,8 @@ MonoBehaviour:
   - farmName: Tree Farm
     farmID: 0
     items:
+    - item: {fileID: 11400000, guid: 30f46446f30926a4084dfbbdead19402, type: 2}
+      chance: 0.3
     - item: {fileID: 11400000, guid: 3ea6abc5ed911fe418447771de6e28cb, type: 2}
       chance: 1
   - farmName: Stone Mine
@@ -28,6 +30,8 @@ MonoBehaviour:
   - farmName: Stone Tree Farm
     farmID: 2
     items:
+    - item: {fileID: 11400000, guid: ea847ca152de19a4d8543ce8e62b6fd8, type: 2}
+      chance: 0.2
     - item: {fileID: 11400000, guid: b59fd04cc3caf6c4a9e047b3854d7b4a, type: 2}
       chance: 0.5
     - item: {fileID: 11400000, guid: 3ea6abc5ed911fe418447771de6e28cb, type: 2}

@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: 0, y: 0.5}
+  m_SizeDelta: {x: -0.19999999, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6456479866562019663
 MonoBehaviour:
@@ -586,7 +586,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: Stone
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -752,7 +752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5465937376224150497
 RectTransform:
   m_ObjectHideFlags: 0
@@ -901,7 +901,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: Raw Coal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1252,7 +1252,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.473901, y: 2.0072043}
+  m_Offset: {x: 1.473901, y: 1.1705747}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1263,7 +1263,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.947802, y: 4.0144086}
+  m_Size: {x: 2.947802, y: 2.3411493}
   m_EdgeRadius: 0
 --- !u!61 &2710106379216498539
 BoxCollider2D:
@@ -1297,7 +1297,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.4478817, y: 1.8372419}
+  m_Offset: {x: 1.5013481, y: 0.099587575}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1308,7 +1308,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.876843, y: 5.005094}
+  m_Size: {x: 2.2728546, y: 1.1020539}
   m_EdgeRadius: 0
 --- !u!114 &-1539805261950023474
 MonoBehaviour:
@@ -1362,6 +1362,7 @@ MonoBehaviour:
   inventory: {fileID: 0}
   UI: {fileID: 4678754366375573228}
   closeMenuButton: {fileID: 6855682102624526971}
+  collectButton: {fileID: 2927209167157271012}
   inRange: 0
   farmData: {fileID: 11400000, guid: 4cabf2b8729a5a74da706cbf827211b5, type: 2}
   farmID: 1
@@ -1438,7 +1439,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 923210150, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1848,7 +1849,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1280947653, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2025,9 +2026,9 @@ RectTransform:
   - {fileID: 239581304765838810}
   m_Father: {fileID: 706895009306000904}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 466.04834, y: -382.50006}
   m_SizeDelta: {x: 932.0967, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8075087708254937796
@@ -2063,9 +2064,9 @@ RectTransform:
   - {fileID: 5391689119071819362}
   m_Father: {fileID: 706895009306000904}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 466.04834, y: -127.500015}
   m_SizeDelta: {x: 932.0967, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8902591219041393490
