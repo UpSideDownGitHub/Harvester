@@ -306,6 +306,8 @@ MonoBehaviour:
   - {fileID: 4460334481953925451}
   - {fileID: 7399460257921132975}
   - {fileID: 8730124742986614279}
+  - {fileID: 7787565192795268875}
+  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 3395731213731166499}
@@ -375,9 +377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53418edac9a4684e8fe127ba61a9b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5735758032044451607}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5735758032044451607}
   anim: {fileID: 6294785079005089764}
 --- !u!1 &2584169016033182437
 GameObject:

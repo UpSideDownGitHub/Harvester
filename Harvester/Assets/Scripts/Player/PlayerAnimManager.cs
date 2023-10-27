@@ -4,13 +4,14 @@ using UnityEngine;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Example.Scened;
+using FishNet.Object.Synchronizing;
 
 public class PlayerAnimManager : NetworkBehaviour
 {
     [Header("Animations")]
     public Animator anim;
 
-    private string currentState;
+    [SyncVar(OnChange ="PlayAnim")]public string currentState;
 
     public const string CarryWalk_Right = "CarryWalk_Right";
     public const string CarryWalk_Left = "CarryWalk_Left";
@@ -56,13 +57,22 @@ public class PlayerAnimManager : NetworkBehaviour
 
     public const string Pickup = "Pickup";
 
+    public void PlayAnim(string oldValue, string newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+
+        anim.Play(newValue);
+    }
+
     public void ChangeAnimationState(string newState)
     {
         if (currentState == newState)
             return;
         anim.Play(newState);
-        currentState = newState;
+        SetCurrentState(newState);
     }
+    
     public bool ChangeAnimationState(string newState, List<string> similar)
     {
         for (int i = 0; i < similar.Count; i++)
@@ -71,8 +81,13 @@ public class PlayerAnimManager : NetworkBehaviour
                 return false;
         }
         anim.Play(newState);
-        currentState = newState;
+        SetCurrentState(newState);
         return true;
+    }
+    [ServerRpc(RequireOwnership = false)]
+    void SetCurrentState(string state)
+    {
+        currentState = state;
     }
 
     public bool finished(string name)
