@@ -1,6 +1,7 @@
 using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -34,6 +35,10 @@ public class InventoryInfo : MonoBehaviour
     public void PinPressed()
     {
         inventory.PinToHotbar(item);
+    }
+    public void DeleteItem()
+    {
+        inventory.RemoveItem(item);
     }
     public void SetName(string name)
     {

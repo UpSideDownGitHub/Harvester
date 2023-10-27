@@ -63,16 +63,24 @@ public class Inventory : MonoBehaviour
         if (inventoryCanvas.activeInHierarchy)
             UpdateUI();
     }
-    public void RemoveItem(Item item, int count, bool keepSelect = false)
+    public void RemoveItem(Item item, int count = -1, bool keepSelect = false)
     {
         if (!inventory.ContainsKey(item))
             return;
 
-        inventory[item] -= count;
-        if (inventory[item] <= 0)
+        if (count == -1)
         {
             inventory.Remove(item);
             hotbar.Remove(item);
+        }
+        else
+        {
+            inventory[item] -= count;
+            if (inventory[item] <= 0)
+            {
+                inventory.Remove(item);
+                hotbar.Remove(item);
+            }
         }
 
         if (inventoryCanvas.activeInHierarchy)
