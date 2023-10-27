@@ -32,19 +32,19 @@ MonoBehaviour:
   - placeableName: Tree Farm
     placeableID: 4
     size: {x: 3, y: 4}
-    prefab: {fileID: 5094439927628118762, guid: 6f11a534608fc954aa1455192ec39022, type: 3}
+    prefab: {fileID: 5094439927628118762, guid: 68d8cfa037d206b4382388d4c820bce9, type: 3}
   - placeableName: Stone Mine
     placeableID: 5
     size: {x: 3, y: 4}
-    prefab: {fileID: 5094439927628118762, guid: 6f11a534608fc954aa1455192ec39022, type: 3}
+    prefab: {fileID: 5094439927628118762, guid: 07b7cd700d133dc48b3486817390ed44, type: 3}
   - placeableName: Stone Tree Farm
     placeableID: 6
     size: {x: 3, y: 4}
-    prefab: {fileID: 5094439927628118762, guid: 6f11a534608fc954aa1455192ec39022, type: 3}
+    prefab: {fileID: 5094439927628118762, guid: 1a91694840bd2ec4bb1fd07cafc6fd27, type: 3}
   - placeableName: Radiant Mine
     placeableID: 7
     size: {x: 3, y: 4}
-    prefab: {fileID: 5094439927628118762, guid: 6f11a534608fc954aa1455192ec39022, type: 3}
+    prefab: {fileID: 5094439927628118762, guid: 338bbe4e4525e8d4799befe240076fae, type: 3}
   - placeableName: Radiant Bench
     placeableID: 8
     size: {x: 3, y: 2}
@@ -52,4 +52,4 @@ MonoBehaviour:
   - placeableName: All Mine
     placeableID: 9
     size: {x: 3, y: 4}
-    prefab: {fileID: 5094439927628118762, guid: 6f11a534608fc954aa1455192ec39022, type: 3}
+    prefab: {fileID: 5094439927628118762, guid: 11fbf5e446ce3c14a9332e45cbec2dff, type: 3}

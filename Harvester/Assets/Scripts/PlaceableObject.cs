@@ -18,6 +18,10 @@ public class PlaceableObject : NetworkBehaviour
     public bool isCraftingStation;
     public CraftingStationObject craftingStation;
 
+    [Header("Farm")]
+    public bool isFarm;
+    public FarmObject farm;
+
     public void Start()
     {
         currentHealth = placeable.health;
@@ -48,6 +52,10 @@ public class PlaceableObject : NetworkBehaviour
         {
             if (craftingStation.crafting)
                 return;
+        }
+        else if (isFarm)
+        {
+            farm.DropAllItems();
         }
 
         if (!UICanvas.activeInHierarchy)
