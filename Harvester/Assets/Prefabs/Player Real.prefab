@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5735758032044451607}
   - component: {fileID: 8730124742986614279}
   - component: {fileID: 6294785079005089764}
+  - component: {fileID: 7787565192795268875}
   m_Layer: 0
   m_Name: Player Real
   m_TagString: Player
@@ -229,6 +230,17 @@ MonoBehaviour:
   placeableData: {fileID: 11400000, guid: ec6e41f00955df04381d3fa2520e269d, type: 2}
   toolData: {fileID: 11400000, guid: 0a01d20e39d2abf418df8e9225093eb8, type: 2}
   playerHolding: {fileID: 8730124742986614279}
+  anim: {fileID: 7787565192795268875}
+  rb: {fileID: 9077174310948178368}
+  moving: 0
+  holdingObject: 0
+  attack: 0
+  mine: 0
+  axe: 0
+  die: 0
+  hit: 0
+  previousVelocity: {x: 0, y: 0}
+  movingMagnitudeThreshold: 0.1
 --- !u!114 &7399460257921132975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +318,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 7
+  <PrefabId>k__BackingField: 22
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -351,6 +363,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7787565192795268875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912784079701008128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53418edac9a4684e8fe127ba61a9b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5735758032044451607}
+  _networkObjectCache: {fileID: 0}
+  anim: {fileID: 6294785079005089764}
 --- !u!1 &2584169016033182437
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +458,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

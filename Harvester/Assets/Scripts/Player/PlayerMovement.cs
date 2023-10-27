@@ -16,7 +16,6 @@ public class PlayerMovement : NetworkBehaviour
     public float lerpSpeed;
     public Vector3 offset;
 
-
     public override void OnStartClient()
     {
         base.OnStartClient();

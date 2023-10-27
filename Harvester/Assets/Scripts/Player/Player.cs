@@ -1,6 +1,8 @@
 using FishNet.Object;
+using FishNet.Transporting;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -53,6 +55,35 @@ public class Player : NetworkBehaviour
     public PlayerHolding playerHolding;
     private bool isOwner = false;
 
+    [Header("Animations")]
+    public PlayerAnimManager anim;
+    public Rigidbody2D rb;
+    public bool moving;
+    public bool holdingObject;
+    public bool attack;
+    public bool mine;
+    public bool axe;
+    public bool die;
+    public bool hit;
+    public Vector2 previousVelocity;
+    public float movingMagnitudeThreshold = 0.1f;
+
+    private string currentAnimName;
+
+    private List<string> attackSimilar = new List<string> { PlayerAnimManager.Attack_Right,
+                                                      PlayerAnimManager.Attack_Left,
+                                                      PlayerAnimManager.Attack_Up,
+                                                      PlayerAnimManager.Attack_Down};
+    private List<string> mineSimilar = new List<string> { PlayerAnimManager.Mine_Right,
+                                                      PlayerAnimManager.Mine_Left,
+                                                      PlayerAnimManager.Mine_Up,
+                                                      PlayerAnimManager.Mine_Down};
+    private List<string> axeSimilar = new List<string> { PlayerAnimManager.Axe_Right,
+                                                      PlayerAnimManager.Axe_Left,
+                                                      PlayerAnimManager.Axe_Up,
+                                                      PlayerAnimManager.Axe_Down};
+
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -74,6 +105,197 @@ public class Player : NetworkBehaviour
             gameObject.GetComponent<Player>().enabled = false;
     }
 
+    public void PlayAnimation()
+    {
+        var velo = rb.velocity;
+        moving = velo.magnitude > movingMagnitudeThreshold ? true : false;
+        int movingDirection = MovingDirection(velo);
+        if (!moving)
+            movingDirection = MovingDirection(previousVelocity);
+
+        if (die)
+        {
+            anim.ChangeAnimationState(PlayerAnimManager.Die);
+            if (anim.finished(PlayerAnimManager.Die))
+                die = false;
+        }
+        else if (hit)
+        {
+            anim.ChangeAnimationState(PlayerAnimManager.Pickup);
+            if (anim.finished(PlayerAnimManager.Pickup))
+                hit = false;
+        }
+        else if (attack)
+        {
+            bool changed;
+            switch (movingDirection)
+            {
+                case 0: // UP
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Attack_Up, attackSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Attack_Up : currentAnimName;
+                    break;
+                case 1: // RIGHT
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Attack_Right, attackSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Attack_Right : currentAnimName;
+                    break;
+                case 2: // DOWN
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Attack_Down, attackSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Attack_Down : currentAnimName;
+                    break;
+                case 3: // LEFT
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Attack_Left, attackSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Attack_Left : currentAnimName;
+                    break;
+                default:
+                    print("ERROR: Should Not Be Here");
+                    break;
+            }
+            if (anim.finished(currentAnimName))
+                attack = false;
+        }
+        else if (mine)
+        {
+            bool changed;
+            switch (movingDirection)
+            {
+                case 0: // UP
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Mine_Up, mineSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Mine_Up : currentAnimName;
+                    break;
+                case 1: // RIGHT
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Mine_Right, mineSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Mine_Right : currentAnimName;
+                    break;
+                case 2: // DOWN
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Mine_Down, mineSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Mine_Down : currentAnimName;
+                    break;
+                case 3: // LEFT
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Mine_Left, mineSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Mine_Left : currentAnimName;
+                    break;
+                default:
+                    print("ERROR: Should Not Be Here");
+                    break;
+            }
+            if (anim.finished(currentAnimName))
+                mine = false;
+        }
+        else if (axe)
+        {
+            bool changed;
+            switch (movingDirection)
+            {
+                case 0: // UP
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Axe_Up, axeSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Axe_Up : currentAnimName;
+                    break;
+                case 1:
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Axe_Right, axeSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Axe_Right : currentAnimName;
+                    break;
+                case 2: // DOWN
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Axe_Down, axeSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Axe_Down : currentAnimName;
+                    break;
+                case 3: // LEFT
+                    changed = anim.ChangeAnimationState(PlayerAnimManager.Axe_Left, axeSimilar);
+                    currentAnimName = changed ? PlayerAnimManager.Axe_Left : currentAnimName;
+                    break;
+                default:
+                    print("ERROR: Should Not Be Here");
+                    break;
+            }
+            if (anim.finished(currentAnimName))
+                axe = false;
+        }
+        else if (moving)
+        {
+            switch (movingDirection)
+            {
+                case 0: // UP
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Up);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Walk_Up);
+                    break;
+                case 1: // RIGHT
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Right);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Walk_Right);
+                    break;
+                case 2: // DOWN
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Down);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Walk_Down);
+                    break;
+                case 3: // LEFT
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Left);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Walk_Left);
+                    break;
+                default:
+                    print("ERROR: Should Not Be Here");
+                    break;
+            }
+        }
+        else
+        {
+            switch (movingDirection)
+            {
+                case 0: // UP
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Up);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Idle_Up);
+                    break;
+                case 1: // RIGHT
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Right);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Idle_Right);
+                    break;
+                case 2: // DOWN
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Down);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Idle);
+                    break;
+                case 3: // LEFT
+                    if (holdingObject)
+                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Left);
+                    else
+                        anim.ChangeAnimationState(PlayerAnimManager.Idle_Left);
+                    break;
+                default:
+                    print("ERROR: Should Not Be Here");
+                    break;
+            }
+        }
+        if (moving)
+            previousVelocity = velo;
+    }
+    public int MovingDirection(Vector2 movement)
+    {
+        if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y)) // moving in X
+        {
+            if (movement.x < 0) // LEFT
+                return 3;
+            else // RIGHT
+                return 1;
+        }
+        else // moving in y
+        {
+            if (movement.y < 0) // UP
+                return 2;
+            else // DOWN
+                return 0;
+        }
+    }
+
     public void currentHotbarItems(Dictionary<Item, bool> newHotbar, List<GameObject> UIObjects, bool keepSelected = false)
     {
         var previousSelected = curSelectedItem;
@@ -88,8 +310,12 @@ public class Player : NetworkBehaviour
         if (hotbar.Count == 0)
         {
             objectIcon.sprite = null;
+            holdingObject = false;
+            PlayAnimation();
             return;
         }
+        holdingObject = true;
+        PlayAnimation();
         if (keepSelected)
             curSelectedItem = previousSelected >= hotbar.Count ? hotbar.Count - 1 : previousSelected;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
@@ -100,8 +326,13 @@ public class Player : NetworkBehaviour
     public void SetSelected(int itemToSelect)
     {
         if (hotbarUIObjects.Count == 0)
-
+        {
+            holdingObject = false;
+            PlayAnimation();
             return;
+        }
+        holdingObject = true;
+        PlayAnimation();
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = defaultColor;
         curSelectedItem = itemToSelect;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
@@ -113,6 +344,8 @@ public class Player : NetworkBehaviour
     {
         if (!isOwner)
             return;
+
+        PlayAnimation();
 
         // Basic Crafting Station
         if (Input.GetKeyDown(KeyCode.C))
@@ -198,6 +431,23 @@ public class Player : NetworkBehaviour
         else if (itemType.tool) // tool
         {
             print("Tool");
+            if (toolData.Tools[itemType.toolID].type == ToolType.SWORD)
+            {
+                attack = true;
+                PlayAnimation();
+            }
+            else if (toolData.Tools[itemType.toolID].type == ToolType.PICKAXE)
+            {
+                mine = true;
+                PlayAnimation();
+            }
+            else if (toolData.Tools[itemType.toolID].type == ToolType.AXE)
+            {
+                axe = true;
+                PlayAnimation();
+            }
+
+
             var clickedObject = gridManager.ObjectClicked(Input.mousePosition);
             if (clickedObject != null)
             {
@@ -233,10 +483,15 @@ public class Player : NetworkBehaviour
     {
         curHealth = curHealth - 1 < 0 ? 0 : curHealth - 1;
         UpdateHealthUI();
-        
+
+        hit = true;
+        PlayAnimation();
+
         if (curHealth - 1 < 0)
         {
             // Kill the player and end the game
+            die = true;
+            PlayAnimation();
             print("Player Dead");
         }
     }
