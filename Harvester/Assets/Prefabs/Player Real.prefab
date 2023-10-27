@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7399460257921132975}
   - component: {fileID: 5735758032044451607}
   - component: {fileID: 8730124742986614279}
+  - component: {fileID: 6294785079005089764}
   m_Layer: 0
   m_Name: Player Real
   m_TagString: Player
@@ -175,7 +176,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -329,6 +330,27 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4218436827533501237}
   items: {fileID: 11400000, guid: e937d76e256ae214ea49ad6c5775dc16, type: 2}
   itemID: 0
+--- !u!95 &6294785079005089764
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912784079701008128}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3dcaab53a16964b46b67ac289e97133d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2584169016033182437
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +378,7 @@ Transform:
   m_GameObject: {fileID: 2584169016033182437}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
