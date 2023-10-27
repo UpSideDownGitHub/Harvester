@@ -32,15 +32,11 @@ public class Inventory : MonoBehaviour
     // DELETE ME THIS IS FOR TESTING
     public void Start()
     {
-        AddItem(data.items[0], 100);
-        AddItem(data.items[1], 10);
-        AddItem(data.items[2], 20);
-        AddItem(data.items[3], 1);
-        AddItem(data.items[4], 10);
-        AddItem(data.items[5], 1);
-        AddItem(data.items[6], 1);
-        AddItem(data.items[7], 1);
-        AddItem(data.items[8], 1);
+        for (int i = 0; i < data.items.Count - 12; i++)
+        {
+            AddItem(data.items[i], 10000);
+        }
+
     }
 
     public void Update()
