@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8730124742986614279}
   - component: {fileID: 6294785079005089764}
   - component: {fileID: 7787565192795268875}
+  - component: {fileID: 6005303535778524035}
   m_Layer: 0
   m_Name: Player Real
   m_TagString: Player
@@ -307,7 +308,6 @@ MonoBehaviour:
   - {fileID: 7399460257921132975}
   - {fileID: 8730124742986614279}
   - {fileID: 7787565192795268875}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 3395731213731166499}
@@ -381,6 +381,23 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5735758032044451607}
   _networkObjectCache: {fileID: 5735758032044451607}
   anim: {fileID: 6294785079005089764}
+  currentState: 
+--- !u!114 &6005303535778524035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912784079701008128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0543a073d387b9b479f00b44ff7b949f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: -4936559094045431684, guid: a254f666eb0044949912607eec09bdde, type: 3}
+  _networkObjectCache: {fileID: -4936559094045431684, guid: a254f666eb0044949912607eec09bdde, type: 3}
+  logLevel: 3
 --- !u!1 &2584169016033182437
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +502,7 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 5735758032044451607}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0, y: -0.75, z: 0}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
