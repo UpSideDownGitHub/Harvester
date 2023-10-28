@@ -179,7 +179,7 @@ namespace MasterServerToolkit.Bridges
             }
         }
 
-        protected virtual void OnRoomStarted() { }
+        protected virtual void OnRoomStarted() {}
 
         protected virtual void OnRoomStartFailed() { }
 
