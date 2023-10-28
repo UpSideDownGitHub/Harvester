@@ -25,9 +25,9 @@ public class LANServerItem : MonoBehaviour
         this.ipText.text = ip;
         this.port.text = port;
         this.clients = players;
-        this.players.text = players.ToString();
-        this.discovery = discovery;
         this.maxPlayers = maxPlayers;
+        this.players.text = players.ToString() + "/" + this.maxPlayers;
+        this.discovery = discovery;
         joinButton.onClick.AddListener(() => JoinServer());
     }
 

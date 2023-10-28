@@ -1,5 +1,9 @@
 using FishNet;
 using FishNet.Discovery;
+using FishNet.Managing.Transporting;
+using FishNet.Managing;
+using FishNet.Transporting;
+using FishNet.Transporting.Tugboat;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -7,6 +11,9 @@ using UnityEngine;
 
 public class LANServerManager : MonoBehaviour
 {
+    [SerializeField]
+    protected NetworkManager networkManager;
+
     [SerializeField]
     private NetworkDiscovery networkDiscovery;
     public int maxPlayers = 4;
@@ -84,7 +91,10 @@ public class LANServerManager : MonoBehaviour
             SpawnedServerIPS.Add(ipAddress);
             checkedServer.Add(true);
             serverItem.SetInfo(ipAddress, port, clients, networkDiscovery, maxPlayers);
-            
+
+            // Start server
+            networkManager.ServerManager.StartConnection();
+
             /*
             if (!GUILayout.Button(ipAddress)) continue;
             networkDiscovery.StopSearchingOrAdvertising();
