@@ -66,7 +66,7 @@ namespace FishNet.Discovery
 			{
 				GUILayout.EndArea();
 				return;
-			}
+			} 
 			
 			GUILayout.Box("Servers");
 
@@ -74,6 +74,7 @@ namespace FishNet.Discovery
 			foreach (IPEndPoint endPoint in _endPoints)
 			{
 				string ipAddress = endPoint.Address.ToString();
+
 
 				if (!GUILayout.Button(ipAddress)) continue;
 
