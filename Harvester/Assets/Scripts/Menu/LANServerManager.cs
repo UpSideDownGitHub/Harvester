@@ -60,7 +60,10 @@ public class LANServerManager : MonoBehaviour
         if (networkDiscovery.IsSearching)
             networkDiscovery.StopSearchingOrAdvertising();
         else
-            networkDiscovery.SearchForServers();
+        {
+            _endPoints.Clear();
+            networkDiscovery.SearchForServers(); 
+        }
     }
 
     void Update()
@@ -92,8 +95,6 @@ public class LANServerManager : MonoBehaviour
             checkedServer.Add(true);
             serverItem.SetInfo(ipAddress, port, clients, networkDiscovery, maxPlayers);
 
-            // Start server
-            networkManager.ServerManager.StartConnection();
 
             /*
             if (!GUILayout.Button(ipAddress)) continue;
