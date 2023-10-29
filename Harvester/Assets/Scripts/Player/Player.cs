@@ -1,4 +1,5 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,7 +12,7 @@ public class Player : NetworkBehaviour
 {
     [Header("Health")]
     public int maxHealth;
-    public int curHealth;
+    [SyncVar(OnChange = "UpdateHealth")]public int curHealth;
     public Sprite heartFullIcon;
     public Sprite heartEmptyIcon;
     public Image[] healthIcons;
@@ -83,6 +84,8 @@ public class Player : NetworkBehaviour
                                                       PlayerAnimManager.Axe_Up,
                                                       PlayerAnimManager.Axe_Down};
 
+    public Transform spawnPoint;
+
 
     public override void OnStartClient()
     {
@@ -100,9 +103,8 @@ public class Player : NetworkBehaviour
             staminaSlider.value = maxStamina;
             currentStamina = maxStamina;
             inventory.player = this;
+            spawnPoint = GameObject.FindGameObjectWithTag("Spawn").transform;
         }
-        else
-            gameObject.GetComponent<Player>().enabled = false;
     }
 
     public void PlayAnimation()
@@ -339,7 +341,6 @@ public class Player : NetworkBehaviour
         playerHolding.SetHolding(hotbar[curSelectedItem].itemID);
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
-
     public void Update()
     {
         if (!isOwner)
@@ -474,11 +475,25 @@ public class Player : NetworkBehaviour
         currentStamina -= amount;
     }
 
+    public void UpdateHealth(int oldValue, int newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+        UpdateHealthUI();
+        if (curHealth - 1 < 0)
+        {
+            die = true;
+            PlayAnimation();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
     public void IncreaseHealth()
     {
         curHealth = curHealth + 1 >= maxHealth ? maxHealth : curHealth + 1;
         UpdateHealthUI();
     }
+    [ServerRpc(RequireOwnership = false)]
     public void DecreaseHealth()
     {
         curHealth = curHealth - 1 < 0 ? 0 : curHealth - 1;
@@ -492,11 +507,14 @@ public class Player : NetworkBehaviour
             // Kill the player and end the game
             die = true;
             PlayAnimation();
-            print("Player Dead");
+            curHealth = maxHealth;
+            transform.position = spawnPoint.position;
         }
     }
     public void UpdateHealthUI()
     {
+        if (!IsOwner)
+            return;
         for (int i = 0; i < maxHealth; i++)
         {
             if (i < curHealth)

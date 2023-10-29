@@ -9,6 +9,7 @@ TagManager:
   - GridManager
   - Manager
   - UI
+  - Spawn
   layers:
   - Default
   - TransparentFX

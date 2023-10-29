@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8720533180955577825}
   - component: {fileID: 171287275888979467}
   - component: {fileID: 8093354173266487272}
+  - component: {fileID: 7881372755637037663}
   m_Layer: 0
   m_Name: MiniGoblin
   m_TagString: Untagged
@@ -145,10 +146,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d9a2feddbae69449ec59005d3f1194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 8093354173266487272}
+  _networkObjectCache: {fileID: 8093354173266487272}
   target: {fileID: 0}
   agent: {fileID: -7631086129880754623}
   attackDistance: 2
-  attackTime: 1
+  attackTime: 3
   wanderDistance: 2
   wanderTime: 1.5
   curHealth: 0
@@ -208,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6179db817c2527449f4c20681907cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 8093354173266487272}
   _networkObjectCache: {fileID: 8093354173266487272}
   anim: {fileID: 3845474940221647386}
@@ -235,7 +239,9 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
+  - {fileID: 4638975207133084833}
   - {fileID: 171287275888979467}
+  - {fileID: 7881372755637037663}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -247,8 +253,53 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 30
+  <PrefabId>k__BackingField: 14
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 5873697662245414018
+--- !u!114 &7881372755637037663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172166539791101187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 8093354173266487272}
+  _networkObjectCache: {fileID: 8093354173266487272}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _scaleThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _enableNetworkLod: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 0
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0

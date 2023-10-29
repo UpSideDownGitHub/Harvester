@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerHolding : NetworkBehaviour
 {
+    [Header("Holding")]
     public bool isOwner;
     public SpriteRenderer spriteRenderer;
     public ItemData items;
     [SyncVar(OnChange = "SetIcon")] int itemID;
+
+    [Header("Health")]
+    [SyncVar(OnChange = "HealthChanged")] public bool health;
+    public Player player;
 
     public override void OnStartClient()
     {
@@ -31,5 +36,19 @@ public class PlayerHolding : NetworkBehaviour
             return;
 
         spriteRenderer.sprite = items.items[newValue].icon;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SetHealthChange(bool value)
+    {
+        this.health = value;
+    }
+
+    public void HealthChanged(bool oldValue, bool newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+
+        player.DecreaseHealth();
     }
 }

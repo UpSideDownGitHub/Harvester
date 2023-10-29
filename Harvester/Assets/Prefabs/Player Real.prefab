@@ -242,6 +242,7 @@ MonoBehaviour:
   hit: 0
   previousVelocity: {x: 0, y: 0}
   movingMagnitudeThreshold: 0.1
+  spawnPoint: {fileID: 0}
 --- !u!114 &7399460257921132975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +309,7 @@ MonoBehaviour:
   - {fileID: 7399460257921132975}
   - {fileID: 8730124742986614279}
   - {fileID: 7787565192795268875}
+  - {fileID: 6005303535778524035}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 3395731213731166499}
@@ -320,7 +322,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 22
+  <PrefabId>k__BackingField: 36
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -344,6 +346,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4218436827533501237}
   items: {fileID: 11400000, guid: e937d76e256ae214ea49ad6c5775dc16, type: 2}
   itemID: 0
+  health: 0
+  player: {fileID: 4460334481953925451}
 --- !u!95 &6294785079005089764
 Animator:
   serializedVersion: 5
@@ -394,9 +398,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0543a073d387b9b479f00b44ff7b949f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: -4936559094045431684, guid: a254f666eb0044949912607eec09bdde, type: 3}
-  _networkObjectCache: {fileID: -4936559094045431684, guid: a254f666eb0044949912607eec09bdde, type: 3}
+  _networkObjectCache: {fileID: 5735758032044451607}
   logLevel: 3
 --- !u!1 &2584169016033182437
 GameObject:

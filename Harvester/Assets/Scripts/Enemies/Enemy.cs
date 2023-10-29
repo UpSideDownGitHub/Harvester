@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 using UnityEngine.UI;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
-using static UnityEngine.UI.Image;
 
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
-    public Transform target;
+    [SyncVar]public Transform target;
     public NavMeshAgent agent;
 
     [Header("Attacking")]
@@ -24,7 +22,7 @@ public class Enemy : MonoBehaviour
     private float _timeSinceLastWander;
 
     [Header("Health")]
-    public float curHealth;
+    [SyncVar(OnChange = "syncHealth")]public float curHealth;
     public Slider healthSlider;
     public float maxHealth;
 
@@ -48,6 +46,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!base.IsOwner)
+            return;
+
         PlayAnimation();
         if (target == null && Time.time > wanderTime + _timeSinceLastWander)
         {
@@ -66,13 +67,23 @@ public class Enemy : MonoBehaviour
             if (Vector2.Distance(target.position, transform.position) < attackDistance)
             {
                 // attack the player
+                _timeOfLastAttack = Time.time;
                 attack = true;
-                if (target.GetComponent<Player>())
-                    target.GetComponent<Player>().DecreaseHealth();
+                if (target.GetComponent<PlayerHolding>())
+                    target.GetComponent<PlayerHolding>().SetHealthChange(!target.GetComponent<PlayerHolding>().health);
             }
         }
     }
 
+    public void syncHealth(float oldValue, float newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+
+        healthSlider.value = newValue;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
     public void TakeDamage(float damage)
     {
         curHealth = curHealth - damage > 0 ? curHealth - damage : 0;
@@ -82,20 +93,34 @@ public class Enemy : MonoBehaviour
         if (curHealth <= 0)
         {
             die = true;
-            Destroy(gameObject, 2); 
+            Invoke("despawn", 2);
         }
+    }
+
+    public void despawn() { DespawnObject(gameObject); }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DespawnObject(GameObject toDestroy)
+    {
+        ServerManager.Despawn(toDestroy);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && target == null)
-            target = collision.transform;
+            SetTarget(collision.transform);
     }
-
+    
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && target.GetInstanceID() == collision.transform.GetInstanceID())
-            target = null;
+            SetTarget(null);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SetTarget(Transform givenTarget)
+    {
+        target = givenTarget;
     }
 
     public void PlayAnimation()
