@@ -23,6 +23,7 @@ namespace MasterServerToolkit.Bridges
         private TMP_Text statusInfoText;
 
         public UnityEvent OnStartGameEvent;
+        public CreateNewRoomView createNewRoomView;
 
         protected override void Awake()
         {
@@ -169,7 +170,8 @@ namespace MasterServerToolkit.Bridges
 
         public void ShowCreateNewRoomView()
         {
-            Mst.Events.Invoke(MstEventKeys.showCreateNewRoomView);
+            createNewRoomView.Show();
+            Hide();
         }
 
         /// <summary>

@@ -1110,9 +1110,8 @@ MonoBehaviour:
   uiButtonPrefab: {fileID: 3658193353867674886, guid: 6f139267009e9a44cb68786e53bdb5dc, type: 3}
   listContainer: {fileID: 605492948}
   statusInfoText: {fileID: 1033650556}
-  OnStartGameEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  pickedData: {fileID: 11400000, guid: 7f7e3200cb2a3d946a122a455e6628c7, type: 2}
+  gamesListView: {fileID: 742297629}
 --- !u!225 &114869885
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1523,7 +1522,6 @@ GameObject:
   - component: {fileID: 216262772}
   - component: {fileID: 216262771}
   - component: {fileID: 216262770}
-  - component: {fileID: 216262769}
   - component: {fileID: 216262775}
   m_Layer: 5
   m_Name: New Player
@@ -1553,43 +1551,6 @@ RectTransform:
   m_AnchoredPosition: {x: -8100, y: 1201}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &216262769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216262767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa5a559cdcb85d2469d0b41b116e6482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: CreateNewRoomView
-  title: Create new room
-  hideOnStart: 1
-  allwaysOnTop: 1
-  ignoreHideAll: 0
-  useRaycastBlock: 1
-  blockInput: 0
-  logLevel: 3
-  titleLable: {fileID: 960177019}
-  OnShowEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHideEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnShowFinishedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHideFinishedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomNameInputField: {fileID: 1676480115}
-  roomMaxConnectionsInputField: {fileID: 266619687}
-  roomRegionNameInputDropdown: {fileID: 1077116551}
-  roomPasswordInputField: {fileID: 402074207}
 --- !u!114 &216262770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,7 +1566,7 @@ MonoBehaviour:
   OnFormValidEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 216262769}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MasterServerToolkit.Games.CreateNewRoomView, MasterServerToolkit
         m_MethodName: CreateNewMatch
         m_Mode: 1
@@ -1710,7 +1671,7 @@ MonoBehaviour:
   id: CreateNewPlayerView
   title: New Player
   hideOnStart: 1
-  allwaysOnTop: 0
+  allwaysOnTop: 1
   ignoreHideAll: 0
   useRaycastBlock: 1
   blockInput: 0
@@ -1728,10 +1689,7 @@ MonoBehaviour:
   OnHideFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
-  roomNameInputField: {fileID: 1676480115}
-  roomMaxConnectionsInputField: {fileID: 266619687}
-  roomRegionNameInputDropdown: {fileID: 1077116551}
-  roomPasswordInputField: {fileID: 402074207}
+  playerNameInputField: {fileID: 1676480115}
 --- !u!1 &225874500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2522,10 +2480,35 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 216262769}
-        m_TargetAssemblyTypeName: MasterServerToolkit.Games.CreateNewRoomView, MasterServerToolkit
-        m_MethodName: CreateNewMatch
+      - m_Target: {fileID: 216262775}
+        m_TargetAssemblyTypeName: MasterServerToolkit.Bridges.CreateNewPlayerView,
+          Assembly-CSharp
+        m_MethodName: CreateNewPlayer
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 216262775}
+        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
+        m_MethodName: Hide
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114869884}
+        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
+        m_MethodName: Show
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3584,9 +3567,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114869884}
+      - m_Target: {fileID: 9152329192771492085}
         m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Hide
+        m_MethodName: Show
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3596,9 +3579,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 24947289}
+      - m_Target: {fileID: 114869884}
         m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Show
+        m_MethodName: Hide
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3820,9 +3803,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114869884}
+      - m_Target: {fileID: 216262775}
         m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Hide
+        m_MethodName: Show
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3832,9 +3815,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 216262769}
+      - m_Target: {fileID: 114869884}
         m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Show
+        m_MethodName: Hide
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4284,7 +4267,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1625037600614978240}
+      - m_Target: {fileID: 7827216226309889080}
         m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
         m_MethodName: Show
         m_Mode: 6
@@ -5014,22 +4997,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Hide
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 24947289}
-        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Show
-        m_Mode: 6
+      - m_Target: {fileID: 114869884}
+        m_TargetAssemblyTypeName: MasterServerToolkit.Bridges.PlayerListView, Assembly-CSharp
+        m_MethodName: FindPlayers
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5314,6 +5285,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1919906331}
     m_Modifications:
+    - target: {fileID: 1325030861, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
+      propertyPath: createNewRoomView
+      value: 
+      objectReference: {fileID: 76142419}
     - target: {fileID: 145185036992845483, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5533,6 +5508,22 @@ PrefabInstance:
     - target: {fileID: 3019322837800799152, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019322837800799154, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019322837800799154, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 742297629}
+    - target: {fileID: 3019322837800799154, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowCreateNewRoomView
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019322837800799154, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MasterServerToolkit.Bridges.GamesListView, MasterServerToolkit
       objectReference: {fileID: 0}
     - target: {fileID: 3111189862112480796, guid: e32bcaa6851ede046a2f98cd07af5fc4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6163,6 +6154,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3b33bf75a612b41ab93d89bd559703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &764715579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 764715581}
+  - component: {fileID: 764715580}
+  m_Layer: 0
+  m_Name: Save
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &764715580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764715579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752749b8a7818cd4f9c6bc8535ca4cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &764715581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764715579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5057.2573, y: 592.81067, z: 4.0642953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &772302511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6173,7 +6208,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3658193353867674886, guid: 6f139267009e9a44cb68786e53bdb5dc, type: 3}
       propertyPath: lableValue
-      value: Games List
+      value: Start
       objectReference: {fileID: 0}
     - target: {fileID: 4180842736270822485, guid: 6f139267009e9a44cb68786e53bdb5dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -6194,7 +6229,7 @@ PrefabInstance:
     - target: {fileID: 4180842736270822485, guid: 6f139267009e9a44cb68786e53bdb5dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 742297629}
+      objectReference: {fileID: 9152329192771492085}
     - target: {fileID: 4180842736270822485, guid: 6f139267009e9a44cb68786e53bdb5dc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -6755,9 +6790,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 216262769}
+      - m_Target: {fileID: 114869884}
         m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Hide
+        m_MethodName: Show
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6767,9 +6802,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 742297629}
+      - m_Target: {fileID: 216262775}
         m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Show
+        m_MethodName: Hide
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7660,21 +7695,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 9152329192771492085}
-        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Hide
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 24947289}
-        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
-        m_MethodName: Show
-        m_Mode: 6
+        m_TargetAssemblyTypeName: MasterServerToolkit.Bridges.MapListView, Assembly-CSharp
+        m_MethodName: FindMaps
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16040,43 +16063,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1625037600614978240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7827216226309889074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa5a559cdcb85d2469d0b41b116e6482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: CreateNewRoomView
-  title: Create new room
-  hideOnStart: 1
-  allwaysOnTop: 1
-  ignoreHideAll: 0
-  useRaycastBlock: 1
-  blockInput: 0
-  logLevel: 3
-  titleLable: {fileID: 944432163663220775}
-  OnShowEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHideEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnShowFinishedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHideFinishedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  roomNameInputField: {fileID: 1766839264704353568}
-  roomMaxConnectionsInputField: {fileID: 1766839265631181016}
-  roomRegionNameInputDropdown: {fileID: 3005566057860600749}
-  roomPasswordInputField: {fileID: 379126543887268999}
 --- !u!114 &1625037600614978241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16092,7 +16078,7 @@ MonoBehaviour:
   OnFormValidEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1625037600614978240}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MasterServerToolkit.Games.CreateNewRoomView, MasterServerToolkit
         m_MethodName: CreateNewMatch
         m_Mode: 1
@@ -17398,10 +17384,34 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7827216226309889074}
-        m_TargetAssemblyTypeName: MasterServerToolkit.Games.CreateNewRoomView, MasterServerToolkit
-        m_MethodName: 
+      - m_Target: {fileID: 7827216226309889080}
+        m_TargetAssemblyTypeName: MasterServerToolkit.Bridges.CreateNewMapView, Assembly-CSharp
+        m_MethodName: CreateNewMap
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7827216226309889080}
+        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
+        m_MethodName: Hide
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9152329192771492085}
+        m_TargetAssemblyTypeName: MasterServerToolkit.UI.UIView, MasterServerToolkit
+        m_MethodName: Show
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21796,7 +21806,6 @@ GameObject:
   - component: {fileID: 7827216226309889076}
   - component: {fileID: 1625037600614978255}
   - component: {fileID: 1625037600614978241}
-  - component: {fileID: 1625037600614978240}
   - component: {fileID: 7827216226309889080}
   m_Layer: 5
   m_Name: New Map
@@ -21904,7 +21913,7 @@ MonoBehaviour:
   id: CreateNewMapView
   title: New Map
   hideOnStart: 1
-  allwaysOnTop: 0
+  allwaysOnTop: 1
   ignoreHideAll: 0
   useRaycastBlock: 1
   blockInput: 0
@@ -21922,10 +21931,7 @@ MonoBehaviour:
   OnHideFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
-  roomNameInputField: {fileID: 1766839264704353568}
-  roomMaxConnectionsInputField: {fileID: 1766839265631181016}
-  roomRegionNameInputDropdown: {fileID: 3005566057860600749}
-  roomPasswordInputField: {fileID: 379126543887268999}
+  MapNameInputField: {fileID: 1766839264704353568}
 --- !u!114 &7827539895225163033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23338,9 +23344,8 @@ MonoBehaviour:
   uiButtonPrefab: {fileID: 3658193353867674886, guid: 6f139267009e9a44cb68786e53bdb5dc, type: 3}
   listContainer: {fileID: 4007621702107767901}
   statusInfoText: {fileID: 8522477436625986306}
-  OnStartGameEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  pickedData: {fileID: 11400000, guid: 7f7e3200cb2a3d946a122a455e6628c7, type: 2}
+  playerList: {fileID: 114869884}
 --- !u!224 &9195278736246921851
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23382,3 +23387,4 @@ SceneRoots:
   - {fileID: 1919906331}
   - {fileID: 472155956}
   - {fileID: 277505142}
+  - {fileID: 764715581}

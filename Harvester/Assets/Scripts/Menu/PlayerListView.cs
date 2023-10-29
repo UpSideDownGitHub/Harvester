@@ -1,8 +1,6 @@
 using MasterServerToolkit.MasterServer;
 using MasterServerToolkit.Networking;
 using MasterServerToolkit.UI;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,15 +20,17 @@ namespace MasterServerToolkit.Bridges
         [SerializeField]
         private TMP_Text statusInfoText;
 
-        public UnityEvent OnStartGameEvent;
+        public PickedData pickedData;
+
+        public GamesListView gamesListView;
 
         protected override void Awake()
         {
             base.Awake();
 
             // Listen to show/hide events
-            Mst.Events.AddListener(MstEventKeys.showGamesListView, OnShowGamesListEventHandler);
-            Mst.Events.AddListener(MstEventKeys.hideGamesListView, OnHideGamesListEventHandler);
+            Mst.Events.AddListener(MstEventKeys.showGamesListView, OnShowPlayerListEventHandler);
+            Mst.Events.AddListener(MstEventKeys.hideGamesListView, OnHidePlayerListEventHandler);
         }
 
         protected override void Start()
@@ -46,22 +46,22 @@ namespace MasterServerToolkit.Bridges
             }
         }
 
-        private void OnShowGamesListEventHandler(EventMessage message)
+        private void OnShowPlayerListEventHandler(EventMessage message)
         {
             Show();
         }
 
-        private void OnHideGamesListEventHandler(EventMessage message)
+        private void OnHidePlayerListEventHandler(EventMessage message)
         {
             Hide();
         }
 
         protected override void OnShow()
         {
-            FindGames();
+            FindPlayers();
         }
 
-        private void DrawGamesList(IEnumerable<GameInfoPacket> games)
+        private void DrawPlayersList(PlayerSaveData playerData)
         {
             if (listContainer)
             {
@@ -75,79 +75,31 @@ namespace MasterServerToolkit.Bridges
                 gameNameCol.Text = "Name";
                 gameNameCol.name = "gameNameCol";
 
-                var gameAddressCol = Instantiate(uiColLablePrefab, listContainer, false);
-                gameAddressCol.Text = "Address";
-                gameAddressCol.name = "gameAddressCol";
-
-                var gameRegionCol = Instantiate(uiColLablePrefab, listContainer, false);
-                gameRegionCol.Text = "Region";
-                gameRegionCol.name = "gameRegionCol";
-
-                var pingRegionCol = Instantiate(uiColLablePrefab, listContainer, false);
-                pingRegionCol.Text = "Ping";
-                pingRegionCol.name = "pingRegionCol";
-
-                var gamePlayersCol = Instantiate(uiColLablePrefab, listContainer, false);
-                gamePlayersCol.Text = "Players";
-                gamePlayersCol.name = "gamePlayersCol";
-
                 var connectBtnCol = Instantiate(uiColLablePrefab, listContainer, false);
-                connectBtnCol.Text = "Action";
+                connectBtnCol.Text = "#";
                 connectBtnCol.name = "connectBtnCol";
 
-                foreach (GameInfoPacket gameInfo in games)
+                foreach (PlayerData player in playerData.players)
                 {
                     var gameNumberLable = Instantiate(uiLablePrefab, listContainer, false);
                     gameNumberLable.Text = $"{index + 1}";
                     gameNumberLable.name = $"gameNumberLable_{index}";
 
                     var gameNameLable = Instantiate(uiLablePrefab, listContainer, false);
-                    gameNameLable.Text = gameInfo.IsPasswordProtected ? $"{gameInfo.Name} <color=yellow>[Password]</color>" : gameInfo.Name;
+                    gameNameLable.Text = player.playerName.ToString();
                     gameNameLable.name = $"gameNameLable_{index}";
 
-                    var gameAddressLable = Instantiate(uiLablePrefab, listContainer, false);
-                    gameAddressLable.Text = gameInfo.Address;
-                    gameAddressLable.name = $"gameAddressLable_{index}";
-
-                    var gameRegionLable = Instantiate(uiLablePrefab, listContainer, false);
-                    string region = string.IsNullOrEmpty(gameInfo.Region) ? "International" : gameInfo.Region;
-                    gameRegionLable.Text = region;
-                    gameRegionLable.name = $"gameRegionLable_{index}";
-
-                    var pingRegionLable = Instantiate(uiLablePrefab, listContainer, false);
-                    pingRegionLable.Text = $"...";
-
-                    var rx = new Regex(@":\d+");
-                    string ip = rx.Replace(gameInfo.Address.Trim(), "");
-
-                    MstTimer.WaitPing(ip, (time) =>
-                    {
-                        pingRegionLable.Text = $"{time} ms.";
-                    });
-
-                    pingRegionLable.name = $"pingRegionLable_{index}";
-
-                    var gamePlayersBtn = Instantiate(uiButtonPrefab, listContainer, false);
-                    string maxPleyers = gameInfo.MaxPlayers <= 0 ? "?" : gameInfo.MaxPlayers.ToString();
-                    gamePlayersBtn.SetLable($"{gameInfo.OnlinePlayers} / {maxPleyers} [Show]");
-                    gamePlayersBtn.name = $"gamePlayersLable_{index}";
-                    gamePlayersBtn.AddOnClickListener(() =>
-                    {
-                        Mst.Events.Invoke(MstEventKeys.showPlayersListView, gameInfo.Id);
-                        Hide();
-                    });
-
                     var gameConnectBtn = Instantiate(uiButtonPrefab, listContainer, false);
-                    gameConnectBtn.SetLable("Join");
+                    gameConnectBtn.SetLable("Select");
                     gameConnectBtn.AddOnClickListener(() =>
                     {
-                        MatchmakingBehaviour.Instance.StartMatch(gameInfo);
+                        pickedData.mapID = index;
+                        gamesListView.Show();
+                        Hide();
                     });
                     gameConnectBtn.name = $"gameConnectBtn_{index}";
 
                     index++;
-
-                    logger.Info(gameInfo);
                 }
             }
             else
@@ -156,7 +108,7 @@ namespace MasterServerToolkit.Bridges
             }
         }
 
-        private void ClearGamesList()
+        private void ClearPlayersList()
         {
             if (listContainer)
             {
@@ -167,42 +119,22 @@ namespace MasterServerToolkit.Bridges
             }
         }
 
-        public void ShowCreateNewRoomView()
+        public void FindPlayers()
         {
-            Mst.Events.Invoke(MstEventKeys.showCreateNewRoomView);
-        }
-
-        /// <summary>
-        /// Sends request to master server to find games list
-        /// </summary>
-        public void FindGames()
-        {
-            ClearGamesList();
-
-            canvasGroup.interactable = false;
-
+            ClearPlayersList();
             if (statusInfoText)
             {
-                statusInfoText.text = "Finding rooms... Please wait!";
+                statusInfoText.text = "Finding players... Please wait!";
                 statusInfoText.gameObject.SetActive(true);
             }
-
-            MstTimer.WaitForSeconds(0.2f, () =>
+            PlayerSaveData data = SaveManager.instance.LoadPlayerSaveData();
+            if (data.players.Count == 0)
             {
-                Mst.Client.Matchmaker.FindGames((games) =>
-                {
-                    canvasGroup.interactable = true;
-
-                    if (games.Count == 0)
-                    {
-                        statusInfoText.text = "No games found! Try to create your own one.";
-                        return;
-                    }
-
-                    statusInfoText.gameObject.SetActive(false);
-                    DrawGamesList(games);
-                });
-            });
+                statusInfoText.text = "No players found! Try to create one.";
+                return;
+            }
+            statusInfoText.gameObject.SetActive(false);
+            DrawPlayersList(data);
         }
     }
 }

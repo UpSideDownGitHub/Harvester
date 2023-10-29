@@ -180,6 +180,7 @@ public class GridManager : NetworkBehaviour
         ((pos.x - xMin) * (pos.x - xMax) <= 0) && ((pos.y - yMin) * (pos.y - yMax) <= 0);
 }
 
+[Serializable]
 public class ObjectData
 {
     public List<Vector3Int> gridSpaces;
