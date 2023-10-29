@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 1688224856362671231}
   - component: {fileID: 2710106379216498539}
   - component: {fileID: -1539805261950023474}
+  - component: {fileID: 260031648397829062}
   m_Layer: 0
   m_Name: Radiant Bench
   m_TagString: Untagged
@@ -727,11 +728,27 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 16
+  <PrefabId>k__BackingField: 19
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14476391040709894247
+--- !u!114 &260031648397829062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094439927628118762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa0352a4d56abd42ad2fc69deb72448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 2.9735634, y: 1.1113566, z: 4}
+  m_Center: {x: 1.4849118, y: 0.5620536, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &6273158374911627645
 GameObject:
   m_ObjectHideFlags: 0

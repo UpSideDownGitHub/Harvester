@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,553 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MiniOrcVeteran_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 161
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b554c3d75b251fb40ac5efe0982394ed
+      internalID: 2029458579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 161
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33d44cfe527bdfd4fa76a7352cbcbf59
+      internalID: -830894173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 161
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e4adc925d760f14798005a794a989a6
+      internalID: 1137132507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 161
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 988f8592929e12c4f9ba63777f9661c6
+      internalID: 1188891360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 129
+        width: 23
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2408da9f4ba95d468226f398fb5aedf
+      internalID: -749723894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_5
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 129
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 610354210ad2ff749b8a9f7ac2145195
+      internalID: -1601393601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_6
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 129
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae3d539d0cbaeba41909fd6b5caef571
+      internalID: -1426859414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_7
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 129
+        width: 23
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c0f0ff2c8fa5544aa492d14e260c7ab
+      internalID: -214318754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_8
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 129
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5dacfaaf8f62ab4b96f19150863fdac
+      internalID: 1292330618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_9
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 129
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95810fe692d624c4eb2da57ab7524ecc
+      internalID: 569516001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 97
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 263a5d642986a4c48ab94aa0bb57a1f3
+      internalID: 24591067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_11
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 97
+        width: 23
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e353504fa2b788d44ac29c8a4a39b00e
+      internalID: -549134980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_12
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 97
+        width: 23
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9983c39d9aafcbc47b0804fb820cf201
+      internalID: 1792627815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_13
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 65
+        width: 22
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da17eb90831d63e4a8c099230eb4e093
+      internalID: 343294251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_14
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 65
+        width: 22
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da02102aab6dbf045bf8db52e0fc2219
+      internalID: -388089868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_15
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 65
+        width: 22
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 505c5b7109fe85442a12773596c9fcb8
+      internalID: 1829223130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_16
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 65
+        width: 21
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6ffeac837d5dcf4a98a00e5a79c205f
+      internalID: -94406670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_17
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 65
+        width: 20
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e5c9739c6cd2bc4b865bb09bf59bedb
+      internalID: 498260108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_18
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 33
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fca01ac73ec38b438c9aa3d1eef66e6
+      internalID: -270866452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_19
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 33
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 074a104fc46603a419f3c4d21673d754
+      internalID: 1162723672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 24
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27868099a7dc7d144aa999ed3c9767ab
+      internalID: -467511161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_21
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 24
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcff007106911d5488b6fdb0d46fb1b0
+      internalID: 1856246306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_22
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 1
+        width: 24
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e6bf23036b36574cb8848998e3152bf
+      internalID: -1234386099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_23
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1
+        width: 26
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f9f9d751904cae47b2eae2eb9458568
+      internalID: 374635541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_24
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 1
+        width: 26
+        height: 11
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 467060eb4d79cf149a589aa8e5d31a5c
+      internalID: -1490836341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcVeteran_25
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1
+        width: 26
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2134ebbaa25f8342b6fb65353fa94f2
+      internalID: 2137126409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +691,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MiniOrcVeteran_0: 2029458579
+      MiniOrcVeteran_1: -830894173
+      MiniOrcVeteran_10: 24591067
+      MiniOrcVeteran_11: -549134980
+      MiniOrcVeteran_12: 1792627815
+      MiniOrcVeteran_13: 343294251
+      MiniOrcVeteran_14: -388089868
+      MiniOrcVeteran_15: 1829223130
+      MiniOrcVeteran_16: -94406670
+      MiniOrcVeteran_17: 498260108
+      MiniOrcVeteran_18: -270866452
+      MiniOrcVeteran_19: 1162723672
+      MiniOrcVeteran_2: 1137132507
+      MiniOrcVeteran_20: -467511161
+      MiniOrcVeteran_21: 1856246306
+      MiniOrcVeteran_22: -1234386099
+      MiniOrcVeteran_23: 374635541
+      MiniOrcVeteran_24: -1490836341
+      MiniOrcVeteran_25: 2137126409
+      MiniOrcVeteran_3: 1188891360
+      MiniOrcVeteran_4: -749723894
+      MiniOrcVeteran_5: -1601393601
+      MiniOrcVeteran_6: -1426859414
+      MiniOrcVeteran_7: -214318754
+      MiniOrcVeteran_8: 1292330618
+      MiniOrcVeteran_9: 569516001
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

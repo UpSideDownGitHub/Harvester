@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,658 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 193
+        width: 18
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25f8f03d1cdd44a40a0a6ab181ef6977
+      internalID: 372009499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 193
+        width: 18
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6076ea35c2442384ca3593fd3cf5f03c
+      internalID: -1090017635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_2
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 193
+        width: 18
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acfefa16cfc208e4cb1222577cb8ee45
+      internalID: 1788557461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 193
+        width: 18
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f55f1abf5c1a0ba4785ab8f58c086cc2
+      internalID: 2031395341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_4
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 161
+        width: 17
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6bc1d026faac2143b4babff86574c3a
+      internalID: -321266794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_5
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 161
+        width: 17
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd03188e21880540b879f916c73ef0d
+      internalID: 772877885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_6
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 161
+        width: 18
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47449dce7f490674fabada2766a72df5
+      internalID: 393223070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_7
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 161
+        width: 20
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5776b227a2f9104c9a684e436c70b5c
+      internalID: 1429027991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_8
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 161
+        width: 20
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65e44fee696a52f4885bdf119bf3755b
+      internalID: -1474185831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_9
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 161
+        width: 18
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b34cdf76b22fdc45a128faeab44220a
+      internalID: -798035921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_10
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 129
+        width: 16
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b58e2bece4a875249bebbd5f8c4eef42
+      internalID: -860903140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_11
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 129
+        width: 20
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e38fec80b4280f448115c53975be5ba
+      internalID: 2030060393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_12
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 129
+        width: 18
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e223d1744e9c2dc40a59a0bf1e7d7fa9
+      internalID: -377070781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_13
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 97
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b49fc886e0f72244d9be50aa8bacf74b
+      internalID: -1483117656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_14
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 97
+        width: 12
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d562ec20b3cc02d49a6735ba45aaf319
+      internalID: 1623621315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_15
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 97
+        width: 19
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39baa039720a9aa4199076ea294c3f0a
+      internalID: -482621921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_16
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 97
+        width: 18
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7840a53fe25ec6f4bb2810ad666f8f67
+      internalID: 339710500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_17
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 97
+        width: 18
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aef4ecce79fef54ea68c5f02310a000
+      internalID: 1721184893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_18
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 97
+        width: 17
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ac07ad867fd3e48abd14c5f250d749
+      internalID: -116760948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_19
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 65
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c530a96d3178a84baf59fba2d150d70
+      internalID: 468823124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_20
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 65
+        width: 12
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82a74b36740a74e4aacf5d90ebb0a179
+      internalID: 1821095467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_21
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 65
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eae6832e9b3740c489a06e31f6d1e61c
+      internalID: -217922928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_22
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 65
+        width: 14
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f4df2cc24a19ab4185bba7515b38ae1
+      internalID: 1810384245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_23
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 65
+        width: 12
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59fd92a5c9773e64a95e28f10bb7845c
+      internalID: -1241823577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_24
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 65
+        width: 15
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10346df8d3d322541a5aa26817429675
+      internalID: 822433260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_25
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 33
+        width: 17
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fb4ef6586d496244b84ff9fb1d9e123
+      internalID: -662677952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_26
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 33
+        width: 19
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e32009fc265c7474186a25528880538f
+      internalID: 1878287737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_27
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1
+        width: 16
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adf122717a9f1ac40a065b77c5249f70
+      internalID: -27104255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_28
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 1
+        width: 17
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d3c12708d6da0b4981daab8382ad65b
+      internalID: -23514600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_29
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1
+        width: 18
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65fc92c934819284786701385c133a47
+      internalID: -641108829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcAxeThrower_30
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 1
+        width: 20
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43b597aa4420f434391ccf0328cb81fd
+      internalID: -1947409067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +796,38 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MiniOrcAxeThrower_0: 372009499
+      MiniOrcAxeThrower_1: -1090017635
+      MiniOrcAxeThrower_10: -860903140
+      MiniOrcAxeThrower_11: 2030060393
+      MiniOrcAxeThrower_12: -377070781
+      MiniOrcAxeThrower_13: -1483117656
+      MiniOrcAxeThrower_14: 1623621315
+      MiniOrcAxeThrower_15: -482621921
+      MiniOrcAxeThrower_16: 339710500
+      MiniOrcAxeThrower_17: 1721184893
+      MiniOrcAxeThrower_18: -116760948
+      MiniOrcAxeThrower_19: 468823124
+      MiniOrcAxeThrower_2: 1788557461
+      MiniOrcAxeThrower_20: 1821095467
+      MiniOrcAxeThrower_21: -217922928
+      MiniOrcAxeThrower_22: 1810384245
+      MiniOrcAxeThrower_23: -1241823577
+      MiniOrcAxeThrower_24: 822433260
+      MiniOrcAxeThrower_25: -662677952
+      MiniOrcAxeThrower_26: 1878287737
+      MiniOrcAxeThrower_27: -27104255
+      MiniOrcAxeThrower_28: -23514600
+      MiniOrcAxeThrower_29: -641108829
+      MiniOrcAxeThrower_3: 2031395341
+      MiniOrcAxeThrower_30: -1947409067
+      MiniOrcAxeThrower_4: -321266794
+      MiniOrcAxeThrower_5: 772877885
+      MiniOrcAxeThrower_6: 393223070
+      MiniOrcAxeThrower_7: 1429027991
+      MiniOrcAxeThrower_8: -1474185831
+      MiniOrcAxeThrower_9: -798035921
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

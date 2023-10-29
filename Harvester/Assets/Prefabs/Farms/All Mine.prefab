@@ -1709,6 +1709,7 @@ GameObject:
   - component: {fileID: 2710106379216498539}
   - component: {fileID: -1539805261950023474}
   - component: {fileID: 8718631473687218450}
+  - component: {fileID: 5857463979841484562}
   m_Layer: 0
   m_Name: All Mine
   m_TagString: Untagged
@@ -1929,7 +1930,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 13
+  <PrefabId>k__BackingField: 20
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -1967,6 +1968,22 @@ MonoBehaviour:
   count: 0000000000000000000000000000000000000000
   pickupItem: {fileID: 5406424375258037428, guid: f54cd20370977f444aff0a2972552ba3, type: 3}
   syncedCount: 0000000000000000000000000000000000000000
+--- !u!114 &5857463979841484562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094439927628118762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa0352a4d56abd42ad2fc69deb72448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 2.9735634, y: 2.3304234, z: 4}
+  m_Center: {x: 1.4849118, y: 1.171587, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &5206633110509405276
 GameObject:
   m_ObjectHideFlags: 0

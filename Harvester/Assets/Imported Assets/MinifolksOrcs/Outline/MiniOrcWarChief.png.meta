@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,763 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MiniOrcWarChief_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 225
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e29524d31d1b4749bbd48a8ef9d3117
+      internalID: -441097291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 225
+        width: 23
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 151fcd03590546e459326ac6aeb97272
+      internalID: -1923388749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 225
+        width: 23
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 598d37e4a5067c349b92e12ec0542d87
+      internalID: 1337914994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 225
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fb4051843e032c4eb5633987e6a4051
+      internalID: -1743059116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 193
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 434b1686cb5ee744a99c464866378031
+      internalID: 676247900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_5
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 193
+        width: 23
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74dae32b97e1f884db1fec56ebf243e3
+      internalID: -1835431771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_6
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 193
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec1fc7104ebb35e4dac9e94ffd88dbdb
+      internalID: 1716857156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_7
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 193
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cf06ad3ed0b0a44e8e69dea0ba70010
+      internalID: -1063309770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_8
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 193
+        width: 23
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48a82e89fea22af4e9d7c5519919b753
+      internalID: -1597708908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_9
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 193
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9a54c1b5a8b7ba478634f593721bf7d
+      internalID: -1754715326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 161
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ffacb1ef6cdeb24783e63d964d36307
+      internalID: -1453484370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_11
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 161
+        width: 23
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18864aef767db9044abcf1a40fcf5deb
+      internalID: -427987970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_12
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 161
+        width: 23
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58cc0749982f2b8439ae25964d1cc703
+      internalID: -376253397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_13
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 129
+        width: 22
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 816401f850b51ad49b0d022da63bb07c
+      internalID: 348200138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_14
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 129
+        width: 22
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd4181cada5462747838eb5768ee5791
+      internalID: -1435588959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_15
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 129
+        width: 20
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a95b3c7208febd4d8a4ac2c5022e6ef
+      internalID: 623129272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_16
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 129
+        width: 21
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a400fa78765a1c04da1ca68a3992a41f
+      internalID: 1825148239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_17
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 129
+        width: 20
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5570ce492e138374a9ce1ce4f7b1b59e
+      internalID: -945751082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 97
+        width: 22
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e7f80c006cdb1f48948ad10706489af
+      internalID: -565198086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_19
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 97
+        width: 22
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bd1cc81b9f98b6449fde916c6a1de34
+      internalID: 492017753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_20
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 97
+        width: 20
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c355707fc0a5c3948a4006550574819e
+      internalID: 234234840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_21
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 97
+        width: 20
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69043d4ed3c0c7b4abd2c4f215233e9c
+      internalID: 1642014856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_22
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 97
+        width: 20
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35cdd44afc230cb41ba6792b58f353ab
+      internalID: 1011980176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_23
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 65
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f215206426a9a644aea4cb8fc58dcb0
+      internalID: -1056055609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_24
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 65
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ba6981e3285b947b8646df8e79f93a
+      internalID: -551357314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_25
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 65
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e3ae4387ac38a34f8c7687305436f37
+      internalID: -1260214215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_26
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 65
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7478c831d9124a04c8f07b483bd1b0f9
+      internalID: -821754903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_27
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 65
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75e605787912e6447b65aeeeead840a5
+      internalID: -1263647343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_28
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 33
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85406342e9d546142af279cf18764cab
+      internalID: -1277419747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_29
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 33
+        width: 23
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21c8c84931d43944185c3fa5a5bb3523
+      internalID: -1483702258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_30
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 24
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4694deaffb0f3a043a40bb2a74d1e449
+      internalID: 1063731035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_31
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 24
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6d6b62126daee94b8b388596ee3bb36
+      internalID: 1954741490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_32
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 1
+        width: 24
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52e27bcb7558d54086d8212043a7f8c
+      internalID: 669852933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_33
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1
+        width: 26
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57e5f342084dc2543a4dc00fee627e9b
+      internalID: 1384180840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_34
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 1
+        width: 26
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b163d882b1fde045bfee8d407a8dd76
+      internalID: -411754853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniOrcWarChief_35
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1
+        width: 26
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 081be652698b7ea479b850da811f2231
+      internalID: -1225570451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +901,43 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MiniOrcWarChief_0: -441097291
+      MiniOrcWarChief_1: -1923388749
+      MiniOrcWarChief_10: -1453484370
+      MiniOrcWarChief_11: -427987970
+      MiniOrcWarChief_12: -376253397
+      MiniOrcWarChief_13: 348200138
+      MiniOrcWarChief_14: -1435588959
+      MiniOrcWarChief_15: 623129272
+      MiniOrcWarChief_16: 1825148239
+      MiniOrcWarChief_17: -945751082
+      MiniOrcWarChief_18: -565198086
+      MiniOrcWarChief_19: 492017753
+      MiniOrcWarChief_2: 1337914994
+      MiniOrcWarChief_20: 234234840
+      MiniOrcWarChief_21: 1642014856
+      MiniOrcWarChief_22: 1011980176
+      MiniOrcWarChief_23: -1056055609
+      MiniOrcWarChief_24: -551357314
+      MiniOrcWarChief_25: -1260214215
+      MiniOrcWarChief_26: -821754903
+      MiniOrcWarChief_27: -1263647343
+      MiniOrcWarChief_28: -1277419747
+      MiniOrcWarChief_29: -1483702258
+      MiniOrcWarChief_3: -1743059116
+      MiniOrcWarChief_30: 1063731035
+      MiniOrcWarChief_31: 1954741490
+      MiniOrcWarChief_32: 669852933
+      MiniOrcWarChief_33: 1384180840
+      MiniOrcWarChief_34: -411754853
+      MiniOrcWarChief_35: -1225570451
+      MiniOrcWarChief_4: 676247900
+      MiniOrcWarChief_5: -1835431771
+      MiniOrcWarChief_6: 1716857156
+      MiniOrcWarChief_7: -1063309770
+      MiniOrcWarChief_8: -1597708908
+      MiniOrcWarChief_9: -1754715326
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

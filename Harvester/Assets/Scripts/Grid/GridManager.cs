@@ -20,6 +20,9 @@ public class GridManager : NetworkBehaviour
     [Header("Data")]
     public PlaceableObjectsData placeables;
 
+    [Header("NavMesh")]
+    public NavMeshManager navMeshmanager;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -53,6 +56,8 @@ public class GridManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void RemoveObject(Vector3 position)
     {
+        navMeshmanager.UpdateNavMesh();
+
         var gridPosition = worldGrid.WorldToCell(position);
         ObjectData data;
         if (placedObjects.ContainsKey(gridPosition))
@@ -111,6 +116,8 @@ public class GridManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
     {
+        navMeshmanager.UpdateNavMesh();
+
         Dictionary<Vector3Int, ObjectData> preSync = new();
         foreach (var pos in gridPositions)
         {
