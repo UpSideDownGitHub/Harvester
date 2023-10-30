@@ -15,26 +15,26 @@ MonoBehaviour:
   spawns:
   - itemsToSpawn: 0a0000000b0000000c0000000d000000
     maxItems: 50
-    currentItems: 0
-    spawnTime: 5
-    timeOfLastSpawn: 0
+    currentItems: 18
+    spawnTime: 1
+    timeOfLastSpawn: 127.52354
   - itemsToSpawn: 0e0000000d0000000f00000010000000
     maxItems: 50
-    currentItems: 0
+    currentItems: 5
     spawnTime: 5
-    timeOfLastSpawn: 0
+    timeOfLastSpawn: 125.055626
   - itemsToSpawn: 0f00000011000000120000000b000000
     maxItems: 50
-    currentItems: 0
+    currentItems: 6
     spawnTime: 5
-    timeOfLastSpawn: 0
+    timeOfLastSpawn: 125.055626
   - itemsToSpawn: 13000000110000001400000015000000
     maxItems: 50
-    currentItems: 0
+    currentItems: 7
     spawnTime: 5
-    timeOfLastSpawn: 0
+    timeOfLastSpawn: 125.055626
   - itemsToSpawn: 0a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000
     maxItems: 50
-    currentItems: 0
+    currentItems: 5
     spawnTime: 5
-    timeOfLastSpawn: 0
+    timeOfLastSpawn: 125.055626

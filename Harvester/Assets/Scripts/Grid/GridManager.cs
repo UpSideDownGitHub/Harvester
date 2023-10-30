@@ -152,6 +152,29 @@ public class GridManager : NetworkBehaviour
 
         return true;
     }
+    public bool placeObjectWorld(int ID, Vector3 spawnPosition)
+    {
+        // get the position of the mouse
+        var gridPosition = worldGrid.WorldToCell(spawnPosition);
+
+        // check if the clicked posision is within the bounds of the current area
+        if (!isAboveLand(gridPosition, placeables.placeables[ID].size))
+        {
+            print("Error: Can Only Place Objects On Islands");
+            return false;
+        }
+
+        var gridPositions = getObjectPositions(gridPosition, placeables.placeables[ID].size);
+        if (isAboveAnotherObject(gridPositions))
+        {
+            print("Error: Cannot Place Object Over Another Object");
+            return false;
+        }
+
+        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID, this);
+
+        return true;
+    }
 
     public bool placeObject(int ID, Vector3 clickPosition)
     {
@@ -190,7 +213,7 @@ public class GridManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
     {
-        navMeshmanager.UpdateNavMesh();
+        //navMeshmanager.UpdateNavMesh();
 
         Dictionary<Vector3Int, ObjectData> preSync = new();
         foreach (var pos in gridPositions)

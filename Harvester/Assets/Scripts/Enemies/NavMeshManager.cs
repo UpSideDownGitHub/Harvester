@@ -15,12 +15,12 @@ public class NavMeshManager : NetworkBehaviour
         if (asServer)
             return;
 
-        Surface2D.BuildNavMeshAsync();
+        Surface2D.UpdateNavMesh(Surface2D.navMeshData);
     }
 
     public void UpdateNavMesh()
     {
-        Surface2D.BuildNavMeshAsync();
+        Surface2D.UpdateNavMesh(Surface2D.navMeshData);
     }
 
     [ServerRpc(RequireOwnership = false)]

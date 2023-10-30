@@ -10,13 +10,20 @@ public class ItemSpawner : NetworkBehaviour
 {
     public SpawnAreas spawns;
     public GridManager gridManager;
+    public GameObject temp;
 
     public int maxSpawnAttempts;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsOwner)
+        for (int i = 0; i < spawns.spawns.Length; i++)
+        {
+            spawns.spawns[i].currentItems = 0;
+            spawns.spawns[i].timeOfLastSpawn = 0;
+        }
+
+            if (base.IsOwner)
             gameObject.GetComponent<ItemSpawner>().enabled = false;
     }
 
@@ -35,9 +42,12 @@ public class ItemSpawner : NetworkBehaviour
             for (int j = 0; j < maxSpawnAttempts; j++)
             {
                 var randomPos = new Vector3(Random.Range(spawnArea.TL.x, spawnArea.BR.x), Random.Range(spawnArea.BR.y, spawnArea.TL.y), 0);
-                bool placed = gridManager.placeObject(randomObject, randomPos);
+                bool placed = gridManager.placeObjectWorld(spawns.spawns[i].itemsToSpawn[randomObject], randomPos);
                 if (placed)
+                {
+                    spawns.spawns[i].currentItems++;
                     break;
+                }
             }
         }
     }
