@@ -202,6 +202,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5735758032044451607}
   _networkObjectCache: {fileID: 5735758032044451607}
+  playerName: 
   maxHealth: 3
   curHealth: 3
   heartFullIcon: {fileID: -1116832315, guid: 68f72dedfdd884149b7d2dcb01e257dd, type: 3}
@@ -243,6 +244,7 @@ MonoBehaviour:
   previousVelocity: {x: 0, y: 0}
   movingMagnitudeThreshold: 0.1
   spawnPoint: {fileID: 0}
+  pickedData: {fileID: 11400000, guid: 7f7e3200cb2a3d946a122a455e6628c7, type: 2}
 --- !u!114 &7399460257921132975
 MonoBehaviour:
   m_ObjectHideFlags: 0

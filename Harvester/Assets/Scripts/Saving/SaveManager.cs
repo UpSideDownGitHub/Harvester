@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Security.AccessControl;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
@@ -16,6 +19,17 @@ public class SaveManager : MonoBehaviour
         // Make Singleton
         if (instance == null) instance = this;
         else Destroy(gameObject);
+
+        /*
+        MapSaveData mapData = LoadMapSaveData();
+        mapData.maps.Clear();
+        mapData.maps.Add(new MapData("TEST MAP PLEEASE DELETE THESE LINES"));
+        SaveMapData(mapData);
+        PlayerSaveData playerData = LoadPlayerSaveData();
+        playerData.players.Clear();
+        playerData.players.Add(new PlayerData("TEST PLAYER NAME"));
+        SavePlayerData(playerData);
+        */
     }
 
     // save the current data to the file
@@ -23,6 +37,7 @@ public class SaveManager : MonoBehaviour
     {
         string temp = JsonConvert.SerializeObject(data);
         File.WriteAllText(Application.persistentDataPath + "/mapSaveData.json", temp);
+        print("Saved Data");
     }
     public void SavePlayerData(PlayerSaveData data)
     {
@@ -65,10 +80,30 @@ public class MapSaveData
 [Serializable]
 public class MapData
 {
-    public MapData(string name) { mapName = name; }
+    public MapData(string name) 
+    { 
+        mapName = name;
+        section1Unlocked = false;
+        section2Unlocked = false;
+        section3Unlocked = false;
+        section4Unlocked = false;
+    }
 
     public string mapName;
-    public Dictionary<Vector3Int, ObjectData> world = new();
+    public bool section1Unlocked;
+    public bool section2Unlocked;
+    public bool section3Unlocked;
+    public bool section4Unlocked;
+    // placeable position, and placeable ID
+    public List<Vec3> worldPositions = new();
+    public List<int> itemIDs = new();
+}
+[Serializable]
+public class Vec3
+{
+    public int x;
+    public int y;
+    public int z;
 }
 
 [Serializable]
@@ -83,6 +118,7 @@ public class PlayerData
     public PlayerData(string name) { playerName = name; }
 
     public string playerName;
-    public Dictionary<Item, int> inventory = new();
-    public Dictionary<Item, bool> hotbar = new();
+    // item ID and then Count and if it is in hotbar
+    public Dictionary<int, int> inventory = new();
+    public Dictionary<int, bool> hotbar = new();
 }

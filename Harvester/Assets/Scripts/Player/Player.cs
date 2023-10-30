@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
+    public string playerName;
+
     [Header("Health")]
     public int maxHealth;
     [SyncVar(OnChange = "UpdateHealth")]public int curHealth;
@@ -68,7 +70,6 @@ public class Player : NetworkBehaviour
     public bool hit;
     public Vector2 previousVelocity;
     public float movingMagnitudeThreshold = 0.1f;
-
     private string currentAnimName;
 
     private List<string> attackSimilar = new List<string> { PlayerAnimManager.Attack_Right,
@@ -85,6 +86,9 @@ public class Player : NetworkBehaviour
                                                       PlayerAnimManager.Axe_Down};
 
     public Transform spawnPoint;
+
+    [Header("Save Data")]
+    public PickedData pickedData;
 
 
     public override void OnStartClient()
@@ -104,6 +108,11 @@ public class Player : NetworkBehaviour
             currentStamina = maxStamina;
             inventory.player = this;
             spawnPoint = GameObject.FindGameObjectWithTag("Spawn").transform;
+
+            // load all info from the save
+            var save = SaveManager.instance.LoadPlayerSaveData();
+            playerName = save.players[pickedData.playerID].playerName;
+            inventory.SetInventory(save.players[pickedData.playerID].inventory, save.players[pickedData.playerID].hotbar);
         }
     }
 

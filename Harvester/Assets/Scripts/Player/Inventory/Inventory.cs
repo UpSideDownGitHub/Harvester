@@ -1,5 +1,6 @@
 using FishNet.Object;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -23,26 +24,64 @@ public class Inventory : MonoBehaviour
     public List<GameObject> currentHotbarItems = new();
     public Player player;
 
+    [Header("Save Data")]
+    public PickedData pickedData;
 
     public bool isInventoryOpen()
     {
         return inventoryCanvas.activeInHierarchy;
+    } 
+
+    public void SavePlayerData()
+    {
+        // Save the current map data to the file
+        var saveData = SaveManager.instance.LoadPlayerSaveData();
+        var playerData = saveData.players[pickedData.playerID];
+        playerData.inventory.Clear();
+        playerData.hotbar.Clear();
+        foreach (KeyValuePair<Item, int> item in inventory)
+        {
+            playerData.inventory.Add(item.Key.itemID, item.Value);
+        }
+        foreach (KeyValuePair<Item, bool> item in hotbar)
+        {
+            playerData.hotbar.Add(item.Key.itemID, item.Value);
+        }
+        saveData.players[pickedData.mapID] = playerData;
+        SaveManager.instance.SavePlayerData(saveData);
     }
 
-    // DELETE ME THIS IS FOR TESTING
-    public void Start()
+    public void SetInventory(Dictionary<int, int> newInventory, Dictionary<int, bool> newHotbar)
     {
-        for (int i = 0; i < data.items.Count - 12; i++)
+        inventory.Clear();
+        hotbar.Clear();
+        foreach (KeyValuePair<int, int> item in newInventory)
         {
-            AddItem(data.items[i], 10000);
+            inventory.Add(data.items[item.Key], item.Value);
+        }
+        foreach (KeyValuePair<int, bool> item in newHotbar)
+        {
+            hotbar.Add(data.items[item.Key], item.Value);
         }
 
+
+        if (inventoryCanvas.activeInHierarchy)
+            UpdateUI();
+        UpdateHotbarUI();
     }
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
             ToggleInventory();
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            for (int i = 0; i < data.items.Count - 12; i++)
+            {
+                AddItem(data.items[i], 10000);
+            }
+        }
     }
 
     public void AddItem(Item item, int count)
