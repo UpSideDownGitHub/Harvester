@@ -53,3 +53,51 @@ MonoBehaviour:
     placeableID: 9
     size: {x: 3, y: 4}
     prefab: {fileID: 5094439927628118762, guid: 11fbf5e446ce3c14a9332e45cbec2dff, type: 3}
+  - placeableName: Tree
+    placeableID: 10
+    size: {x: 1, y: 2}
+    prefab: {fileID: 5094439927628118762, guid: 7cc56c901b28dbb4d93d681ec127e3eb, type: 3}
+  - placeableName: Shrub
+    placeableID: 11
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: 47c1c012cb0aefc4695c28bd0b704b3a, type: 3}
+  - placeableName: Berry Bush
+    placeableID: 12
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: 8362cd675cf58704b94e2ee3d170a52f, type: 3}
+  - placeableName: Rock
+    placeableID: 13
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: c0f517df6a9282f4c9fbf3a996a3c9d6, type: 3}
+  - placeableName: Apple Tree
+    placeableID: 14
+    size: {x: 1, y: 2}
+    prefab: {fileID: 5094439927628118762, guid: 6b06b67cc18f9cf478e19ecdd922baa0, type: 3}
+  - placeableName: Coal
+    placeableID: 15
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: 22dfc7b5cb0e59b48a5a9ca0664b9845, type: 3}
+  - placeableName: Iron
+    placeableID: 16
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: 0cc81f1d762a76849ae6fa013b221df8, type: 3}
+  - placeableName: Radiant Ore
+    placeableID: 17
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: 2a284b4fd879dee4c9af629b06758194, type: 3}
+  - placeableName: Gem Tree
+    placeableID: 18
+    size: {x: 1, y: 2}
+    prefab: {fileID: 5094439927628118762, guid: 250b2a6e2b7585f4e82f03a788932434, type: 3}
+  - placeableName: Etherium
+    placeableID: 19
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: 364c7a6e390108741a9b7dd33923413f, type: 3}
+  - placeableName: Rock Tree
+    placeableID: 20
+    size: {x: 1, y: 2}
+    prefab: {fileID: 5094439927628118762, guid: 27504d77dcb235d4b89e1ee5da209268, type: 3}
+  - placeableName: Glowing Berry Bush
+    placeableID: 21
+    size: {x: 1, y: 1}
+    prefab: {fileID: 5094439927628118762, guid: 4913e2ea1cee48d44a4f2bf5b875795a, type: 3}
