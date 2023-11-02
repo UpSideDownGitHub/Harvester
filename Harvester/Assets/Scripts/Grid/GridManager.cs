@@ -2,11 +2,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Analytics;
-using static UnityEditor.Progress;
 
 [Serializable]
 public struct borders

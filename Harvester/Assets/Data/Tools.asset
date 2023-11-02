@@ -27,11 +27,11 @@ MonoBehaviour:
     - 4
     - 5
     toolDamage:
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
+    - 10
+    - 25
+    - 50
+    - 75
+    - 100
     toolIcons:
     - {fileID: 401701398, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: -2008871105, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
@@ -54,11 +54,11 @@ MonoBehaviour:
     - 4
     - 5
     toolDamage:
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
+    - 10
+    - 25
+    - 50
+    - 75
+    - 100
     toolIcons:
     - {fileID: 1623184929, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: 481972203, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}

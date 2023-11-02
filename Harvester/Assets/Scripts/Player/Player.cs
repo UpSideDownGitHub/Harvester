@@ -461,7 +461,10 @@ public class Player : NetworkBehaviour
             var clickedObject = gridManager.ObjectClicked(Input.mousePosition);
             if (clickedObject != null)
             {
+                print("Object Clicked");
                 var placeable = clickedObject.GetComponent<PlaceableObject>();
+                //print("Break Type: " + placeable.placeable.breakType);
+                //print("Tool Type: " + toolData.Tools[itemType.toolID].type);
                 if (placeable.placeable.breakType == toolData.Tools[itemType.toolID].type)
                 {
                     placeable.TakeDamage(toolData.Tools[itemType.toolID].toolDamage[toolData.Tools[itemType.toolID].level]);

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8418294375897486862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8363291621296171580
 RectTransform:
   m_ObjectHideFlags: 0
@@ -380,6 +380,9 @@ MonoBehaviour:
   craftingStation: {fileID: 0}
   isFarm: 0
   farm: {fileID: 0}
+  isNature: 1
+  spawnAreas: {fileID: 11400000, guid: 116c204543ed6d34089411fa8dce0c82, type: 2}
+  spawnAreaID: 0
 --- !u!114 &-1539805261950023474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,7 +400,6 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: -6523022500169985166}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:

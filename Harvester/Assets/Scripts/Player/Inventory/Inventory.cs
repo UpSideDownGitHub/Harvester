@@ -75,9 +75,10 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             ToggleInventory();
 
+        
         if (Input.GetKeyDown(KeyCode.M))
         {
-            for (int i = 0; i < data.items.Count - 12; i++)
+            for (int i = 0; i < data.items.Count; i++)
             {
                 AddItem(data.items[i], 10000);
             }

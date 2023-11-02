@@ -1,4 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿
+#define TEST
+
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -7,6 +10,7 @@ using System.IO;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Security.AccessControl;
 using UnityEngine;
+
 
 public class SaveManager : MonoBehaviour
 {
@@ -30,6 +34,8 @@ public class SaveManager : MonoBehaviour
         playerData.players.Add(new PlayerData("TEST PLAYER NAME"));
         SavePlayerData(playerData);
         */
+
+        Debug.Log(Application.persistentDataPath);
     }
 
     // save the current data to the file
@@ -53,8 +59,15 @@ public class SaveManager : MonoBehaviour
             var data = JsonConvert.DeserializeObject<MapSaveData>(temp);
             return data;
         }
+#if TEST
+        var mapSave = new MapSaveData();
+        mapSave.maps.Add(new MapData("Test Map"));
+        SaveMapData(mapSave);
+        return LoadMapSaveData();
+#else
         SaveMapData(new MapSaveData());
         return LoadMapSaveData();
+#endif
     }
     public PlayerSaveData LoadPlayerSaveData()
     {
@@ -64,8 +77,24 @@ public class SaveManager : MonoBehaviour
             var data = JsonConvert.DeserializeObject<PlayerSaveData>(temp);
             return data;
         }
+#if TEST
+        var playerSave = new PlayerSaveData();
+        playerSave.players.Add(new PlayerData("Test Player"));
+        // Add the base tools to the players inventory
+        // ID: 5,6,7 (the base tools IDs) 
+        playerSave.players[0].inventory.Add(5, 1);
+        playerSave.players[0].inventory.Add(6, 1);
+        playerSave.players[0].inventory.Add(7, 1);
+        playerSave.players[0].hotbar.Add(5, true);
+        playerSave.players[0].hotbar.Add(6, true);
+        playerSave.players[0].hotbar.Add(7, true);
+        SavePlayerData(playerSave);
+        return LoadPlayerSaveData();
+#else
         SavePlayerData(new PlayerSaveData());
         return LoadPlayerSaveData();
+#endif
+
     }
 
     public bool FileExists(string file) { return File.Exists(file); }
