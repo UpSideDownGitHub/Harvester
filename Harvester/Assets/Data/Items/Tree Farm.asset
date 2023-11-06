@@ -15,10 +15,12 @@ MonoBehaviour:
   itemName: Tree Farm
   description: Automatically Generates Wood
   itemID: 23
-  icon: {fileID: -673435078, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
+  icon: {fileID: -1086988357, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1
   placeableObjectID: 4
   consumable: 0
   consumableObjectID: 0
   tool: 0
   toolID: 0
+  boss: 0
+  bossID: 0

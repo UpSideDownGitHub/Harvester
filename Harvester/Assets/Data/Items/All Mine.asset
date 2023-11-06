@@ -15,10 +15,12 @@ MonoBehaviour:
   itemName: All Mine
   description: Mines All Items
   itemID: 28
-  icon: {fileID: -491814695, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
+  icon: {fileID: -1965406980, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1
   placeableObjectID: 9
   consumable: 0
   consumableObjectID: 0
   tool: 0
   toolID: 0
+  boss: 0
+  bossID: 0

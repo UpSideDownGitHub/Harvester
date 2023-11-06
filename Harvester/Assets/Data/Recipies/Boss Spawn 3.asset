@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aadd631dd2083941a999c997f2ef9e7, type: 3}
+  m_Name: Boss Spawn 3
+  m_EditorClassIdentifier: 
+  recipeName: Axe Berserker Spawner
+  recipeID: 29
+  time: 1
+  materials:
+  - item: {fileID: 11400000, guid: 6ff6b4a24ce5e544d9ec1c220bd64c33, type: 2}
+    count: 300
+  - item: {fileID: 11400000, guid: d8c1b59ce3a8ef044bb37f405849f931, type: 2}
+    count: 50
+  - item: {fileID: 11400000, guid: 5f4f7b3a55f1fa64eac95b39873d93f3, type: 2}
+    count: 50
+  - item: {fileID: 11400000, guid: 65a8484d7cb31fe42a9acc0e48cd0003, type: 2}
+    count: 300
+  produces:
+    item: {fileID: 11400000, guid: 38db189a79beecb40be82346634ce45b, type: 2}
+    count: 1

@@ -15,10 +15,12 @@ MonoBehaviour:
   itemName: Radiant Mine
   description: Automatically Mines Radiant Ore & Below
   itemID: 26
-  icon: {fileID: 1228588990, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
+  icon: {fileID: -2043476807, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1
   placeableObjectID: 7
   consumable: 0
   consumableObjectID: 0
   tool: 0
   toolID: 0
+  boss: 0
+  bossID: 0

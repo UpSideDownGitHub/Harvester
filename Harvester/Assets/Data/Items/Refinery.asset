@@ -15,10 +15,12 @@ MonoBehaviour:
   itemName: Refinery
   description: used to refine ores to there processed form
   itemID: 22
-  icon: {fileID: -1179963247, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
+  icon: {fileID: 1327994004, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1
   placeableObjectID: 3
   consumable: 0
   consumableObjectID: 0
   tool: 0
   toolID: 0
+  boss: 0
+  bossID: 0

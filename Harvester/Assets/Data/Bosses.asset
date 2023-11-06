@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9968c1838669b4a83992efbca95bf1, type: 3}
+  m_Name: Bosses
+  m_EditorClassIdentifier: 
+  bosses:
+  - bossName: Goblin Thief
+    bossID: 0
+    bossObject: {fileID: 0}
+  - bossName: Orc Warrior
+    bossID: 1
+    bossObject: {fileID: 0}
+  - bossName: Axe Berserker
+    bossID: 2
+    bossObject: {fileID: 0}
+  - bossName: Warg Rider
+    bossID: 3
+    bossObject: {fileID: 0}
+  - bossName: War Chief
+    bossID: 4
+    bossObject: {fileID: 0}

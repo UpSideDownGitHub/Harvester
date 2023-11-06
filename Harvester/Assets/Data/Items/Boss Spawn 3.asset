@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caab3699801b1a349aecccba530b77f6, type: 3}
-  m_Name: Radiant Bench
+  m_Name: Boss Spawn 3
   m_EditorClassIdentifier: 
-  itemName: Radiant Bench
-  description: Allows For the crafting of the highest level items
-  itemID: 27
-  icon: {fileID: -591782398, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
-  placeable: 1
-  placeableObjectID: 8
+  itemName: Axe Berserker Spawner
+  description: Spawn the Axe Berserker
+  itemID: 43
+  icon: {fileID: 1802042318, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
+  placeable: 0
+  placeableObjectID: 0
   consumable: 0
   consumableObjectID: 0
   tool: 0
   toolID: 0
-  boss: 0
-  bossID: 0
+  boss: 1
+  bossID: 2

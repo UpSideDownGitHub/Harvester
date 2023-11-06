@@ -17,6 +17,11 @@ MonoBehaviour:
     stationID: 0
     recipies:
     - {fileID: 11400000, guid: f27baf222722a334793c6e4815f5e8a8, type: 2}
+    - {fileID: 11400000, guid: 00ec5ea6e0447b64a81e9b84bf6fac7c, type: 2}
+    - {fileID: 11400000, guid: 215e9a190dcabb649be5f129ae2b014a, type: 2}
+    - {fileID: 11400000, guid: 8eed8a27d9d35a24186dc267ac915554, type: 2}
+    - {fileID: 11400000, guid: 45ab22af1f4b747488113c679bf5979a, type: 2}
+    - {fileID: 11400000, guid: ae37a2f73d2d85a46b72e7fbdd8498e1, type: 2}
   - stationName: Basic Bench
     stationID: 1
     recipies:
