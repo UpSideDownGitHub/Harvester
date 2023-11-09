@@ -15,16 +15,16 @@ MonoBehaviour:
   bosses:
   - bossName: Goblin Thief
     bossID: 0
-    bossObject: {fileID: 0}
+    bossObject: {fileID: 1172166539791101187, guid: 3cae59206d4753f4a914ddf1c0d8fb7e, type: 3}
   - bossName: Orc Warrior
     bossID: 1
-    bossObject: {fileID: 0}
+    bossObject: {fileID: 2842070992006171691, guid: b246c77482590fe478b1d2c6a6319396, type: 3}
   - bossName: Axe Berserker
     bossID: 2
-    bossObject: {fileID: 0}
+    bossObject: {fileID: 4338174314182771930, guid: 5c996a5d300a7884ca9723d4d89361c6, type: 3}
   - bossName: Warg Rider
     bossID: 3
-    bossObject: {fileID: 0}
+    bossObject: {fileID: 8581858851699511964, guid: 7645921fd434cf84fb6d831255225e31, type: 3}
   - bossName: War Chief
     bossID: 4
-    bossObject: {fileID: 0}
+    bossObject: {fileID: 1244399434189724055, guid: 0135f6fa3fbb25d47be97ea6a5b0a70b, type: 3}

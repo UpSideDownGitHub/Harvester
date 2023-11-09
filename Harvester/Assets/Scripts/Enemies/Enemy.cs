@@ -1,6 +1,7 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Playables;
@@ -40,6 +41,8 @@ public class Enemy : NetworkBehaviour
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = maxHealth;
         curHealth = maxHealth;
     }
 
@@ -93,7 +96,7 @@ public class Enemy : NetworkBehaviour
         if (curHealth <= 0)
         {
             die = true;
-            Invoke("despawn", 2);
+            Invoke("despawn", 0.2f);
         }
     }
 

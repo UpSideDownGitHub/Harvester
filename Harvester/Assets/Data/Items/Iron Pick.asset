@@ -22,3 +22,6 @@ MonoBehaviour:
   consumableObjectID: 0
   tool: 1
   toolID: 6
+  toolLevel: 2
+  boss: 0
+  bossID: 0

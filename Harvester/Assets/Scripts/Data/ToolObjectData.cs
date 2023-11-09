@@ -19,7 +19,6 @@ public struct ToolObjects
     public float[] toolUseSpeed;
     public float[] toolDamage;
     public Sprite[] toolIcons;
-    public int level;
     public ToolType type;
 
 }

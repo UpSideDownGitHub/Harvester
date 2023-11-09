@@ -112,6 +112,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5735758032044451607}
   rb: {fileID: 9077174310948178368}
   speed: 30000
+  player: {fileID: 4460334481953925451}
   cam: {fileID: 0}
   lerpSpeed: 0.9
   offset: {x: 0, y: 0, z: -10}
@@ -211,6 +212,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  dead: 0
+  deathTime: 5
   maxStamina: 100
   currentStamina: 100
   staminaSlider: {fileID: 0}
@@ -226,6 +229,9 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   maxStaminaToNotIncrease: 0.95
   gridManager: {fileID: 0}
+  bosses: {fileID: 11400000, guid: ca149379aec64334494c3d5e682147cf, type: 2}
+  bossSpawnOffset: {x: 0, y: 0, z: 0}
+  bossManager: {fileID: 0}
   basicCrafting: {fileID: 0}
   consumableData: {fileID: 11400000, guid: c9efcd5341841c243959782b242faaa8, type: 2}
   itemData: {fileID: 11400000, guid: e937d76e256ae214ea49ad6c5775dc16, type: 2}
@@ -245,6 +251,7 @@ MonoBehaviour:
   movingMagnitudeThreshold: 0.1
   spawnPoint: {fileID: 0}
   pickedData: {fileID: 11400000, guid: 7f7e3200cb2a3d946a122a455e6628c7, type: 2}
+  miscManager: {fileID: 0}
 --- !u!114 &7399460257921132975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +331,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 36
+  <PrefabId>k__BackingField: 48
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

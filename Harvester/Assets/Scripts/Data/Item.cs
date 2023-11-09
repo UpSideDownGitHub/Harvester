@@ -25,6 +25,8 @@ public class Item : ScriptableObject
     // tool
     public bool tool;
     public int toolID;
+    public int toolLevel;
+
 
     public bool boss;
     public int bossID;

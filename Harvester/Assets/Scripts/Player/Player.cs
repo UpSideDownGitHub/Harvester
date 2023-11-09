@@ -1,6 +1,7 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Globalization;
 using Unity.VisualScripting;
@@ -18,6 +19,9 @@ public class Player : NetworkBehaviour
     public Sprite heartFullIcon;
     public Sprite heartEmptyIcon;
     public Image[] healthIcons;
+    public bool dead;
+    public float deathTime;
+    private float _timeOfDeath;
 
     [Header("Stamina")]
     public float maxStamina;
@@ -44,6 +48,11 @@ public class Player : NetworkBehaviour
 
     [Header("Placing Consumables")]
     public GridManager gridManager;
+
+    [Header("Boss Spawning")]
+    public BossData bosses;
+    public Vector3 bossSpawnOffset;
+    public BossManager bossManager;
 
     [Header("Basic Crafting")]
     public CraftingStationObject basicCrafting;
@@ -90,6 +99,9 @@ public class Player : NetworkBehaviour
     [Header("Save Data")]
     public PickedData pickedData;
 
+    [Header("Misc Manager")]
+    public MiscManager miscManager;
+
 
     public override void OnStartClient()
     {
@@ -103,6 +115,8 @@ public class Player : NetworkBehaviour
             staminaSlider = uiManager.staminaSlider;
             inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
             basicCrafting = GameObject.FindGameObjectWithTag("Manager").GetComponent<CraftingStationObject>();
+            bossManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BossManager>();
+            miscManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>();
             curHealth = maxHealth;
             staminaSlider.value = maxStamina;
             currentStamina = maxStamina;
@@ -354,6 +368,15 @@ public class Player : NetworkBehaviour
     {
         if (!isOwner)
             return;
+        if (dead)
+        {
+            if (Time.time > deathTime + _timeOfDeath && !bossManager.isBossAlive())
+            {
+                transform.position = spawnPoint.position;
+                dead = false;
+            }
+            return; 
+        }
 
         PlayAnimation();
 
@@ -457,25 +480,56 @@ public class Player : NetworkBehaviour
                 PlayAnimation();
             }
 
-
-            var clickedObject = gridManager.ObjectClicked(Input.mousePosition);
-            if (clickedObject != null)
+            if (toolData.Tools[itemType.toolID].type == ToolType.SWORD)
             {
-                print("Object Clicked");
-                var placeable = clickedObject.GetComponent<PlaceableObject>();
-                //print("Break Type: " + placeable.placeable.breakType);
-                //print("Tool Type: " + toolData.Tools[itemType.toolID].type);
-                if (placeable.placeable.breakType == toolData.Tools[itemType.toolID].type)
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+                if (hit.collider != null)
                 {
-                    placeable.TakeDamage(toolData.Tools[itemType.toolID].toolDamage[toolData.Tools[itemType.toolID].level]);
+                    Debug.Log("CLICKED " + hit.collider.name);
+                    if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Boss"))
+                    {
+                        // deal damage to the enemy
+                        hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(toolData.Tools[itemType.toolID].toolDamage[itemType.toolLevel]);
+                    }
+                }
+            }
+            else
+            {
+                var clickedObject = gridManager.ObjectClicked(Input.mousePosition);
+                if (clickedObject != null)
+                {
+                    print("Object Clicked");
+                    var placeable = clickedObject.GetComponent<PlaceableObject>();
+                    //print("Break Type: " + placeable.placeable.breakType);
+                    //print("Tool Type: " + toolData.Tools[itemType.toolID].type);
+                    if (placeable.placeable.breakType == toolData.Tools[itemType.toolID].type)
+                    {
+                        placeable.TakeDamage(toolData.Tools[itemType.toolID].toolDamage[itemType.toolLevel]);
+                    }
                 }
             }
         }
+        else if (itemType.boss) // Boss Spawn
+        {
+            print("Boss");
+            // need to add a check here to check if a boss has already been spawned and if there is then dont allow another to be spawned
+            if (!bossManager.isBossAlive())
+                SpawnBoss(itemType.bossID, transform.position + bossSpawnOffset);
+        }    
         else
         {
             // materials cannot be used and are only used in crafting recipies
             print("This Item Is A Material");
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SpawnBoss(int bossID, Vector3 bossSpawnPosition)
+    {
+        var tempBoss = Instantiate(bosses.bosses[bossID].bossObject, bossSpawnPosition, Quaternion.identity);
+        ServerManager.Spawn(tempBoss, LocalConnection);
     }
 
     public void IncreaseStamina(float amount)
@@ -508,6 +562,8 @@ public class Player : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void DecreaseHealth()
     {
+        if (dead)
+            return;
         curHealth = curHealth - 1 < 0 ? 0 : curHealth - 1;
         UpdateHealthUI();
 
@@ -519,8 +575,10 @@ public class Player : NetworkBehaviour
             // Kill the player and end the game
             die = true;
             PlayAnimation();
+            dead = true;
+            miscManager.deathUI.SetActive(true);
+            _timeOfDeath = Time.time;
             curHealth = maxHealth;
-            transform.position = spawnPoint.position;
         }
     }
     public void UpdateHealthUI()

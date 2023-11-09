@@ -10,6 +10,7 @@ public class PlayerMovement : NetworkBehaviour
     [Header("Player")]
     public Rigidbody2D rb;
     public float speed;
+    public Player player;
 
     [Header("Camera")]
     public Camera cam;
@@ -32,7 +33,7 @@ public class PlayerMovement : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!cam)
+        if (!cam || player.dead)
             return;
 
         var hor = Input.GetAxis("Horizontal");
