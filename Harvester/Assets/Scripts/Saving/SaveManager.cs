@@ -24,16 +24,16 @@ public class SaveManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
 
-        /*
+#if TEST
         MapSaveData mapData = LoadMapSaveData();
         mapData.maps.Clear();
-        mapData.maps.Add(new MapData("TEST MAP PLEEASE DELETE THESE LINES"));
+        mapData.maps.Add(new MapData("MAP"));
         SaveMapData(mapData);
         PlayerSaveData playerData = LoadPlayerSaveData();
         playerData.players.Clear();
-        playerData.players.Add(new PlayerData("TEST PLAYER NAME"));
+        playerData.players.Add(new PlayerData("PLAYER"));
         SavePlayerData(playerData);
-        */
+#endif
 
         Debug.Log(Application.persistentDataPath);
     }
@@ -59,15 +59,9 @@ public class SaveManager : MonoBehaviour
             var data = JsonConvert.DeserializeObject<MapSaveData>(temp);
             return data;
         }
-#if TEST
-        var mapSave = new MapSaveData();
-        mapSave.maps.Add(new MapData("Test Map"));
-        SaveMapData(mapSave);
-        return LoadMapSaveData();
-#else
+
         SaveMapData(new MapSaveData());
         return LoadMapSaveData();
-#endif
     }
     public PlayerSaveData LoadPlayerSaveData()
     {

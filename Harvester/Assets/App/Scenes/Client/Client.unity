@@ -1296,7 +1296,7 @@ MonoBehaviour:
   logLevel: 0
   isGlobal: 1
   serverIp: 127.0.0.1
-  serverPort: 5000
+  serverPort: 45000
   timeout: 5
   maxAttemptsToConnect: 5
   waitAndConnect: 0.2

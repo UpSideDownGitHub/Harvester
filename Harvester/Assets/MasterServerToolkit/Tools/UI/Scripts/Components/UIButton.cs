@@ -18,6 +18,7 @@ namespace MasterServerToolkit.UI
         private Sprite iconValue;
         [SerializeField]
         private string lableValue = "Click me";
+        private int ID;
 
         /// <summary>
         /// 
@@ -37,7 +38,14 @@ namespace MasterServerToolkit.UI
                 return button;
             }
         }
-
+        public void SetID(int ID)
+        {
+            this.ID = ID;
+        }
+        public int GetID()
+        {
+            return ID;
+        }
         private void OnValidate()
         {
             SetLable(lableValue);

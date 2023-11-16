@@ -1,7 +1,6 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Playables;
@@ -113,11 +112,14 @@ public class Enemy : NetworkBehaviour
         if (collision.CompareTag("Player") && target == null)
             SetTarget(collision.transform);
     }
-    
+
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && target.GetInstanceID() == collision.transform.GetInstanceID())
-            SetTarget(null);
+        if (collision.CompareTag("Player") && target != null)
+        { 
+            if (target.GetInstanceID() == collision.transform.GetInstanceID())
+                SetTarget(null);
+        } 
     }
 
     [ServerRpc(RequireOwnership = false)]

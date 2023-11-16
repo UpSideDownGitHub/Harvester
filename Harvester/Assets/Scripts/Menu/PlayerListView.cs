@@ -91,9 +91,10 @@ namespace MasterServerToolkit.Bridges
 
                     var gameConnectBtn = Instantiate(uiButtonPrefab, listContainer, false);
                     gameConnectBtn.SetLable("Select");
+                    gameConnectBtn.SetID(index);
                     gameConnectBtn.AddOnClickListener(() =>
                     {
-                        pickedData.mapID = index;
+                        pickedData.playerID = gameConnectBtn.GetID();
                         gamesListView.Show();
                         Hide();
                     });

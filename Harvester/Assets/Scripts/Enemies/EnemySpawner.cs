@@ -2,6 +2,7 @@ using FishNet.Object;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,6 +27,8 @@ public class EnemySpawner : NetworkBehaviour
             // check all available ares from the savedata
             var save = SaveManager.instance.LoadMapSaveData();
             int unlockedAreas = 1;
+            Debug.Log("Current Map: " + currentData.mapID);
+            Debug.Log("Total Maps: " + save.maps.Count);
             unlockedAreas += save.maps[currentData.mapID].section1Unlocked ? 1 : 0;
             unlockedAreas += save.maps[currentData.mapID].section2Unlocked ? 1 : 0;
             unlockedAreas += save.maps[currentData.mapID].section3Unlocked ? 1 : 0;
