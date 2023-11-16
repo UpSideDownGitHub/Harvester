@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Rock
   placeableID: 13
-  health: 100
+  health: 200
   breakType: 0
   drops:
   - item: {fileID: 11400000, guid: b59fd04cc3caf6c4a9e047b3854d7b4a, type: 2}

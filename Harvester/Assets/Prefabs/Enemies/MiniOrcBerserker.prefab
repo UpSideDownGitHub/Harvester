@@ -392,13 +392,14 @@ MonoBehaviour:
   _networkObjectCache: {fileID: -3540815272205640951}
   target: {fileID: 0}
   agent: {fileID: 4407664011673578532}
-  attackDistance: 2
-  attackTime: 3
+  attackDistance: 1
+  attackTime: 2
+  attackChance: 65
   wanderDistance: 2
   wanderTime: 1.5
   curHealth: 0
   healthSlider: {fileID: 5074734801729826034}
-  maxHealth: 100
+  maxHealth: 1000
   anim: {fileID: 4455990493932294886}
   moving: 0
   attack: 0
@@ -406,6 +407,9 @@ MonoBehaviour:
   die: 0
   previousVelocity: {x: 0, y: 0}
   movingMagnitudeThreshold: 0.1
+  boss: 1
+  bossID: 2
+  bossManager: {fileID: 0}
 --- !u!195 &4407664011673578532
 NavMeshAgent:
   m_ObjectHideFlags: 0

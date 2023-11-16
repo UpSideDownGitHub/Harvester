@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Berry Bush
   placeableID: 12
-  health: 100
+  health: 75
   breakType: 1
   drops:
   - item: {fileID: 11400000, guid: 0cf32a2a3336fad4da3670cf50545266, type: 2}

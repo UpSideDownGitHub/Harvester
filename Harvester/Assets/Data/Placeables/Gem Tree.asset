@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Gem Tree
   placeableID: 18
-  health: 100
+  health: 500
   breakType: 1
   drops:
   - item: {fileID: 11400000, guid: 3ea6abc5ed911fe418447771de6e28cb, type: 2}

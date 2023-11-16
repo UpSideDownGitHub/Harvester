@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Coal
   placeableID: 15
-  health: 100
+  health: 250
   breakType: 0
   drops:
   - item: {fileID: 11400000, guid: 6f8ef34e5d798644fbbca7380f7416fc, type: 2}

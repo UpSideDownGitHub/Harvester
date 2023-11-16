@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Iron
   placeableID: 16
-  health: 100
+  health: 300
   breakType: 0
   drops:
   - item: {fileID: 11400000, guid: 1882c9b95e6eeea4299b5391bcb5a4db, type: 2}

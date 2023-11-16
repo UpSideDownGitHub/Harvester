@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Glowing Berry Bush
   placeableID: 21
-  health: 100
+  health: 500
   breakType: 1
   drops:
   - item: {fileID: 11400000, guid: ea847ca152de19a4d8543ce8e62b6fd8, type: 2}

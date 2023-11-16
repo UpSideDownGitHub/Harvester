@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Radiant Ore
   placeableID: 17
-  health: 100
+  health: 500
   breakType: 0
   drops:
   - item: {fileID: 11400000, guid: 2794a7d3ab091b746b1313b1d8aca791, type: 2}

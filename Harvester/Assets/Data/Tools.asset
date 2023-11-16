@@ -38,7 +38,6 @@ MonoBehaviour:
     - {fileID: -1031948673, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: -51093431, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: 673157099, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
-    level: 0
     type: 0
   - toolName:
     - Wood Axe
@@ -65,7 +64,6 @@ MonoBehaviour:
     - {fileID: -369908785, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: 2123569129, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: -1046543697, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
-    level: 0
     type: 1
   - toolName:
     - Wood Sword
@@ -81,16 +79,15 @@ MonoBehaviour:
     - 4
     - 5
     toolDamage:
-    - 1
-    - 2
-    - 3
-    - 4
-    - 5
+    - 10
+    - 25
+    - 50
+    - 75
+    - 100
     toolIcons:
     - {fileID: -1965373493, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: -650219431, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: -981694095, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: 149912979, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
     - {fileID: 550724747, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
-    level: 0
     type: 2

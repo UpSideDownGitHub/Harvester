@@ -342,13 +342,14 @@ MonoBehaviour:
   _networkObjectCache: {fileID: -3595748120611227808}
   target: {fileID: 0}
   agent: {fileID: -7821671688278052980}
-  attackDistance: 2
-  attackTime: 3
+  attackDistance: 1
+  attackTime: 5
+  attackChance: 100
   wanderDistance: 2
   wanderTime: 1.5
   curHealth: 0
   healthSlider: {fileID: 1697785084178984811}
-  maxHealth: 100
+  maxHealth: 2000
   anim: {fileID: 6884546752057458686}
   moving: 0
   attack: 0

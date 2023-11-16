@@ -146,7 +146,7 @@ public class Inventory : MonoBehaviour
             itemUI.SaveInfo(item);
         }
     }
-    public void UpdateHotbarUI(bool keepSelected = false)
+    public void UpdateHotbarUI(bool keepSelected = true)
     {
         for (int i = 0; i < currentHotbarItems.Count; i++)
         {

@@ -1,10 +1,10 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Playables;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Enemy : NetworkBehaviour
 {
@@ -14,6 +14,7 @@ public class Enemy : NetworkBehaviour
     [Header("Attacking")]
     public float attackDistance;
     public float attackTime;
+    public float attackChance;
     private float _timeOfLastAttack;
 
     [Header("Wandering")]
@@ -36,6 +37,11 @@ public class Enemy : NetworkBehaviour
     public Vector2 previousVelocity;
     public float movingMagnitudeThreshold = 0.1f;
 
+    [Header("Boss")]
+    public bool boss;
+    public int bossID;
+    public BossManager bossManager;
+
     private void Start()
     {
         agent.updateRotation = false;
@@ -43,6 +49,7 @@ public class Enemy : NetworkBehaviour
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth;
         curHealth = maxHealth;
+        bossManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BossManager>();
     }
 
     // Update is called once per frame
@@ -68,6 +75,10 @@ public class Enemy : NetworkBehaviour
                 return;
             if (Vector2.Distance(target.position, transform.position) < attackDistance)
             {
+                // add a random chance to make the attack a bit nicer
+                if (Random.value > attackChance)
+                    return;
+
                 // attack the player
                 _timeOfLastAttack = Time.time;
                 attack = true;
@@ -95,6 +106,8 @@ public class Enemy : NetworkBehaviour
         if (curHealth <= 0)
         {
             die = true;
+            if (boss)
+                bossManager.BossKilled(bossID);
             Invoke("despawn", 0.2f);
         }
     }

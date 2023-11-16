@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Apple Tree
   placeableID: 14
-  health: 100
+  health: 200
   breakType: 1
   drops:
   - item: {fileID: 11400000, guid: 3ea6abc5ed911fe418447771de6e28cb, type: 2}

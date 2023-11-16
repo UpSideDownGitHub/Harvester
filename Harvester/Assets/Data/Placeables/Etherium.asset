@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeableName: Etherium Ore
   placeableID: 19
-  health: 100
+  health: 1000
   breakType: 0
   drops:
   - item: {fileID: 11400000, guid: 10f6021a4a9b3c3478ddcf21f553e4fc, type: 2}

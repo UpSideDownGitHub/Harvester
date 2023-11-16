@@ -152,8 +152,9 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8093354173266487272}
   target: {fileID: 0}
   agent: {fileID: -7631086129880754623}
-  attackDistance: 2
-  attackTime: 3
+  attackDistance: 1
+  attackTime: 5
+  attackChance: 75
   wanderDistance: 2
   wanderTime: 1.5
   curHealth: 0

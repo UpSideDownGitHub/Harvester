@@ -374,6 +374,7 @@ public class Player : NetworkBehaviour
             {
                 transform.position = spawnPoint.position;
                 dead = false;
+                miscManager.deathUI.SetActive(false);
             }
             return; 
         }
@@ -534,11 +535,11 @@ public class Player : NetworkBehaviour
 
     public void IncreaseStamina(float amount)
     {
-        currentStamina += amount;
+        currentStamina = currentStamina + amount > maxStamina ? maxStamina : currentStamina + amount;
     }
     public void DecreaseStamina(float amount)
     {
-        currentStamina -= amount;
+        currentStamina = currentStamina - amount < 0 ? 0 : currentStamina - amount;
     }
 
     public void UpdateHealth(int oldValue, int newValue, bool asServer)
@@ -579,6 +580,7 @@ public class Player : NetworkBehaviour
             miscManager.deathUI.SetActive(true);
             _timeOfDeath = Time.time;
             curHealth = maxHealth;
+            currentStamina = maxStamina;
         }
     }
     public void UpdateHealthUI()
