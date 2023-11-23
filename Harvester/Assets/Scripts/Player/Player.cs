@@ -15,7 +15,7 @@ public class Player : NetworkBehaviour
 
     [Header("Health")]
     public int maxHealth;
-    [SyncVar(OnChange = "UpdateHealth")]public int curHealth;
+    public int curHealth;
     public Sprite heartFullIcon;
     public Sprite heartEmptyIcon;
     public Image[] healthIcons;
@@ -128,6 +128,8 @@ public class Player : NetworkBehaviour
             playerName = save.players[pickedData.playerID].playerName;
             inventory.SetInventory(save.players[pickedData.playerID].inventory, save.players[pickedData.playerID].hotbar);
         }
+        else
+            gameObject.GetComponent<Player>().enabled = false;
     }
 
     public void PlayAnimation()
@@ -374,6 +376,9 @@ public class Player : NetworkBehaviour
             {
                 transform.position = spawnPoint.position;
                 dead = false;
+                curHealth = maxHealth;
+                currentStamina = maxStamina;
+                UpdateHealthUI();
                 miscManager.deathUI.SetActive(false);
             }
             return; 
@@ -542,25 +547,13 @@ public class Player : NetworkBehaviour
         currentStamina = currentStamina - amount < 0 ? 0 : currentStamina - amount;
     }
 
-    public void UpdateHealth(int oldValue, int newValue, bool asServer)
-    {
-        if (asServer)
-            return;
-        UpdateHealthUI();
-        if (curHealth - 1 < 0)
-        {
-            die = true;
-            PlayAnimation();
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
     public void IncreaseHealth()
     {
         curHealth = curHealth + 1 >= maxHealth ? maxHealth : curHealth + 1;
         UpdateHealthUI();
     }
-    [ServerRpc(RequireOwnership = false)]
+
+
     public void DecreaseHealth()
     {
         if (dead)
@@ -577,10 +570,8 @@ public class Player : NetworkBehaviour
             die = true;
             PlayAnimation();
             dead = true;
-            miscManager.deathUI.SetActive(true);
             _timeOfDeath = Time.time;
-            curHealth = maxHealth;
-            currentStamina = maxStamina;
+            miscManager.deathUI.SetActive(true);
         }
     }
     public void UpdateHealthUI()
