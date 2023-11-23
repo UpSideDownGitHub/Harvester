@@ -105,7 +105,6 @@ public class GridManager : NetworkBehaviour
     public void RemoveObject(Vector3 position)
     {
         //navMeshmanager.UpdateNavMesh();
-
         var gridPosition = worldGrid.WorldToCell(position);
         ObjectData data;
         if (placedObjects.ContainsKey(gridPosition))
@@ -124,6 +123,25 @@ public class GridManager : NetworkBehaviour
         if (asServer)
             return;
 
+        placedObjects = newValue;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
+    {
+        //navMeshmanager.UpdateNavMesh();
+        foreach (var pos in gridPositions)
+        {
+            var data = new ObjectData(gridPositions, ID, spawnedObject);
+            placedObjects.Add(pos, data);
+        }
+        syncInfo = placedObjects;
+    }
+    public void SetData(Dictionary<Vector3Int, ObjectData> oldValue, Dictionary<Vector3Int, ObjectData> newValue, bool asServer)
+    {
+        if (asServer)
+            return;
+        
         placedObjects = newValue;
     }
 
@@ -206,30 +224,7 @@ public class GridManager : NetworkBehaviour
 
         SetSpawnedObjects(spawnedObject, gridPositions, ID, script);
     }
-    [ServerRpc(RequireOwnership = false)]
-    public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
-    {
-        //navMeshmanager.UpdateNavMesh();
 
-        Dictionary<Vector3Int, ObjectData> preSync = new();
-        foreach (var pos in gridPositions)
-        {
-            var data = new ObjectData(gridPositions, ID, spawnedObject);
-            placedObjects[pos] = data;
-            preSync.Add(pos, data);
-        }
-        syncInfo = preSync;
-    }
-    public void SetData(Dictionary<Vector3Int, ObjectData> oldValue, Dictionary<Vector3Int, ObjectData> newValue, bool asServer)
-    {
-        if (asServer)
-            return;
-
-        foreach (KeyValuePair<Vector3Int, ObjectData> item in newValue)
-        {
-            placedObjects[item.Key] = item.Value;
-        }
-    }
 
     public List<Vector3Int> getObjectPositions(Vector3Int gridPos, Vector2Int size)
     {

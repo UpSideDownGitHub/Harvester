@@ -18,6 +18,12 @@ public class EnemySpawner : NetworkBehaviour
     private float _timeSinceLastSpawn;
     public float spawnSearchRadius = 5;
 
+    //public override void OnStartClient()
+    //{
+    //    base.OnStartClient();
+    //    if (!base.IsOwner)
+    //        gameObject.GetComponent<EnemySpawner>().enabled = false;
+    //}
 
     public void Update()
     {

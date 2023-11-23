@@ -23,7 +23,7 @@ public class ItemSpawner : NetworkBehaviour
             spawns.spawns[i].timeOfLastSpawn = 0;
         }
 
-            if (base.IsOwner)
+        if (base.IsOwner)
             gameObject.GetComponent<ItemSpawner>().enabled = false;
     }
 
