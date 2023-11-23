@@ -104,7 +104,7 @@ public class GridManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void RemoveObject(Vector3 position)
     {
-        navMeshmanager.UpdateNavMesh();
+        //navMeshmanager.UpdateNavMesh();
 
         var gridPosition = worldGrid.WorldToCell(position);
         ObjectData data;

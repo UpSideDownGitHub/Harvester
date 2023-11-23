@@ -278,8 +278,8 @@ GameObject:
   - component: {fileID: 9152183191070267178}
   - component: {fileID: -6523022500169985166}
   - component: {fileID: -1539805261950023474}
-  - component: {fileID: 9168442846338589451}
   - component: {fileID: 8905333771364045325}
+  - component: {fileID: -7158819081588386883}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -380,6 +380,7 @@ MonoBehaviour:
   craftingStation: {fileID: 0}
   isFarm: 0
   farm: {fileID: 0}
+  areaBorders: []
   isNature: 1
   spawnAreas: {fileID: 11400000, guid: 116c204543ed6d34089411fa8dce0c82, type: 2}
   spawnAreaID: 0
@@ -411,27 +412,11 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 25
+  <PrefabId>k__BackingField: 13
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 3284741149519623131
---- !u!114 &9168442846338589451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5094439927628118762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa0352a4d56abd42ad2fc69deb72448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Size: {x: 1, y: 1, z: 4}
-  m_Center: {x: 0.5, y: 0.5, z: 0}
-  m_Area: 1
-  m_AffectedAgents: ffffffff
 --- !u!61 &8905333771364045325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -477,6 +462,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!208 &-7158819081588386883
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094439927628118762}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.5, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6273158374911627645
 GameObject:
   m_ObjectHideFlags: 0
