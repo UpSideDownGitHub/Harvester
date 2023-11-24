@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Connection;
-using FishNet.Object;
-using FishNet.Example.Scened;
 
-public class PlayerMovement : NetworkBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Player")]
     public Rigidbody2D rb;
@@ -17,18 +14,6 @@ public class PlayerMovement : NetworkBehaviour
     public float lerpSpeed;
     public Vector3 offset;
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (base.IsOwner)
-        {
-            cam = Camera.main;
-        }
-        else
-        {
-            gameObject.GetComponent<PlayerMovement>().enabled = false;
-        }
-    }
 
     // Update is called once per frame
     void FixedUpdate()

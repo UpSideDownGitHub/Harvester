@@ -1,15 +1,10 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
-using FishNet.Transporting;
-using JetBrains.Annotations;
+using Photon.Pun;
 using System.Collections.Generic;
-using System.Globalization;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Player : NetworkBehaviour
+public class Player : MonoBehaviour
 {
     public string playerName;
 
@@ -71,7 +66,6 @@ public class Player : NetworkBehaviour
     public PlayerAnimManager anim;
     public Rigidbody2D rb;
     public bool moving;
-    public bool holdingObject;
     public bool attack;
     public bool mine;
     public bool axe;
@@ -102,11 +96,13 @@ public class Player : NetworkBehaviour
     [Header("Misc Manager")]
     public MiscManager miscManager;
 
+    [Header("Photon Things")]
+    PhotonView photonView;
 
-    public override void OnStartClient()
+    public void Start()
     {
-        base.OnStartClient();
-        if (base.IsOwner)
+        photonView = PhotonView.Get(this);
+        if (photonView.IsMine)
         {
             isOwner = true;
             gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
@@ -241,27 +237,15 @@ public class Player : NetworkBehaviour
             switch (movingDirection)
             {
                 case 0: // UP
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Up);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Walk_Up);
                     break;
                 case 1: // RIGHT
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Right);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Walk_Right);
                     break;
                 case 2: // DOWN
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Down);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Walk_Down);
                     break;
                 case 3: // LEFT
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryWalk_Left);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Walk_Left);
                     break;
                 default:
@@ -274,27 +258,15 @@ public class Player : NetworkBehaviour
             switch (movingDirection)
             {
                 case 0: // UP
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Up);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Idle_Up);
                     break;
                 case 1: // RIGHT
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Right);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Idle_Right);
                     break;
                 case 2: // DOWN
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Down);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Idle);
                     break;
                 case 3: // LEFT
-                    if (holdingObject)
-                        anim.ChangeAnimationState(PlayerAnimManager.CarryIdle_Left);
-                    else
                         anim.ChangeAnimationState(PlayerAnimManager.Idle_Left);
                     break;
                 default:
@@ -337,12 +309,9 @@ public class Player : NetworkBehaviour
         if (hotbar.Count == 0)
         {
             objectIcon.sprite = null;
-            holdingObject = false;
             PlayAnimation();
             return;
         }
-        holdingObject = true;
-        PlayAnimation();
         if (keepSelected)
             curSelectedItem = previousSelected >= hotbar.Count ? hotbar.Count - 1 : previousSelected;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
@@ -354,12 +323,8 @@ public class Player : NetworkBehaviour
     {
         if (hotbarUIObjects.Count == 0)
         {
-            holdingObject = false;
-            PlayAnimation();
             return;
         }
-        holdingObject = true;
-        PlayAnimation();
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = defaultColor;
         curSelectedItem = itemToSelect;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
@@ -532,11 +497,9 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
     public void SpawnBoss(int bossID, Vector3 bossSpawnPosition)
     {
-        var tempBoss = Instantiate(bosses.bosses[bossID].bossObject, bossSpawnPosition, Quaternion.identity);
-        ServerManager.Spawn(tempBoss, LocalConnection);
+        PhotonNetwork.Instantiate(bosses.bosses[bossID].bossObject.name, bossSpawnPosition, Quaternion.identity, 0);
     }
 
     public void IncreaseStamina(float amount)
@@ -578,7 +541,7 @@ public class Player : NetworkBehaviour
     }
     public void UpdateHealthUI()
     {
-        if (!IsOwner)
+        if (!isOwner)
             return;
         for (int i = 0; i < maxHealth; i++)
         {
