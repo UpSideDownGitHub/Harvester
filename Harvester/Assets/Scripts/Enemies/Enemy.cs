@@ -1,14 +1,13 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
+using Photon.Pun;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class Enemy : NetworkBehaviour
+public class Enemy : MonoBehaviour
 {
-    [SyncVar]public Transform target;
+    public Transform target;
     public NavMeshAgent agent;
 
     [Header("Attacking")]
@@ -23,7 +22,7 @@ public class Enemy : NetworkBehaviour
     private float _timeSinceLastWander;
 
     [Header("Health")]
-    [SyncVar(OnChange = "syncHealth")]public float curHealth;
+    public float curHealth;
     public Slider healthSlider;
     public float maxHealth;
 
@@ -42,8 +41,12 @@ public class Enemy : NetworkBehaviour
     public int bossID;
     public BossManager bossManager;
 
+    [Header("Photon")]
+    public PhotonView photonView;
+
     private void Start()
     {
+        photonView = PhotonView.Get(this);
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         healthSlider.maxValue = maxHealth;
@@ -55,7 +58,7 @@ public class Enemy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!base.IsOwner)
+        if (photonView.IsMine)
             return;
 
         PlayAnimation();
@@ -82,21 +85,12 @@ public class Enemy : NetworkBehaviour
                 // attack the player
                 _timeOfLastAttack = Time.time;
                 attack = true;
-                if (target.GetComponent<PlayerHolding>())
-                    target.GetComponent<PlayerHolding>().SetHealthChange(!target.GetComponent<PlayerHolding>().health);
+                photonView.RPC("DecreaseHealth", RpcTarget.All);
             }
         }
     }
 
-    public void syncHealth(float oldValue, float newValue, bool asServer)
-    {
-        if (asServer)
-            return;
-
-        healthSlider.value = newValue;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
+    [PunRPC]
     public void TakeDamage(float damage)
     {
         curHealth = curHealth - damage > 0 ? curHealth - damage : 0;
@@ -112,18 +106,15 @@ public class Enemy : NetworkBehaviour
         }
     }
 
-    public void despawn() { DespawnObject(gameObject); }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void DespawnObject(GameObject toDestroy)
+    public void despawn() 
     {
-        ServerManager.Despawn(toDestroy);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && target == null)
-            SetTarget(collision.transform);
+            photonView.RPC("SetTarget", RpcTarget.All, collision.transform);
     }
 
     public void OnTriggerExit2D(Collider2D collision)
@@ -131,11 +122,11 @@ public class Enemy : NetworkBehaviour
         if (collision.CompareTag("Player") && target != null)
         { 
             if (target.GetInstanceID() == collision.transform.GetInstanceID())
-                SetTarget(null);
+                photonView.RPC("SetTarget", RpcTarget.All, collision.transform);
         } 
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [PunRPC]
     public void SetTarget(Transform givenTarget)
     {
         target = givenTarget;

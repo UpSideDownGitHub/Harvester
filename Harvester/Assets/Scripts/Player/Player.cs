@@ -1,4 +1,6 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -58,8 +60,6 @@ public class Player : MonoBehaviour
     public PlaceableObjectsData placeableData;
     public ToolObjectData toolData;
 
-    [Header("Holding Sync")]
-    public PlayerHolding playerHolding;
     private bool isOwner = false;
 
     [Header("Animations")]
@@ -315,7 +315,6 @@ public class Player : MonoBehaviour
         if (keepSelected)
             curSelectedItem = previousSelected >= hotbar.Count ? hotbar.Count - 1 : previousSelected;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
-        playerHolding.SetHolding(hotbar[curSelectedItem].itemID);
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
 
@@ -328,7 +327,6 @@ public class Player : MonoBehaviour
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = defaultColor;
         curSelectedItem = itemToSelect;
         objectIcon.sprite = hotbar[curSelectedItem].icon;
-        playerHolding.SetHolding(hotbar[curSelectedItem].itemID);
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
     public void Update()
@@ -511,13 +509,13 @@ public class Player : MonoBehaviour
         currentStamina = currentStamina - amount < 0 ? 0 : currentStamina - amount;
     }
 
+    [PunRPC]
     public void IncreaseHealth()
     {
         curHealth = curHealth + 1 >= maxHealth ? maxHealth : curHealth + 1;
         UpdateHealthUI();
     }
-
-
+    [PunRPC]
     public void DecreaseHealth()
     {
         if (dead)

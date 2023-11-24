@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Connection;
-using FishNet.Object;
-using FishNet.Example.Scened;
-using FishNet.Object.Synchronizing;
+using Photon.Pun;
 
-public class PlayerAnimManager : NetworkBehaviour
+
+public class PlayerAnimManager : MonoBehaviour
 {
     [Header("Animations")]
     public Animator anim;
 
-    [SyncVar(OnChange ="PlayAnim")]public string currentState;
+    public string currentState;
 
     public const string CarryWalk_Right = "CarryWalk_Right";
     public const string CarryWalk_Left = "CarryWalk_Left";
@@ -57,22 +55,21 @@ public class PlayerAnimManager : NetworkBehaviour
 
     public const string Pickup = "Pickup";
 
-    public void PlayAnim(string oldValue, string newValue, bool asServer)
-    {
-        if (asServer)
-            return;
+    [Header("Photon")]
+    public PhotonView view; 
 
-        anim.Play(newValue);
+    public void Start()
+    {
+        view = PhotonView.Get(this);
     }
 
     public void ChangeAnimationState(string newState)
     {
         if (currentState == newState)
             return;
-        anim.Play(newState);
-        SetCurrentState(newState);
+        view.RPC("PlayAnimation", RpcTarget.All, newState);
     }
-    
+
     public bool ChangeAnimationState(string newState, List<string> similar)
     {
         for (int i = 0; i < similar.Count; i++)
@@ -80,14 +77,14 @@ public class PlayerAnimManager : NetworkBehaviour
             if (anim.GetCurrentAnimatorStateInfo(0).IsName(similar[i]))
                 return false;
         }
-        anim.Play(newState);
-        SetCurrentState(newState);
+        view.RPC("PlayAnimation", RpcTarget.All, newState);
         return true;
     }
-    [ServerRpc(RequireOwnership = false)]
-    void SetCurrentState(string state)
+
+    [PunRPC]
+    public void PlayAnimation(string state)
     {
-        currentState = state;
+        anim.Play(state);
     }
 
     public bool finished(string name)
