@@ -379,6 +379,7 @@ public class Player : NetworkBehaviour
                 curHealth = maxHealth;
                 currentStamina = maxStamina;
                 UpdateHealthUI();
+                print(curHealth + " Current Health");
                 miscManager.deathUI.SetActive(false);
             }
             return; 
@@ -571,7 +572,8 @@ public class Player : NetworkBehaviour
             PlayAnimation();
             dead = true;
             _timeOfDeath = Time.time;
-            miscManager.deathUI.SetActive(true);
+            if (miscManager)
+                miscManager.deathUI.SetActive(true);
         }
     }
     public void UpdateHealthUI()
