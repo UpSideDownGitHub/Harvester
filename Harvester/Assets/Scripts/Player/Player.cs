@@ -471,12 +471,13 @@ public class Player : MonoBehaviour
             else
             {
                 var clickedObject = gridManager.ObjectClicked(Input.mousePosition);
+                print("Clicked Object: " + clickedObject);
                 if (clickedObject != null)
                 {
                     print("Object Clicked");
                     var placeable = clickedObject.GetComponent<PlaceableObject>();
-                    //print("Break Type: " + placeable.placeable.breakType);
-                    //print("Tool Type: " + toolData.Tools[itemType.toolID].type);
+                    print("Break Type: " + placeable.placeable.breakType);
+                    print("Tool Type: " + toolData.Tools[itemType.toolID].type);
                     if (placeable.placeable.breakType == toolData.Tools[itemType.toolID].type)
                     {
                         PhotonView photonView = PhotonView.Get(placeable);

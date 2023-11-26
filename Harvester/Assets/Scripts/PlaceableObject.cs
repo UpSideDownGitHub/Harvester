@@ -48,6 +48,12 @@ public class PlaceableObject : MonoBehaviour
     bool inRange(Vector3 pos, int xMin = -100, int xMax = 100, int yMin = -100, int yMax = 100) =>
             ((pos.x - xMin) * (pos.x - xMax) <= 0) && ((pos.y - yMin) * (pos.y - yMax) <= 0);
 
+    [PunRPC]
+    public void SetName(string givenName)
+    {
+        gameObject.name = givenName;
+    }
+
 
     [PunRPC]
     public void TakeDamage(float damage)
