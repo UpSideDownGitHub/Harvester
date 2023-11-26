@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
             inventory.SetInventory(save.players[pickedData.playerID].inventory, save.players[pickedData.playerID].hotbar);
         }
         else
-            gameObject.GetComponent<Player>().enabled = false;
+            isOwner = false;
     }
 
     public void PlayAnimation()
@@ -501,7 +501,7 @@ public class Player : MonoBehaviour
 
     public void SpawnBoss(int bossID, Vector3 bossSpawnPosition)
     {
-        PhotonNetwork.Instantiate(bosses.bosses[bossID].bossObject.name, bossSpawnPosition, Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Enemies/" + bosses.bosses[bossID].bossObject.name, bossSpawnPosition, Quaternion.identity, 0);
     }
 
     public void IncreaseStamina(float amount)
@@ -552,5 +552,12 @@ public class Player : MonoBehaviour
             else
                 healthIcons[i].sprite = heartEmptyIcon;
         }
+    }
+
+    [PunRPC]
+    public void AddItemToInventory(int itemID, int count)
+    {
+        if (inventory)
+            inventory.AddItem(itemData.items[itemID], count);
     }
 }

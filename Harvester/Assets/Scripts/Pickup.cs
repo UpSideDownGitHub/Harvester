@@ -52,10 +52,20 @@ public class Pickup : MonoBehaviour
             {
                 print("ADDED THE OBJCT TO INVENTORY: " + count);
                 inRange = false;
-                player.GetComponent<Player>().inventory.AddItem(item, count);
-                PhotonNetwork.Destroy(gameObject);
+
+                PhotonView playerView = PhotonView.Get(player);
+                playerView.RPC("AddItemToInventory", RpcTarget.All, item.itemID, count);
+
+                PhotonView view = PhotonView.Get(this);
+                view.RPC("DestroyObject", RpcTarget.All);
             }
         }
+    }
+
+    [PunRPC]
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

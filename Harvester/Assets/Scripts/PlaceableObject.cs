@@ -65,6 +65,9 @@ public class PlaceableObject : MonoBehaviour
         healthSlider.value = currentHealth;
         if (currentHealth == 0)
         {
+            if (!PhotonNetwork.IsMasterClient)
+                return;
+
             if (isNature)
             {
                 spawnAreas.spawns[spawnAreaID].currentItems--;
@@ -93,7 +96,14 @@ public class PlaceableObject : MonoBehaviour
             photonView3.RPC("RemoveObject", RpcTarget.All, transform.position);
 
 
-            PhotonNetwork.Destroy(gameObject);
+            PhotonView view = PhotonView.Get(this);
+            view.RPC("DestroyObject", RpcTarget.MasterClient);
         }
+    }
+
+    [PunRPC]
+    public void DestroyObject()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }

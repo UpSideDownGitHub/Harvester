@@ -55,19 +55,13 @@ public class PlayerAnimManager : MonoBehaviour
 
     public const string Pickup = "Pickup";
 
-    [Header("Photon")]
-    public PhotonView view; 
-
-    public void Start()
-    {
-        view = PhotonView.Get(this);
-    }
 
     public void ChangeAnimationState(string newState)
     {
         if (currentState == newState)
             return;
-        view.RPC("PlayAnimation", RpcTarget.All, newState);
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("PlayAnimation", RpcTarget.All, newState);
     }
 
     public bool ChangeAnimationState(string newState, List<string> similar)
@@ -77,7 +71,8 @@ public class PlayerAnimManager : MonoBehaviour
             if (anim.GetCurrentAnimatorStateInfo(0).IsName(similar[i]))
                 return false;
         }
-        view.RPC("PlayAnimation", RpcTarget.All, newState);
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("PlayAnimation", RpcTarget.All, newState);
         return true;
     }
 

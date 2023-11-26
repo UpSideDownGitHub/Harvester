@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
             var navMeshpos = NavMesh.SamplePosition(randomPos, out navHit, spawnSearchRadius, -1);
 
             // spawn enemy in given area
-            PhotonNetwork.Instantiate(enemies[selectedArea].name, navHit.position, Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Enemies/" + enemies[selectedArea].name, navHit.position, Quaternion.identity, 0);
         }
     }
 }

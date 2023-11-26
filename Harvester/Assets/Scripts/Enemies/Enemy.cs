@@ -3,11 +3,14 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using WebSocketSharp;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform target;
+    public Vector2 target;
+    public string targetName;
+    public Transform targetTransform;
     public NavMeshAgent agent;
 
     [Header("Attacking")]
@@ -58,11 +61,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
-            return;
-
         PlayAnimation();
-        if (target == null && Time.time > wanderTime + _timeSinceLastWander)
+        if (targetTransform == null && Time.time > wanderTime + _timeSinceLastWander)
         {
             _timeSinceLastWander = Time.time;
             Vector3 randomDirection = Random.insideUnitCircle * wanderDistance;
@@ -71,12 +71,13 @@ public class Enemy : MonoBehaviour
             NavMesh.SamplePosition(randomDirection, out navHit, wanderDistance, -1);
             agent.SetDestination(navHit.position);
         }
-        else if (target != null)
+        else if (targetTransform != null)
         {
-            agent.SetDestination(target.position);
+            target = targetTransform.position;
+            agent.SetDestination(target);
             if (Time.time < attackTime + _timeOfLastAttack)
                 return;
-            if (Vector2.Distance(target.position, transform.position) < attackDistance)
+            if (Vector2.Distance(target, transform.position) < attackDistance)
             {
                 // add a random chance to make the attack a bit nicer
                 if (Random.value > attackChance)
@@ -85,7 +86,8 @@ public class Enemy : MonoBehaviour
                 // attack the player
                 _timeOfLastAttack = Time.time;
                 attack = true;
-                photonView.RPC("DecreaseHealth", RpcTarget.All);
+                PhotonView playerPhotonView = PhotonView.Get(targetTransform.gameObject);
+                playerPhotonView.RPC("DecreaseHealth", RpcTarget.All);
             }
         }
     }
@@ -111,28 +113,54 @@ public class Enemy : MonoBehaviour
 
     public void despawn() 
     {
-        PhotonNetwork.Destroy(gameObject);
+        PhotonView view = PhotonView.Get(this);
+        view.RPC("DestroyAll", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void DestroyAll()
+    {
+        Destroy(gameObject);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && target == null)
-            photonView.RPC("SetTarget", RpcTarget.All, collision.transform);
+        if (collision.CompareTag("Player") && targetTransform == null)
+        {
+            print("ENTERED AREA");
+            try
+            {
+                photonView.RPC("SetTarget", RpcTarget.All, (Vector2)collision.transform.position, collision.name);
+            }
+            catch { /*NOTHING*/ }
+        }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && target != null)
-        { 
-            if (target.GetInstanceID() == collision.transform.GetInstanceID())
-                photonView.RPC("SetTarget", RpcTarget.All, collision.transform);
+        if (collision.CompareTag("Player") && targetTransform != null)
+        {
+            print("LEFT AREA");
+            if (targetName == collision.name)
+                photonView.RPC("SetTarget", RpcTarget.All, Vector2.zero, "");
         } 
     }
 
     [PunRPC]
-    public void SetTarget(Transform givenTarget)
+    public void SetTarget(Vector2 givenTarget, string targetName)
     {
-        target = givenTarget;
+        this.target = givenTarget;
+        this.targetName = targetName;
+        if (!string.IsNullOrEmpty(targetName))
+        {
+            var temp = GameObject.Find(targetName);
+            if (temp)
+                this.targetTransform = temp.transform;
+            else
+                targetTransform = null;
+        }
+        else
+            targetTransform = null;
     }
 
     public void PlayAnimation()

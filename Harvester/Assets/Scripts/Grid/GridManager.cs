@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -94,7 +95,7 @@ public class GridManager : MonoBehaviour
         List<Vector3Int> clickPositions = new List<Vector3Int>() { gridPosition };
         if (isAboveAnotherObject(clickPositions))
         {
-            return placedObjects[gridPosition].spawnedObject;
+            return GameObject.Find(placedObjects[gridPosition].objectName);
         }
         return null;
     }
@@ -117,14 +118,37 @@ public class GridManager : MonoBehaviour
     }
 
     [PunRPC]
-    public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
+    public void SetSpawnedObjects(string objectName, object[] recivedPositions, int ID)
     {
+        List<Vector3Int> gridPositions = new List<Vector3Int>();
+        for (int i = 0; i < recivedPositions.Length; i++)
+        {
+            Vector3Int tempVec = new Vector3Int((int)((Vector3)recivedPositions[i]).x, (int)((Vector3)recivedPositions[i]).y, (int)((Vector3)recivedPositions[i]).z);
+            gridPositions.Add(tempVec);
+        }
+
         //navMeshmanager.UpdateNavMesh();
         foreach (var pos in gridPositions)
         {
-            var data = new ObjectData(gridPositions, ID, spawnedObject);
+            var data = new ObjectData(gridPositions, ID, objectName);
             placedObjects.Add(pos, data);
         }
+    }
+
+
+    public void Spawn(GameObject objectToSpawn, Vector3 pos, Quaternion rot, List<Vector3Int> gridPositions, int ID)
+    {
+        // need to convert gridPosiions to object[]
+        object[] dataToSend = new object[gridPositions.Count];
+        for (int i = 0; i < gridPositions.Count; i++)
+        {
+            dataToSend[i] = new Vector3(gridPositions[i].x, gridPositions[i].y, gridPositions[i].z);
+        }
+
+        var spawnedObject = PhotonNetwork.Instantiate("Placeables/" + objectToSpawn.name, pos, rot, 0);
+        spawnedObject.name = spawnedObject.GetInstanceID().ToString();
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("SetSpawnedObjects", RpcTarget.All, spawnedObject.name, dataToSend, ID);
     }
 
     public bool placedObjectGrid(int ID, Vector3Int gridPosition)
@@ -144,7 +168,7 @@ public class GridManager : MonoBehaviour
             return false;
         }
 
-        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID, this);
+        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID);
 
         return true;
     }
@@ -167,7 +191,7 @@ public class GridManager : MonoBehaviour
             return false;
         }
 
-        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID, this);
+        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID);
 
         return true;
     }
@@ -192,17 +216,11 @@ public class GridManager : MonoBehaviour
             return false;
         }
 
-        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID, this);
+        Spawn(placeables.placeables[ID].prefab, worldGrid.CellToWorld(gridPosition), Quaternion.identity, gridPositions, ID);
 
         return true;
     }
 
-    public void Spawn(GameObject objectToSpawn, Vector3 pos, Quaternion rot, List<Vector3Int> gridPositions, int ID, GridManager script)
-    {
-        var spawnedObject = PhotonNetwork.Instantiate(objectToSpawn.name, pos, rot, 0);
-        PhotonView photonView = PhotonView.Get(spawnedObject);
-        photonView.RPC("SetSpawnedObjects", RpcTarget.All, spawnedObject, gridPositions, ID, script);
-    }
 
 
     public List<Vector3Int> getObjectPositions(Vector3Int gridPos, Vector2Int size)
@@ -259,13 +277,13 @@ public class ObjectData
 {
     public List<Vector3Int> gridSpaces;
     public int ID;
-    public GameObject spawnedObject;
+    public string objectName;
 
     public ObjectData() { }
-    public ObjectData(List<Vector3Int> gridSpaces, int ID, GameObject spawnedObject)
+    public ObjectData(List<Vector3Int> gridSpaces, int ID, string objectName)
     {
         this.gridSpaces = gridSpaces;
         this.ID = ID;
-        this.spawnedObject = spawnedObject;
+        this.objectName = objectName;
     }
 }
