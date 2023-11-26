@@ -148,7 +148,7 @@ public class GridManager : MonoBehaviour
         var spawnedObject = PhotonNetwork.Instantiate("Placeables/" + objectToSpawn.name, pos, rot, 0);
 
         // Chnage name for all instances of this object
-        PhotonView objectView = PhotonView.Get(this);
+        PhotonView objectView = PhotonView.Get(spawnedObject);
         objectView.RPC("SetName", RpcTarget.All, spawnedObject.GetInstanceID().ToString());
 
         // set on grid for all instances of object
