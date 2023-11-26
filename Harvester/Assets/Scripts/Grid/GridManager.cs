@@ -1,8 +1,9 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
+using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 [Serializable]
 public struct borders
@@ -13,16 +14,13 @@ public struct borders
     public Vector3Int BR;
 }
 
-public class GridManager : NetworkBehaviour
+public class GridManager : MonoBehaviour
 {
     public Grid worldGrid;
     public GameObject tempObject;
 
     [Header("Grid Information")]
-    //public List<GameObject> spawnedObjects = new();
     public Dictionary<Vector3Int, ObjectData> placedObjects = new();
-    [SyncVar(OnChange = "SetData")] public Dictionary<Vector3Int, ObjectData> syncInfo = new();
-    [SyncVar(OnChange = "RemoveData")] public Dictionary<Vector3Int, ObjectData> syncInfo2 = new();
 
     [Header("Data")]
     public PlaceableObjectsData placeables;
@@ -33,11 +31,11 @@ public class GridManager : NetworkBehaviour
     [Header("Save Data")]
     public PickedData pickedData;
 
-    public override void OnStartClient()
+    public void Start()
     {
-        base.OnStartClient();
-        print("Owner: " + base.IsOwner);
-        if (!base.IsOwner)
+        PhotonView photonView = PhotonView.Get(this);
+
+        if (!photonView.IsMine)
             GetComponent<GridManager>().enabled = false;
 
         // go through the list of items and spawn them all
@@ -101,7 +99,7 @@ public class GridManager : NetworkBehaviour
         return null;
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [PunRPC]
     public void RemoveObject(Vector3 position)
     {
         //navMeshmanager.UpdateNavMesh();
@@ -116,17 +114,9 @@ public class GridManager : NetworkBehaviour
             if (placedObjects.ContainsKey(data.gridSpaces[i]))
                 placedObjects.Remove(data.gridSpaces[i]);
         }
-        syncInfo2 = placedObjects;
-    }
-    public void RemoveData(Dictionary<Vector3Int, ObjectData> oldValue, Dictionary<Vector3Int, ObjectData> newValue, bool asServer)
-    {
-        if (asServer)
-            return;
-
-        placedObjects = newValue;
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [PunRPC]
     public void SetSpawnedObjects(GameObject spawnedObject, List<Vector3Int> gridPositions, int ID, GridManager script)
     {
         //navMeshmanager.UpdateNavMesh();
@@ -135,14 +125,6 @@ public class GridManager : NetworkBehaviour
             var data = new ObjectData(gridPositions, ID, spawnedObject);
             placedObjects.Add(pos, data);
         }
-        syncInfo = placedObjects;
-    }
-    public void SetData(Dictionary<Vector3Int, ObjectData> oldValue, Dictionary<Vector3Int, ObjectData> newValue, bool asServer)
-    {
-        if (asServer)
-            return;
-        
-        placedObjects = newValue;
     }
 
     public bool placedObjectGrid(int ID, Vector3Int gridPosition)
@@ -215,14 +197,11 @@ public class GridManager : NetworkBehaviour
         return true;
     }
 
-    [ServerRpc(RequireOwnership = false)]
     public void Spawn(GameObject objectToSpawn, Vector3 pos, Quaternion rot, List<Vector3Int> gridPositions, int ID, GridManager script)
     {
-        var spawnedObject = Instantiate(objectToSpawn, pos, rot);
-        ServerManager.Spawn(spawnedObject);
-
-
-        SetSpawnedObjects(spawnedObject, gridPositions, ID, script);
+        var spawnedObject = PhotonNetwork.Instantiate(objectToSpawn.name, pos, rot, 0);
+        PhotonView photonView = PhotonView.Get(spawnedObject);
+        photonView.RPC("SetSpawnedObjects", RpcTarget.All, spawnedObject, gridPositions, ID, script);
     }
 
 

@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
 using NavMeshPlus.Components;
+using Photon.Pun;
 
-public class BossManager : NetworkBehaviour
+public class BossManager : MonoBehaviour
 {
     public string bossTag;
     public GameObject[] areaBlockers;
     public PickedData currentData;
 
+    public PhotonView photonView;
+
     public void Start()
     {
+        if (PhotonNetwork.IsMasterClient)
+            return;
+
         // load the save data
         var save = SaveManager.instance.LoadMapSaveData();
         if (save.maps[currentData.mapID].section1Unlocked)
@@ -27,6 +31,9 @@ public class BossManager : NetworkBehaviour
 
     public void BossKilled(int bossID)
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         var save = SaveManager.instance.LoadMapSaveData();
         if (bossID == 0)
         {

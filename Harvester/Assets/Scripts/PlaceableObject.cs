@@ -1,13 +1,15 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
 using UnityEngine;
 using UnityEngine.UI;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon.StructWrapping;
 
-public class PlaceableObject : NetworkBehaviour
+public class PlaceableObject : MonoBehaviour
 {
     [Header("Personal Data")]
     public Placeable placeable;
-    [SyncVar(OnChange = "syncHealth")]public float currentHealth;
+    public float currentHealth;
     public GameObject pickupItem;
 
     [Header("UI")]
@@ -46,22 +48,8 @@ public class PlaceableObject : NetworkBehaviour
     bool inRange(Vector3 pos, int xMin = -100, int xMax = 100, int yMin = -100, int yMax = 100) =>
             ((pos.x - xMin) * (pos.x - xMax) <= 0) && ((pos.y - yMin) * (pos.y - yMax) <= 0);
 
-    public void syncHealth(float oldValue, float newValue, bool asServer)
-    {
-        if (asServer)
-            return;
 
-        if (!UICanvas.activeInHierarchy && currentHealth < placeable.health)
-            UICanvas.SetActive(true);
-
-        currentHealth = newValue;
-        healthSlider.value = currentHealth;
-
-        if (currentHealth == 0)
-            ServerManager.Despawn(gameObject);
-    }
-
-    [ServerRpc(RequireOwnership = false)]
+    [PunRPC]
     public void TakeDamage(float damage)
     {
         if (isCraftingStation)
@@ -86,24 +74,26 @@ public class PlaceableObject : NetworkBehaviour
             {
                 for (int i = 0; i < farm.count.Length; i++)
                 {
-                    GameObject drop = Instantiate(pickupItem, transform.position, Quaternion.identity);
-                    ServerManager.Spawn(drop);
-                    drop.GetComponent<Pickup>().info = new int[2] { farm.farmData.Farms[farm.farmID].items[i].item.itemID, farm.count[i] };
+                    GameObject drop = PhotonNetwork.Instantiate(pickupItem.name, transform.position, Quaternion.identity, 0);
+                    PhotonView photonView1 = PhotonView.Get(drop);
+                    photonView1.RPC("SetPickup", RpcTarget.All, farm.farmData.Farms[farm.farmID].items[i].item.itemID, farm.count[i]);
                     farm.count[i] = 0;
                 }
             }
 
             for (int i = 0; i < placeable.drops.Length; i++)
             {
-                GameObject drop = Instantiate(pickupItem, transform.position, Quaternion.identity);
-                ServerManager.Spawn(drop);
-                drop.GetComponent<Pickup>().info = new int[2] { placeable.drops[i].item.itemID, placeable.drops[i].count };
+                GameObject drop = PhotonNetwork.Instantiate(pickupItem.name, transform.position, Quaternion.identity, 0);
+                PhotonView photonView2 = PhotonView.Get(drop);
+                photonView2.RPC("SetPickup", RpcTarget.All, placeable.drops[i].item.itemID, placeable.drops[i].count);
             }
 
             GridManager gridManager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
-            gridManager.RemoveObject(transform.position);
+            PhotonView photonView3 = PhotonView.Get(gridManager);
+            photonView3.RPC("RemoveObject", RpcTarget.All, transform.position);
 
-            ServerManager.Despawn(gameObject);
+
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

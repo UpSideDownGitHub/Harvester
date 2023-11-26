@@ -84,6 +84,7 @@ public class PlayerAnimManager : MonoBehaviour
     [PunRPC]
     public void PlayAnimation(string state)
     {
+        currentState = state;
         anim.Play(state);
     }
 

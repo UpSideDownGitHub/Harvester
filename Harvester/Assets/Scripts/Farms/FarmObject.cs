@@ -1,6 +1,5 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
 using JetBrains.Annotations;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 
-public class FarmObject : NetworkBehaviour
+public class FarmObject : MonoBehaviour
 {
     [Header("Inventory")]
     public Inventory inventory;
@@ -35,19 +34,6 @@ public class FarmObject : NetworkBehaviour
     [Header("Dropping Items")]
     public GameObject pickupItem;
 
-    [Header("Sync")]
-    [SyncVar(OnChange = "syncCount")] public int[] syncedCount;
-
-
-
-    public void syncCount(int[] oldValue, int[] newValue, bool asServer)
-    {
-        if (asServer)
-            return;
-
-        count = newValue;
-    }
-
 
     void Start()
     {
@@ -72,25 +58,15 @@ public class FarmObject : NetworkBehaviour
             count[i] = 0;
         }
         UpdateUI();
-        SetSyncedCount(count);
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("SetCount", RpcTarget.All, count);
+
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void DropAllItems()
+    [PunRPC]
+    public void SetCount(int[] value)
     {
-        for (int i = 0; i < count.Length; i++)
-        {
-            GameObject drop = Instantiate(pickupItem, transform.position, Quaternion.identity);
-            ServerManager.Spawn(drop);
-            drop.GetComponent<Pickup>().info = new int[2] { farmData.Farms[farmID].items[i].item.itemID, count[i] };
-            count[i] = 0;
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void SetSyncedCount(int[] value)
-    {
-        syncedCount = value;
+        count = value;
     }
 
     public void UpdateUI()
@@ -112,7 +88,8 @@ public class FarmObject : NetworkBehaviour
                 _timeOfLastClose = Time.time;
                 AddItem();
                 UpdateUI();
-                SetSyncedCount(count);
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("SetCount", RpcTarget.All, count);
             }
         }
 
@@ -134,7 +111,8 @@ public class FarmObject : NetworkBehaviour
             AddItem();
         }
         UpdateUI();
-        SetSyncedCount(count);
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("SetCount", RpcTarget.All, count);
         _timeOfLastClose = Time.time;
     }
     public void AddItem()

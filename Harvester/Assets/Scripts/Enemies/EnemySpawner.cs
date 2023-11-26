@@ -1,12 +1,12 @@
-using FishNet.Object;
 using Newtonsoft.Json;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySpawner : NetworkBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     [Header("Data")]
     public GameObject[] enemies;
@@ -18,10 +18,10 @@ public class EnemySpawner : NetworkBehaviour
     private float _timeSinceLastSpawn;
     public float spawnSearchRadius = 5;
 
-    public override void OnStartClient()
+    public void Start()
     {
-        base.OnStartClient();
-        if (base.IsOwner)
+        PhotonView photonView = PhotonView.Get(this);
+        if (!photonView.IsMine)
             gameObject.GetComponent<EnemySpawner>().enabled = false;
     }
 
@@ -48,15 +48,7 @@ public class EnemySpawner : NetworkBehaviour
             var navMeshpos = NavMesh.SamplePosition(randomPos, out navHit, spawnSearchRadius, -1);
 
             // spawn enemy in given area
-            SpawnEnemies(selectedArea, navHit.position);
+            PhotonNetwork.Instantiate(enemies[selectedArea].name, navHit.position, Quaternion.identity, 0);
         }
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    public void SpawnEnemies(int ID, Vector3 pos)
-    {
-        var enemy = Instantiate(enemies[ID], pos, Quaternion.identity);
-        ServerManager.Spawn(enemy, base.LocalConnection);
     }
 }

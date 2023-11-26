@@ -1,6 +1,6 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
 using JetBrains.Annotations;
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 
-public class CraftingStationObject : NetworkBehaviour
+public class CraftingStationObject : MonoBehaviour
 {
     [Header("Inventory")]
     public Inventory inventory;
@@ -46,7 +46,7 @@ public class CraftingStationObject : NetworkBehaviour
     public GameObject craftingUI;
     public Image itemIcon;
     public bool crafting;
-    [SyncVar] public int[] items = new int[2]{ 0, 0 };
+    public int[] items = new int[2]{ 0, 0 };
 
     void Start()
     {
@@ -167,13 +167,15 @@ public class CraftingStationObject : NetworkBehaviour
         }
         else
         {
-            setItems(currentCraftCount);
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("setItems", RpcTarget.All, currentCraftCount);
+
         }
 
         ItemPressed(currentSelectedRecipieID);
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [PunRPC]
     public void setItems(int itemCount)
     {
         items = new int[] { itemCount, 1 };
@@ -200,10 +202,10 @@ public class CraftingStationObject : NetworkBehaviour
             }
 
 
-            GameObject drop = Instantiate(pickupPrefab, itemSpawnPosition.position, Quaternion.identity);
-            ServerManager.Spawn(drop);
-            drop.GetComponent<Pickup>().info = new int[2] { stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.itemID,
-                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count };
+            GameObject drop = PhotonNetwork.Instantiate(pickupPrefab.name, itemSpawnPosition.position, Quaternion.identity, 0);
+            PhotonView photonView = PhotonView.Get(drop);
+            photonView.RPC("SetPickup", RpcTarget.All, stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.itemID,
+                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count);
             yield return null;
         }
         craftingUI.SetActive(false);

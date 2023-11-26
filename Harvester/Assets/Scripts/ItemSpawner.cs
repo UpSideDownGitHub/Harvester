@@ -1,12 +1,11 @@
-using FishNet.Object;
-using Org.BouncyCastle.Asn1.Mozilla;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ItemSpawner : NetworkBehaviour
+public class ItemSpawner : MonoBehaviour
 {
     public SpawnAreas spawns;
     public GridManager gridManager;
@@ -14,16 +13,16 @@ public class ItemSpawner : NetworkBehaviour
 
     public int maxSpawnAttempts;
 
-    public override void OnStartClient()
+
+    public void Start()
     {
-        base.OnStartClient();
         for (int i = 0; i < spawns.spawns.Length; i++)
         {
             spawns.spawns[i].currentItems = 0;
             spawns.spawns[i].timeOfLastSpawn = 0;
         }
-
-        if (base.IsOwner)
+        PhotonView view = PhotonView.Get(this);
+        if (!view.IsMine)
             gameObject.GetComponent<ItemSpawner>().enabled = false;
     }
 

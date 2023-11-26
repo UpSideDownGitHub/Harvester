@@ -101,7 +101,10 @@ public class Enemy : MonoBehaviour
         {
             die = true;
             if (boss)
-                bossManager.BossKilled(bossID);
+            { 
+                if (PhotonNetwork.IsMasterClient)
+                    bossManager.BossKilled(bossID);
+            }
             Invoke("despawn", 0.2f);
         }
     }

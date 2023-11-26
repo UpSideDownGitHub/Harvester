@@ -1,11 +1,12 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Pickup : NetworkBehaviour
+public class Pickup : MonoBehaviour
 {
     [Header("Pickup Info")]
     public Item item;
@@ -22,25 +23,18 @@ public class Pickup : NetworkBehaviour
 
     [Header("Synced info")]
     public ItemData items;
-    [SyncVar(OnChange = "UpdatePickup")] public int[] info;
+    public int[] info;
 
     [Header("WaitTime")]
     public float waitTime;
     private float _timeOfSpawn;
 
-    public void UpdatePickup(int[] oldValue, int[] newValue, bool asServer)
+    [PunRPC]
+    public void SetPickup(int item, int count)
     {
-        if (asServer)
-            return;
-
-        SetPickup(items.items[newValue[0]], newValue[1], items.items[newValue[0]].icon);
-    }
-
-    public void SetPickup(Item item, int count, Sprite icon)
-    {
-        this.item = item;
+        this.item = items.items[item];
         this.count = count;
-        spriteRenderer.sprite = icon;
+        spriteRenderer.sprite = items.items[item].icon;
     }
 
     public void Start()
@@ -59,15 +53,9 @@ public class Pickup : NetworkBehaviour
                 print("ADDED THE OBJCT TO INVENTORY: " + count);
                 inRange = false;
                 player.GetComponent<Player>().inventory.AddItem(item, count);
-                DespawnObject(gameObject);
+                PhotonNetwork.Destroy(gameObject);
             }
         }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void DespawnObject(GameObject toDestroy)
-    {
-        Despawn(toDestroy);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

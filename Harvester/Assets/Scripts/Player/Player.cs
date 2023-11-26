@@ -4,6 +4,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -392,7 +393,7 @@ public class Player : MonoBehaviour
             if (Time.time > decreaseHealthTime + _timeSinceLastHealthDecrease)
             {
                 _timeSinceLastHealthDecrease = Time.time;
-                DecreaseHealth();
+                photonView.RPC("DecreaseHealth", RpcTarget.All);
             }
         }
         else
@@ -461,7 +462,9 @@ public class Player : MonoBehaviour
                     if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Boss"))
                     {
                         // deal damage to the enemy
-                        hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(toolData.Tools[itemType.toolID].toolDamage[itemType.toolLevel]);
+                        PhotonView photonView = PhotonView.Get(hit.collider.gameObject);
+                        photonView.RPC("TakeDamage", RpcTarget.All, toolData.Tools[itemType.toolID].toolDamage[itemType.toolLevel]);
+
                     }
                 }
             }
@@ -476,7 +479,8 @@ public class Player : MonoBehaviour
                     //print("Tool Type: " + toolData.Tools[itemType.toolID].type);
                     if (placeable.placeable.breakType == toolData.Tools[itemType.toolID].type)
                     {
-                        placeable.TakeDamage(toolData.Tools[itemType.toolID].toolDamage[itemType.toolLevel]);
+                        PhotonView photonView = PhotonView.Get(placeable);
+                        photonView.RPC("TakeDamage", RpcTarget.All, toolData.Tools[itemType.toolID].toolDamage[itemType.toolLevel]);
                     }
                 }
             }
