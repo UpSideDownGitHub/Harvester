@@ -199,8 +199,8 @@ MonoBehaviour:
   playerName: 
   maxHealth: 3
   curHealth: 3
-  heartFullIcon: {fileID: -1116832315, guid: 68f72dedfdd884149b7d2dcb01e257dd, type: 3}
-  heartEmptyIcon: {fileID: -581780227, guid: 68f72dedfdd884149b7d2dcb01e257dd, type: 3}
+  heartFullIcon: {fileID: 21300000, guid: 39ab9c1f4174d0e448584e42fa73491d, type: 3}
+  heartEmptyIcon: {fileID: 21300000, guid: e3d7b35f2feb8ef4699475786a69127b, type: 3}
   healthIcons:
   - {fileID: 0}
   - {fileID: 0}
