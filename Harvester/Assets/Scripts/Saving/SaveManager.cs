@@ -1,5 +1,5 @@
 ﻿
-#define TEST
+//#define TEST
 
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -23,6 +23,7 @@ public class SaveManager : MonoBehaviour
         // Make Singleton
         if (instance == null) instance = this;
         else Destroy(gameObject);
+        DontDestroyOnLoad(this);
 
 #if TEST
         MapSaveData mapData = LoadMapSaveData();
@@ -39,11 +40,15 @@ public class SaveManager : MonoBehaviour
     }
 
     // save the current data to the file
+    public void SaveGeneralData(GeneralSaveData data)
+    {
+        string temp = JsonConvert.SerializeObject(data);
+        File.WriteAllText(Application.persistentDataPath + "/generalSaveData.json", temp);
+    }
     public void SaveMapData(MapSaveData data)
     {
         string temp = JsonConvert.SerializeObject(data);
         File.WriteAllText(Application.persistentDataPath + "/mapSaveData.json", temp);
-        print("Saved Data");
     }
     public void SavePlayerData(PlayerSaveData data)
     {
@@ -51,6 +56,13 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/playerSaveData.json", temp);
     }
 
+    public GeneralSaveData LoadGeneralSaveData()
+    {
+        if (!FileExists(Application.persistentDataPath + "/generalSaveData.json"))
+            SaveGeneralData(new GeneralSaveData());
+        string temp = File.ReadAllText(Application.persistentDataPath + "/generalSaveData.json");
+        return JsonConvert.DeserializeObject<GeneralSaveData>(temp);
+    }
     public MapSaveData LoadMapSaveData()
     {
         if (FileExists(Application.persistentDataPath + "/mapSaveData.json"))
@@ -96,6 +108,12 @@ public class SaveManager : MonoBehaviour
 
 // save data classes
 [Serializable]
+public class GeneralSaveData
+{
+    public int mapID;
+    public int playerID;
+}
+[Serializable]
 public class MapSaveData
 {
     public List<MapData> maps = new();
@@ -138,9 +156,10 @@ public class PlayerSaveData
 [Serializable]
 public class PlayerData
 {
-    public PlayerData(string name) { playerName = name; }
+    public PlayerData(string name) { playerName = name; hearts = 3; }
 
     public string playerName;
+    public int hearts;
     // item ID and then Count and if it is in hotbar
     public Dictionary<int, int> inventory = new();
     public Dictionary<int, bool> hotbar = new();

@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour
     [Header("Data")]
     public GameObject[] enemies;
     public GridManager grid;
-    public PickedData currentData;
 
     [Header("Spawning")]
     public float spawnTime;
@@ -31,6 +30,7 @@ public class EnemySpawner : MonoBehaviour
         {
             _timeSinceLastSpawn = Time.time;
             // check all available ares from the savedata
+            var currentData = SaveManager.instance.LoadGeneralSaveData();
             var save = SaveManager.instance.LoadMapSaveData();
             int unlockedAreas = 1;
             unlockedAreas += save.maps[currentData.mapID].section1Unlocked ? 1 : 0;

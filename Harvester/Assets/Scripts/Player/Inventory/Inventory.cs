@@ -23,9 +23,6 @@ public class Inventory : MonoBehaviour
     public List<GameObject> currentHotbarItems = new();
     public Player player;
 
-    [Header("Save Data")]
-    public PickedData pickedData;
-
     public bool isInventoryOpen()
     {
         return inventoryCanvas.activeInHierarchy;
@@ -34,6 +31,7 @@ public class Inventory : MonoBehaviour
     public void SavePlayerData()
     {
         // Save the current map data to the file
+        var pickedData = SaveManager.instance.LoadGeneralSaveData();
         var saveData = SaveManager.instance.LoadPlayerSaveData();
         var playerData = saveData.players[pickedData.playerID];
         playerData.inventory.Clear();
@@ -46,7 +44,8 @@ public class Inventory : MonoBehaviour
         {
             playerData.hotbar.Add(item.Key.itemID, item.Value);
         }
-        saveData.players[pickedData.mapID] = playerData;
+        saveData.players[pickedData.playerID] = playerData;
+        saveData.players[pickedData.playerID].hearts = player.curHealth;
         SaveManager.instance.SavePlayerData(saveData);
     }
 

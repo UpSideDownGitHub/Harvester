@@ -29,9 +29,6 @@ public class GridManager : MonoBehaviour
     [Header("NavMesh")]
     public NavMeshManager navMeshmanager;
 
-    [Header("Save Data")]
-    public PickedData pickedData;
-
     public void Start()
     {
         PhotonView photonView = PhotonView.Get(this);
@@ -40,6 +37,7 @@ public class GridManager : MonoBehaviour
             GetComponent<GridManager>().enabled = false;
 
         // go through the list of items and spawn them all
+        var pickedData = SaveManager.instance.LoadGeneralSaveData();
         var saveData = SaveManager.instance.LoadMapSaveData();
         var mapData = saveData.maps[pickedData.mapID];
 
@@ -55,6 +53,7 @@ public class GridManager : MonoBehaviour
     public void SaveMapData()
     {
         // Save the current map data to the file
+        var pickedData = SaveManager.instance.LoadGeneralSaveData();
         var saveData = SaveManager.instance.LoadMapSaveData();
         var mapData = saveData.maps[pickedData.mapID];
         mapData.worldPositions.Clear();

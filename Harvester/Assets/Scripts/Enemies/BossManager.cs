@@ -8,7 +8,6 @@ public class BossManager : MonoBehaviour
 {
     public string bossTag;
     public GameObject[] areaBlockers;
-    public PickedData currentData;
 
     public PhotonView photonView;
 
@@ -18,6 +17,7 @@ public class BossManager : MonoBehaviour
             return;
 
         // load the save data
+        var currentData = SaveManager.instance.LoadGeneralSaveData();
         var save = SaveManager.instance.LoadMapSaveData();
         if (save.maps[currentData.mapID].section1Unlocked)
             areaBlockers[0].SetActive(false);
@@ -33,7 +33,7 @@ public class BossManager : MonoBehaviour
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
-
+        var currentData = SaveManager.instance.LoadGeneralSaveData();
         var save = SaveManager.instance.LoadMapSaveData();
         if (bossID == 0)
         {

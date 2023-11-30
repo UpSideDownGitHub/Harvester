@@ -91,9 +91,6 @@ public class Player : MonoBehaviour
 
     public Transform spawnPoint;
 
-    [Header("Save Data")]
-    public PickedData pickedData;
-
     [Header("Misc Manager")]
     public MiscManager miscManager;
 
@@ -122,6 +119,7 @@ public class Player : MonoBehaviour
 
             // load all info from the save
             var save = SaveManager.instance.LoadPlayerSaveData();
+            var pickedData = SaveManager.instance.LoadGeneralSaveData();
             playerName = save.players[pickedData.playerID].playerName;
             inventory.SetInventory(save.players[pickedData.playerID].inventory, save.players[pickedData.playerID].hotbar);
         }

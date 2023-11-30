@@ -241,7 +241,6 @@ MonoBehaviour:
   previousVelocity: {x: 0, y: 0}
   movingMagnitudeThreshold: 0.1
   spawnPoint: {fileID: 0}
-  pickedData: {fileID: 11400000, guid: 7f7e3200cb2a3d946a122a455e6628c7, type: 2}
   miscManager: {fileID: 0}
 --- !u!114 &7787565192795268875
 MonoBehaviour:

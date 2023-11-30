@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Odbc;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -28,9 +29,159 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
     public Transform playerSpawnArea;
 
+    [Header("Player & Map Selection")]
+    public Transform playerIconSpawnPosition;
+    public Transform mapIconSpawnPosition;
+    public GameObject menuPlayerObject;
+    public GameObject menuMapObject;
+
+    public Sprite heartIcon;
+    public Sprite emptyHeartIcon;
+    public Sprite[] mapIcons;
+
+    public List<GameObject> loadedPlayers = new();
+    public List<GameObject> loadedMaps = new();
+
+    public GameObject playerCreationUI;
+    public GameObject mapCreationUI;
+
+    public TMP_InputField playerNameEntry;
+    public TMP_InputField mapNameEntry;
+
+
+    [Header("Current Selected")]
+    public int currentSelectedPlayer = -1;
+    public int currentSelectedMap = -1;
+
+    public void PlayerSelected(int ID)
+    {
+        currentSelectedPlayer = ID;
+    }
+    public void MapSelected(int ID)
+    {
+        currentSelectedMap = ID;
+    }
+
+    public void DeletePlayer()
+    {
+        if (currentSelectedPlayer == -1)
+            return;
+        var currentPlayers = SaveManager.instance.LoadPlayerSaveData();
+        currentPlayers.players.RemoveAt(currentSelectedPlayer);
+        SaveManager.instance.SavePlayerData(currentPlayers);
+        LoadSavedPlayers();
+    }
+    public void DeleteMap()
+    {
+        if (currentSelectedMap == -1)
+            return;
+        var currentMaps = SaveManager.instance.LoadMapSaveData();
+        currentMaps.maps.RemoveAt(currentSelectedMap);
+        SaveManager.instance.SaveMapData(currentMaps);
+        LoadSavedMaps();
+    }
+
+    public void CancelPressed()
+    {
+        playerCreationUI.SetActive(false);
+        mapCreationUI.SetActive(false);
+    }
+
+    public void CreateMapPressed()
+    {
+        if (mapNameEntry.text.Length <= 3)
+            return;
+        var currentMaps = SaveManager.instance.LoadMapSaveData();
+        MapData newMap = new MapData(mapNameEntry.text);
+        currentMaps.maps.Add(newMap);
+        SaveManager.instance.SaveMapData(currentMaps);
+        LoadSavedMaps();
+        mapCreationUI.SetActive(false);
+    }
+    public void CreatePlayerPressed()
+    {
+        if (playerNameEntry.text.Length <= 3)
+            return;
+        var currentPlayers = SaveManager.instance.LoadPlayerSaveData();
+        PlayerData newPlayer = new PlayerData(playerNameEntry.text);
+        currentPlayers.players.Add(newPlayer);
+        SaveManager.instance.SavePlayerData(currentPlayers);
+        LoadSavedPlayers();
+        playerCreationUI.SetActive(false);
+    }
+
+    public void CreateNewPlayerPressed()
+    {
+        playerCreationUI.SetActive(true);
+    }
+    public void CreateNewMapPressed()
+    {
+        mapCreationUI.SetActive(true);
+    }
+
+    public void LoadSavedPlayers()
+    {
+        for (int i = 0; i < loadedPlayers.Count; i++)
+        {
+            Destroy(loadedPlayers[i]);
+        }
+        loadedPlayers.Clear();
+
+        var savedPlayers = SaveManager.instance.LoadPlayerSaveData();
+        for (int i = 0; i < savedPlayers.players.Count; i++)
+        {
+            // add an item for each of the players
+            var tempPlayer = Instantiate(menuPlayerObject, playerIconSpawnPosition).GetComponent<MenuPlayerID>();
+            tempPlayer.ID = i;
+            tempPlayer.playerName.text = savedPlayers.players[i].playerName;
+            for (int j = 0; j < tempPlayer.heartIcons.Length; j++)
+            {
+                if (savedPlayers.players[i].hearts > j)
+                    tempPlayer.heartIcons[j].sprite = heartIcon;
+                else
+                    tempPlayer.heartIcons[j].sprite = emptyHeartIcon;
+            }
+            tempPlayer.Setup(this);
+            loadedPlayers.Add(tempPlayer.gameObject);
+        }
+    }
+    public void LoadSavedMaps()
+    {
+        for (int i = 0; i < loadedMaps.Count; i++)
+        {
+            Destroy(loadedMaps[i]);
+        }
+        loadedMaps.Clear();
+
+        var savedMaps = SaveManager.instance.LoadMapSaveData();
+        for (int i = 0; i < savedMaps.maps.Count; i++)
+        {
+            // add an item for each of the maps
+            var tempMap = Instantiate(menuMapObject, mapIconSpawnPosition).GetComponent<MenuMapID>();
+            tempMap.ID = i;
+            tempMap.mapName.text = savedMaps.maps[i].mapName;
+            if (savedMaps.maps[i].section4Unlocked)
+                tempMap.mapIcon.sprite = mapIcons[4];
+            else if (savedMaps.maps[i].section3Unlocked)
+                tempMap.mapIcon.sprite = mapIcons[3];
+            else if (savedMaps.maps[i].section2Unlocked)
+                tempMap.mapIcon.sprite = mapIcons[2];
+            else if (savedMaps.maps[i].section1Unlocked)
+                tempMap.mapIcon.sprite = mapIcons[1];
+            else
+                tempMap.mapIcon.sprite = mapIcons[0];
+            tempMap.Setup(this);
+            loadedMaps.Add(tempMap.gameObject);
+        }
+    }
+
     public void Start()
     {
         PhotonNetwork.JoinLobby();
+        currentSelectedMap = -1;
+        currentSelectedPlayer = -1;
+        LoadSavedPlayers();
+        LoadSavedMaps();
     }
 
     public void Update()
@@ -48,7 +199,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CreateClicked()
     {
-        if(roomInput.text.Length >= 1)
+        if(roomInput.text.Length >= 1 && currentSelectedMap != -1 && currentSelectedPlayer != -1)
         {
             PhotonNetwork.CreateRoom(roomInput.text, new Photon.Realtime.RoomOptions() { MaxPlayers = 3 , BroadcastPropsChangeToAll = true});
         }
@@ -111,7 +262,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void JoinRoom(string roomName)
     {
-        PhotonNetwork.JoinRoom(roomName);
+        if (currentSelectedMap != -1 && currentSelectedPlayer != -1)
+            PhotonNetwork.JoinRoom(roomName);
     }
 
     public void LeaveClicked()
