@@ -642,7 +642,7 @@ MonoBehaviour:
   itemRecipePrefab: {fileID: 2740472527706158954, guid: 91657ad77d772f54ca66a47a40591dd5, type: 3}
   itemName: {fileID: 1533488683460434580}
   icon: {fileID: 8498281615015182114}
-  itemAmountParent: {fileID: 8506423214964810314}
+  itemAmountParent: {fileID: 1529096781705924559}
   itemAmountPrefab: {fileID: 1915144375579414100, guid: a5c65a1d883cdca4fabd0d6bf8dd5735, type: 3}
   instantCrafting: 0
   craftTimeSlider: {fileID: 6519249778130209036}
@@ -1086,6 +1086,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -44.0397
       objectReference: {fileID: 0}
+    - target: {fileID: 1702214247296559283, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1688224856362671231}
+    - target: {fileID: 1702214247296559283, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DecreaseCraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000269847901485275, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1688224856362671231}
     - target: {fileID: 2088874694719897139, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1238,6 +1250,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5850912697249795985, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1688224856362671231}
+    - target: {fileID: 5850912697249795985, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IncreaseCraft
+      objectReference: {fileID: 0}
     - target: {fileID: 5928881178439010068, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1273,6 +1293,14 @@ PrefabInstance:
     - target: {fileID: 5997385091202777305, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DecreaseCraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 6395130510555828921, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1688224856362671231}
+    - target: {fileID: 6395130510555828921, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetToOne
       objectReference: {fileID: 0}
     - target: {fileID: 6592646058970109738, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1338,6 +1366,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMax
       objectReference: {fileID: 0}
+    - target: {fileID: 8207013000267038957, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1688224856362671231}
+    - target: {fileID: 8207013000267038957, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetMax
+      objectReference: {fileID: 0}
     - target: {fileID: 8404436898419008513, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1359,6 +1395,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+--- !u!224 &1529096781705924559 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1869812105816860481, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+  m_PrefabInstance: {fileID: 921717711333369998}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1533488683460434580 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1838192722738655770, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
@@ -1429,8 +1470,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &8506423214964810314 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8846894340621667012, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
-  m_PrefabInstance: {fileID: 921717711333369998}
-  m_PrefabAsset: {fileID: 0}

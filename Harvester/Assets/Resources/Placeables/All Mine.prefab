@@ -1006,8 +1006,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Stone
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
+  m_sharedMaterial: {fileID: 1714030720894390590, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1399,8 +1399,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Raw Iron
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
+  m_sharedMaterial: {fileID: 1714030720894390590, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1533,8 +1533,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Raw Coal
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
+  m_sharedMaterial: {fileID: 1714030720894390590, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2076,8 +2076,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Raw Radiant Ore
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
+  m_sharedMaterial: {fileID: 1714030720894390590, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2662,8 +2662,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Raw Etherium
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
+  m_sharedMaterial: {fileID: 1714030720894390590, guid: 2b220b5b8c42bd0409fe050fc125c174, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
