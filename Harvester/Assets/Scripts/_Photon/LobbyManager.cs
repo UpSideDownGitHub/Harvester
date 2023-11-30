@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -52,13 +53,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("Current Selected")]
     public int currentSelectedPlayer = -1;
     public int currentSelectedMap = -1;
+    public Color selectedColour;
+    public Color defaultColour;
+    public Image currentSelectedPlayerImage;
+    public Image currentSelectedMapImage;
+    public Image previousSelectedPlayerImage;
+    public Image previousSelectedMapImage;
 
-    public void PlayerSelected(int ID)
+    public void PlayerSelected(int ID, MenuPlayerID image)
     {
+        if (previousSelectedPlayerImage != null)
+            previousSelectedPlayerImage.color = defaultColour;
+        currentSelectedPlayerImage = image.gameObject.GetComponent<Image>();
+        previousSelectedPlayerImage = currentSelectedPlayerImage;
+        currentSelectedPlayerImage.color = selectedColour;
         currentSelectedPlayer = ID;
+        PhotonNetwork.NickName = SaveManager.instance.LoadPlayerSaveData().players[ID].playerName;
     }
-    public void MapSelected(int ID)
+    public void MapSelected(int ID, MenuMapID image)
     {
+        if (previousSelectedMapImage != null)
+            previousSelectedMapImage.color = defaultColour;
+        currentSelectedMapImage = image.gameObject.GetComponent<Image>();
+        previousSelectedMapImage = currentSelectedMapImage;
+        currentSelectedMapImage.color = selectedColour;
         currentSelectedMap = ID;
     }
 
@@ -147,6 +165,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void LoadSavedMaps()
     {
+        currentSelectedMap = -1;
+        currentSelectedPlayer = -1;
+        previousSelectedMapImage = null;
+        previousSelectedPlayerImage = null;
         for (int i = 0; i < loadedMaps.Count; i++)
         {
             Destroy(loadedMaps[i]);

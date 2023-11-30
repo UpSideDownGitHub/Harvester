@@ -15,6 +15,6 @@ public class MenuMapID : MonoBehaviour
     public void Setup(LobbyManager manager)
     {
         lobbyManager = manager;
-        button.onClick.AddListener(() => lobbyManager.MapSelected(ID));
+        button.onClick.AddListener(() => lobbyManager.MapSelected(ID, this));
     }
 }

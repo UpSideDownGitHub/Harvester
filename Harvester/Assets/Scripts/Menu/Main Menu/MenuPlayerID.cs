@@ -15,6 +15,6 @@ public class MenuPlayerID : MonoBehaviour
     public void Setup(LobbyManager manager)
     {
         lobbyManager = manager;
-        button.onClick.AddListener(() => lobbyManager.PlayerSelected(ID));
+        button.onClick.AddListener(() => lobbyManager.PlayerSelected(ID, this));
     }
 }
