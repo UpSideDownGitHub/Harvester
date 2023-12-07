@@ -111,6 +111,8 @@ public class Player : MonoBehaviour
             basicCrafting = GameObject.FindGameObjectWithTag("Manager").GetComponent<CraftingStationObject>();
             bossManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BossManager>();
             miscManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>();
+            miscManager.currentAlivePlayers++;
+            miscManager.currentPlayers++;
             curHealth = maxHealth;
             staminaSlider.value = maxStamina;
             currentStamina = maxStamina;
@@ -338,8 +340,12 @@ public class Player : MonoBehaviour
             {
                 transform.position = spawnPoint.position;
                 dead = false;
+                // this is not meant to be used like this but there seems to be an issue with the death animation playing forever when the player dies
+                hit = false;
+                die = false;
                 curHealth = maxHealth;
                 currentStamina = maxStamina;
+                miscManager.currentAlivePlayers++;
                 UpdateHealthUI();
                 print(curHealth + " Current Health");
                 miscManager.deathUI.SetActive(false);
@@ -374,7 +380,6 @@ public class Player : MonoBehaviour
             var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
             SetSelected(itemToSelect);
         }
-        
         // ITEM USAGE
         // used button pressed when not in the inventory
         if(Input.GetMouseButtonDown(0) && !inventory.isInventoryOpen() && 
@@ -526,9 +531,6 @@ public class Player : MonoBehaviour
         curHealth = curHealth - 1 < 0 ? 0 : curHealth - 1;
         UpdateHealthUI();
 
-        hit = true;
-        PlayAnimation();
-
         if (curHealth - 1 < 0)
         {
             // Kill the player and end the game
@@ -536,9 +538,14 @@ public class Player : MonoBehaviour
             PlayAnimation();
             dead = true;
             _timeOfDeath = Time.time;
+            miscManager.currentAlivePlayers--;
             if (miscManager)
                 miscManager.deathUI.SetActive(true);
+            return;
         }
+
+        hit = true;
+        PlayAnimation();
     }
     public void UpdateHealthUI()
     {

@@ -43,6 +43,7 @@ public class Enemy : MonoBehaviour
     public bool boss;
     public int bossID;
     public BossManager bossManager;
+    public MiscManager miscManager;
 
     [Header("Photon")]
     public PhotonView photonView;
@@ -56,11 +57,15 @@ public class Enemy : MonoBehaviour
         healthSlider.value = maxHealth;
         curHealth = maxHealth;
         bossManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BossManager>();
+        miscManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (miscManager.currentAlivePlayers == 0)
+            despawn();
+
         PlayAnimation();
         if (targetTransform == null && Time.time > wanderTime + _timeSinceLastWander)
         {

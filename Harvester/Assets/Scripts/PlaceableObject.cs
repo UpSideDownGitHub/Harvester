@@ -30,6 +30,9 @@ public class PlaceableObject : MonoBehaviour
     public SpawnAreas spawnAreas;
     public int spawnAreaID;
 
+    [Header("Better Item Spawning")]
+    public float itemSpawnRange = 0.5f;
+
     public void Start()
     {
         currentHealth = placeable.health;
@@ -83,7 +86,10 @@ public class PlaceableObject : MonoBehaviour
             {
                 for (int i = 0; i < farm.count.Length; i++)
                 {
-                    GameObject drop = PhotonNetwork.Instantiate(pickupItem.name, transform.position, Quaternion.identity, 0);
+                    var spawnPosition = new Vector2(transform.position.x + Random.Range(-itemSpawnRange, itemSpawnRange),
+                        transform.position.y + Random.Range(-itemSpawnRange, itemSpawnRange));
+                    GameObject drop = PhotonNetwork.Instantiate(pickupItem.name, spawnPosition, Quaternion.identity, 0);
+
                     PhotonView photonView1 = PhotonView.Get(drop);
                     photonView1.RPC("SetPickup", RpcTarget.All, farm.farmData.Farms[farm.farmID].items[i].item.itemID, farm.count[i]);
                     farm.count[i] = 0;
@@ -92,7 +98,10 @@ public class PlaceableObject : MonoBehaviour
 
             for (int i = 0; i < placeable.drops.Length; i++)
             {
-                GameObject drop = PhotonNetwork.Instantiate(pickupItem.name, transform.position, Quaternion.identity, 0);
+                var spawnPosition = new Vector2(transform.position.x + Random.Range(-itemSpawnRange, itemSpawnRange),
+                        transform.position.y + Random.Range(-itemSpawnRange, itemSpawnRange));
+                GameObject drop = PhotonNetwork.Instantiate(pickupItem.name, spawnPosition, Quaternion.identity, 0);
+
                 PhotonView photonView2 = PhotonView.Get(drop);
                 photonView2.RPC("SetPickup", RpcTarget.All, placeable.drops[i].item.itemID, placeable.drops[i].count);
             }

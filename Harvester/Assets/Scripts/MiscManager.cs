@@ -7,4 +7,7 @@ using UnityEngine.UI;
 public class MiscManager : MonoBehaviour
 {
     public GameObject deathUI;
+
+    public int currentPlayers;
+    public int currentAlivePlayers;
 }

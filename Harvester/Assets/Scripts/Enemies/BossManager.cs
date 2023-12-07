@@ -13,47 +13,66 @@ public class BossManager : MonoBehaviour
 
     public void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
             return;
+
+        PhotonView photonView = PhotonView.Get(this);
 
         // load the save data
         var currentData = SaveManager.instance.LoadGeneralSaveData();
         var save = SaveManager.instance.LoadMapSaveData();
         if (save.maps[currentData.mapID].section1Unlocked)
-            areaBlockers[0].SetActive(false);
+        {
+            photonView.RPC("UnlockArea", RpcTarget.All, 0);
+        }
         if (save.maps[currentData.mapID].section2Unlocked)
-            areaBlockers[1].SetActive(false);
+        {
+            photonView.RPC("UnlockArea", RpcTarget.All, 1);
+        }
         if (save.maps[currentData.mapID].section3Unlocked)
-            areaBlockers[2].SetActive(false);
+        {
+            photonView.RPC("UnlockArea", RpcTarget.All, 2);
+        }
         if (save.maps[currentData.mapID].section4Unlocked)
-            areaBlockers[3].SetActive(false);
+        {
+            photonView.RPC("UnlockArea", RpcTarget.All, 3);
+        }
+    }
+
+    [PunRPC]
+    public void UnlockArea(int areaID)
+    {
+        areaBlockers[areaID].SetActive(false);
     }
 
     public void BossKilled(int bossID)
     {
         if (!PhotonNetwork.IsMasterClient)
             return;
+
+        PhotonView photonView = PhotonView.Get(this);
+
         var currentData = SaveManager.instance.LoadGeneralSaveData();
         var save = SaveManager.instance.LoadMapSaveData();
         if (bossID == 0)
         {
             save.maps[currentData.mapID].section1Unlocked = true;
-            areaBlockers[0].SetActive(false);
+            photonView.RPC("UnlockArea", RpcTarget.All, 0);
         }
         else if (bossID == 1)
         {
             save.maps[currentData.mapID].section2Unlocked = true;
-            areaBlockers[1].SetActive(false);
+            photonView.RPC("UnlockArea", RpcTarget.All, 1);
         }
         else if (bossID == 2)
         {
             save.maps[currentData.mapID].section3Unlocked = true;
-            areaBlockers[2].SetActive(false);
+            photonView.RPC("UnlockArea", RpcTarget.All, 2);
         }
         else if (bossID == 3)
         {
             save.maps[currentData.mapID].section4Unlocked = true;
-            areaBlockers[3].SetActive(false);
+            photonView.RPC("UnlockArea", RpcTarget.All, 3);
         }
         SaveManager.instance.SaveMapData(save);
     }
