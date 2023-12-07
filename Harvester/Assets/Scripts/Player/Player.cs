@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.Playables;
 using UnityEngine.UI;
@@ -93,6 +94,7 @@ public class Player : MonoBehaviour
 
     [Header("Misc Manager")]
     public MiscManager miscManager;
+    public NavMeshManager navMeshManager;
 
     [Header("Photon Things")]
     PhotonView photonView;
@@ -111,6 +113,7 @@ public class Player : MonoBehaviour
             basicCrafting = GameObject.FindGameObjectWithTag("Manager").GetComponent<CraftingStationObject>();
             bossManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BossManager>();
             miscManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>();
+            navMeshManager = GameObject.FindGameObjectWithTag("NavMesh").GetComponent<NavMeshManager>();
             miscManager.currentAlivePlayers++;
             miscManager.currentPlayers++;
             curHealth = maxHealth;
@@ -494,7 +497,7 @@ public class Player : MonoBehaviour
             print("Boss");
             // need to add a check here to check if a boss has already been spawned and if there is then dont allow another to be spawned
             if (!bossManager.isBossAlive())
-                SpawnBoss(itemType.bossID, transform.position + bossSpawnOffset);
+                SpawnBoss(itemType.bossID, Input.mousePosition + bossSpawnOffset);
         }    
         else
         {
@@ -505,7 +508,9 @@ public class Player : MonoBehaviour
 
     public void SpawnBoss(int bossID, Vector3 bossSpawnPosition)
     {
-        PhotonNetwork.Instantiate("Enemies/" + bosses.bosses[bossID].bossObject.name, bossSpawnPosition, Quaternion.identity, 0);
+        var worldPosision = Camera.main.ScreenToWorldPoint(bossSpawnPosition);
+        var spawnPos = navMeshManager.GetClosestNavMeshPosition(worldPosision);
+        PhotonNetwork.Instantiate("Enemies/" + bosses.bosses[bossID].bossObject.name, spawnPos, Quaternion.identity, 0);
     }
 
     public void IncreaseStamina(float amount)

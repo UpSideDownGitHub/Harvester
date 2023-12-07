@@ -537,7 +537,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d9a2feddbae69449ec59005d3f1194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {x: 0, y: 0}
+  targetName: 
+  targetTransform: {fileID: 0}
   agent: {fileID: -2245066293618928348}
   attackDistance: 1
   attackTime: 5
@@ -557,6 +559,7 @@ MonoBehaviour:
   boss: 1
   bossID: 3
   bossManager: {fileID: 0}
+  miscManager: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!195 &-2245066293618928348
 NavMeshAgent:

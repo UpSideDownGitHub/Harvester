@@ -374,7 +374,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.2}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 10
 --- !u!114 &9043653102757495963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d9a2feddbae69449ec59005d3f1194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {x: 0, y: 0}
+  targetName: 
+  targetTransform: {fileID: 0}
   agent: {fileID: 4407664011673578532}
   attackDistance: 1
   attackTime: 2
@@ -407,6 +409,7 @@ MonoBehaviour:
   boss: 1
   bossID: 2
   bossManager: {fileID: 0}
+  miscManager: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!195 &4407664011673578532
 NavMeshAgent:

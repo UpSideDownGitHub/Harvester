@@ -12,6 +12,8 @@ TagManager:
   - Spawn
   - Boss
   - Enemy
+  - Bullet
+  - NavMesh
   layers:
   - Default
   - TransparentFX

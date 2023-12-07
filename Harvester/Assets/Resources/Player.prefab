@@ -246,6 +246,7 @@ MonoBehaviour:
   movingMagnitudeThreshold: 0.1
   spawnPoint: {fileID: 0}
   miscManager: {fileID: 0}
+  navMeshManager: {fileID: 0}
 --- !u!114 &7787565192795268875
 MonoBehaviour:
   m_ObjectHideFlags: 0

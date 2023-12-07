@@ -147,7 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d9a2feddbae69449ec59005d3f1194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {x: 0, y: 0}
+  targetName: 
+  targetTransform: {fileID: 0}
   agent: {fileID: -7088946168008391231}
   attackDistance: 1
   attackTime: 2
@@ -167,6 +169,7 @@ MonoBehaviour:
   boss: 0
   bossID: 0
   bossManager: {fileID: 0}
+  miscManager: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!58 &-4003207672339900344
 CircleCollider2D:
