@@ -112,13 +112,15 @@ public class PlaceableObject : MonoBehaviour
 
 
             PhotonView view = PhotonView.Get(this);
-            view.RPC("DestroyObject", RpcTarget.MasterClient);
+            view.RPC("DestroyObject", RpcTarget.All);
         }
     }
 
     [PunRPC]
     public void DestroyObject()
     {
-        PhotonNetwork.Destroy(gameObject);
+        PhotonView view = PhotonView.Get(gameObject);
+        if (view.IsMine)
+            PhotonNetwork.Destroy(gameObject);
     }
 }

@@ -205,6 +205,7 @@ MonoBehaviour:
   boss: 0
   bossID: 0
   bossManager: {fileID: 0}
+  miscManager: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!58 &8720533180955577825
 CircleCollider2D:

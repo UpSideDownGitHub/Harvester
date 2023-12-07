@@ -34,7 +34,6 @@ public class FarmObject : MonoBehaviour
     [Header("Dropping Items")]
     public GameObject pickupItem;
 
-
     void Start()
     {
         _timeOfLastClose = Time.time;
@@ -46,7 +45,6 @@ public class FarmObject : MonoBehaviour
 
         closeMenuButton.onClick.AddListener(() => CloseMenu());
         collectButton.onClick.AddListener(() => CollectPressed());
-
     }
 
     public void CollectPressed()
@@ -60,13 +58,13 @@ public class FarmObject : MonoBehaviour
         UpdateUI();
         PhotonView photonView = PhotonView.Get(this);
         photonView.RPC("SetCount", RpcTarget.All, count);
-
     }
 
     [PunRPC]
     public void SetCount(int[] value)
     {
         count = value;
+        UpdateUI();
     }
 
     public void UpdateUI()
@@ -79,20 +77,6 @@ public class FarmObject : MonoBehaviour
 
     public void Update()
     {
-        if (UI.activeInHierarchy)
-        {
-            // update the numbers real time other wise just do it when collected
-            if (Time.time > _timeOfLastClose + generationTime)
-            {
-                // increase the amount of one of the items held
-                _timeOfLastClose = Time.time;
-                AddItem();
-                UpdateUI();
-                PhotonView photonView = PhotonView.Get(this);
-                photonView.RPC("SetCount", RpcTarget.All, count);
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.E) && inRange)
         {
             if (UI.activeInHierarchy)
@@ -100,23 +84,43 @@ public class FarmObject : MonoBehaviour
             else
                 OpenMenu();
         }
+
+        // only update all of the values if the owner of the object (this should mean it is only done once)
+        PhotonView view = PhotonView.Get(gameObject);
+        if (!view.IsMine)
+            return;
+        if (Time.time > _timeOfLastClose + generationTime)
+        {
+            // increase the amount of one of the items held
+            _timeOfLastClose = Time.time;
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("AddItem", RpcTarget.All);
+            photonView.RPC("SetCount", RpcTarget.All, count);
+        }
     }
 
+    /*
     public void calculateNumbers()
     {
+        PhotonView photonView = PhotonView.Get(this);
         var currentTime = Time.time;
         int totalItemCount = (int)((currentTime - _timeOfLastClose) / generationTime);
         for (int i = 0; i < totalItemCount; i++)
         {
-            AddItem();
+            photonView.RPC("AddItem", RpcTarget.MasterClient);
         }
         UpdateUI();
-        PhotonView photonView = PhotonView.Get(this);
         photonView.RPC("SetCount", RpcTarget.All, count);
         _timeOfLastClose = Time.time;
     }
+    */
+
+    [PunRPC]
     public void AddItem()
     {
+        PhotonView view = PhotonView.Get(gameObject);
+        if (!view.IsMine)
+            return;
         float rand = Random.value;
         for (int j = 0; j < farmData.Farms[farmID].items.Length; j++)
         {
@@ -130,6 +134,7 @@ public class FarmObject : MonoBehaviour
                 break;
             }
         }
+
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -150,7 +155,7 @@ public class FarmObject : MonoBehaviour
 
     public void OpenMenu()
     {
-        calculateNumbers();
+        //calculateNumbers();
         UI.SetActive(true);
     }
     public void CloseMenu()

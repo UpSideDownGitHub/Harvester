@@ -74,7 +74,8 @@ public class Enemy : MonoBehaviour
             randomDirection += transform.position;
             NavMeshHit navHit;
             NavMesh.SamplePosition(randomDirection, out navHit, wanderDistance, -1);
-            agent.SetDestination(navHit.position);
+            try { agent.SetDestination(navHit.position); }
+            catch { despawn();  }
         }
         else if (targetTransform != null)
         {
