@@ -13,12 +13,17 @@ public class ItemSpawner : MonoBehaviour
 
     public int maxSpawnAttempts;
 
+    public int[] currentSpawns;
+
 
     public void Start()
     {
+        var mapSaveData = SaveManager.instance.LoadMapSaveData();
+        var pickedData = SaveManager.instance.LoadGeneralSaveData();
+        currentSpawns = mapSaveData.maps[pickedData.mapID].spawns;
+
         for (int i = 0; i < spawns.spawns.Length; i++)
         {
-            spawns.spawns[i].currentItems = 0;
             spawns.spawns[i].timeOfLastSpawn = 0;
         }
         PhotonView view = PhotonView.Get(this);
@@ -30,7 +35,7 @@ public class ItemSpawner : MonoBehaviour
     {
         for (int i = 0; i < spawns.spawns.Length; i++)
         {
-            if (spawns.spawns[i].currentItems >= spawns.spawns[i].maxItems)
+            if (currentSpawns[i] >= spawns.spawns[i].maxItems)
                 continue;
             if (Time.time < spawns.spawns[i].spawnTime + spawns.spawns[i].timeOfLastSpawn)
                 continue;
@@ -44,7 +49,7 @@ public class ItemSpawner : MonoBehaviour
                 bool placed = gridManager.placeObjectWorld(spawns.spawns[i].itemsToSpawn[randomObject], randomPos);
                 if (placed)
                 {
-                    spawns.spawns[i].currentItems++;
+                    currentSpawns[i]++;
                     break;
                 }
             }

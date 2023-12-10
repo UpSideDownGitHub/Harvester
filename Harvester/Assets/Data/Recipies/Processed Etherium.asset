@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Processed Etherium
   recipeID: 5
-  time: 1
+  time: 0.5
   materials:
   - item: {fileID: 11400000, guid: 10f6021a4a9b3c3478ddcf21f553e4fc, type: 2}
     count: 2
@@ -22,4 +22,4 @@ MonoBehaviour:
     count: 1
   produces:
     item: {fileID: 11400000, guid: b163bca02cb3f1344906adc64946a878, type: 2}
-    count: 1
+    count: 2

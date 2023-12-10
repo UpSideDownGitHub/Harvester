@@ -14,27 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawns:
   - itemsToSpawn: 0a0000000b0000000c0000000d000000
-    maxItems: 50
-    currentItems: 18
+    maxItems: 75
     spawnTime: 5
-    timeOfLastSpawn: 127.52354
+    timeOfLastSpawn: 22.665997
   - itemsToSpawn: 0e0000000d0000000f00000010000000
-    maxItems: 50
-    currentItems: 5
+    maxItems: 75
     spawnTime: 5
-    timeOfLastSpawn: 125.055626
+    timeOfLastSpawn: 22.665997
   - itemsToSpawn: 0f00000011000000120000000b000000
-    maxItems: 50
-    currentItems: 6
+    maxItems: 75
     spawnTime: 5
-    timeOfLastSpawn: 125.055626
+    timeOfLastSpawn: 22.665997
   - itemsToSpawn: 13000000110000001400000015000000
-    maxItems: 50
-    currentItems: 7
+    maxItems: 75
     spawnTime: 5
-    timeOfLastSpawn: 125.055626
+    timeOfLastSpawn: 22.665997
   - itemsToSpawn: 0a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000
-    maxItems: 50
-    currentItems: 5
+    maxItems: 75
     spawnTime: 5
-    timeOfLastSpawn: 125.055626
+    timeOfLastSpawn: 22.665997

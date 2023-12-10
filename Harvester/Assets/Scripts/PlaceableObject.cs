@@ -27,7 +27,8 @@ public class PlaceableObject : MonoBehaviour
     [Header("Nature Item")]
     public borders[] areaBorders;
     public bool isNature;
-    public SpawnAreas spawnAreas;
+    //public SpawnAreas spawnAreas;
+    public ItemSpawner spawner;
     public int spawnAreaID;
 
     [Header("Better Item Spawning")]
@@ -35,16 +36,22 @@ public class PlaceableObject : MonoBehaviour
 
     public void Start()
     {
+        spawner = GameObject.FindGameObjectWithTag("ItemSpawner").GetComponent<ItemSpawner>();
+
         currentHealth = placeable.health;
         healthSlider.minValue = 0;
         healthSlider.maxValue = placeable.health;
         healthSlider.value = healthSlider.maxValue;
 
         // find ther location and thius the spawn area ID
+        //print(transform.position);
         for (int k = 0; k < areaBorders.Length; k++)
         {
             if (inRange(transform.position, areaBorders[k].TL.x, areaBorders[k].BR.x, areaBorders[k].BR.y, areaBorders[k].TL.y))
+            {
                 spawnAreaID = k;
+                break;
+            }
         }
     }
 
@@ -79,7 +86,7 @@ public class PlaceableObject : MonoBehaviour
 
             if (isNature)
             {
-                spawnAreas.spawns[spawnAreaID].currentItems--;
+                spawner.currentSpawns[spawnAreaID] = spawner.currentSpawns[spawnAreaID] - 1 <= 0 ? 0 : spawner.currentSpawns[spawnAreaID] - 1;
             }
 
             if (isFarm)

@@ -25,6 +25,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Data")]
     public PlaceableObjectsData placeables;
+    public ItemSpawner spawner;
 
     [Header("NavMesh")]
     public NavMeshManager navMeshmanager;
@@ -78,7 +79,9 @@ public class GridManager : MonoBehaviour
 
         }
         print("Saving Data: " + mapData.worldPositions.Count + " Peices of data Saved");
+        mapData.spawns = spawner.currentSpawns;
         saveData.maps[pickedData.mapID] = mapData;
+
         SaveManager.instance.SaveMapData(saveData);
     }
     
@@ -137,27 +140,30 @@ public class GridManager : MonoBehaviour
 
     public void Spawn(GameObject objectToSpawn, Vector3 pos, Quaternion rot, List<Vector3Int> gridPositions, int ID)
     {
-        // need to convert gridPosiions to object[]
-        object[] dataToSend = new object[gridPositions.Count];
-        for (int i = 0; i < gridPositions.Count; i++)
+        if (PhotonNetwork.CurrentRoom != null)
         {
-            dataToSend[i] = new Vector3(gridPositions[i].x, gridPositions[i].y, gridPositions[i].z);
+            // need to convert gridPosiions to object[]
+            object[] dataToSend = new object[gridPositions.Count];
+            for (int i = 0; i < gridPositions.Count; i++)
+            {
+                dataToSend[i] = new Vector3(gridPositions[i].x, gridPositions[i].y, gridPositions[i].z);
+            }
+
+            var spawnedObject = PhotonNetwork.Instantiate("Placeables/" + objectToSpawn.name, pos, rot, 0);
+
+            // Chnage name for all instances of this object
+            PhotonView objectView = PhotonView.Get(spawnedObject);
+            objectView.RPC("SetName", RpcTarget.All, spawnedObject.GetInstanceID().ToString());
+
+            // set on grid for all instances of object
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("SetSpawnedObjects", RpcTarget.All, spawnedObject.name, dataToSend, ID);
         }
-
-        var spawnedObject = PhotonNetwork.Instantiate("Placeables/" + objectToSpawn.name, pos, rot, 0);
-
-        // Chnage name for all instances of this object
-        PhotonView objectView = PhotonView.Get(spawnedObject);
-        objectView.RPC("SetName", RpcTarget.All, spawnedObject.GetInstanceID().ToString());
-
-        // set on grid for all instances of object
-        PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("SetSpawnedObjects", RpcTarget.All, spawnedObject.name, dataToSend, ID);
     }
 
     public bool placedObjectGrid(int ID, Vector3Int gridPosition)
     {
-        print(gridPosition);
+        //print(gridPosition);
         // check if the clicked posision is within the bounds of the current area
         if (!isAboveLand(gridPosition, placeables.placeables[ID].size))
         {

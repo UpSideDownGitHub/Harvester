@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Iron Sword
   recipeID: 16
-  time: 1
+  time: 30
   materials:
   - item: {fileID: 11400000, guid: 14059427d7e23d54790a2b61e35d913c, type: 2}
     count: 25

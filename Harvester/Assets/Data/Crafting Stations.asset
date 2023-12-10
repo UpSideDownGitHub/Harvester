@@ -29,6 +29,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 216f4ee27f5c6fd4197db036dc110d95, type: 2}
     - {fileID: 11400000, guid: f18190c5c6f0c164389a75e1ed248592, type: 2}
     - {fileID: 11400000, guid: 0c58c4d94b5e14040874c63be3a1298c, type: 2}
+    - {fileID: 11400000, guid: eefe7a61e1ba0fd478e86c15d6b8a041, type: 2}
   - stationName: Furnace
     stationID: 2
     recipies:

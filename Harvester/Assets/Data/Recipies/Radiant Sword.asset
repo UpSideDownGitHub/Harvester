@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Radiant Sword
   recipeID: 17
-  time: 1
+  time: 30
   materials:
   - item: {fileID: 11400000, guid: d8c1b59ce3a8ef044bb37f405849f931, type: 2}
     count: 25

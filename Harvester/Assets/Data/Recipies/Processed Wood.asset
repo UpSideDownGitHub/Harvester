@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Processed Wood
   recipeID: 1
-  time: 1
+  time: 0.25
   materials:
   - item: {fileID: 11400000, guid: 3ea6abc5ed911fe418447771de6e28cb, type: 2}
-    count: 2
+    count: 1
   produces:
     item: {fileID: 11400000, guid: 54051ae4813f505489c6710650a7b2c2, type: 2}
     count: 1

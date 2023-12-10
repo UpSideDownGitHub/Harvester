@@ -71,9 +71,20 @@ public class Inventory : MonoBehaviour
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            ToggleInventory();
+        {
+            if (MenuManager.IsCurrentMenuClose(MenuID.INVENTORY))
+            {
+                // Close
+                CloseInventory();
+            }
+            else if (MenuManager.CanOpenMenuSet(MenuID.INVENTORY))
+            {
+                // Open
+                OpenInventory();
+            }
+        }
 
-        
+
         if (Input.GetKeyDown(KeyCode.M))
         {
             for (int i = 0; i < data.items.Count; i++)
@@ -183,18 +194,8 @@ public class Inventory : MonoBehaviour
         UpdateHotbarUI();
     }
 
-    public void ToggleInventory()
-    {
-        if (inventoryCanvas.activeInHierarchy)
-            CloseInventory();
-        else
-            OpenInventory();
-    }
     public void OpenInventory()
     {
-        if (craftingCanvas.activeInHierarchy)
-            return;
-
         inventoryCanvas.SetActive(true);
         UpdateUI();
     }

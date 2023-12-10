@@ -130,6 +130,7 @@ public class MapData
         section4Unlocked = false;
     }
 
+    public int[] spawns = new int[5];
     public string mapName;
     public bool section1Unlocked;
     public bool section2Unlocked;

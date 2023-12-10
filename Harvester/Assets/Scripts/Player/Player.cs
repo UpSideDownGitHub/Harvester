@@ -353,7 +353,7 @@ public class Player : MonoBehaviour
                 print(curHealth + " Current Health");
                 miscManager.deathUI.SetActive(false);
             }
-            return; 
+            return;
         }
 
         PlayAnimation();
@@ -361,31 +361,32 @@ public class Player : MonoBehaviour
         // Basic Crafting Station
         if (Input.GetKeyDown(KeyCode.C))
         {
-            if (basicCrafting.UI.activeInHierarchy)
+            if (MenuManager.IsCurrentMenuClose(MenuID.INSTANTCRAFTING))
                 basicCrafting.CloseMenu();
-            else
-            {
-                if (inventory.isInventoryOpen())
-                    return;
+            else if (MenuManager.CanOpenMenuSet(MenuID.INSTANTCRAFTING))
+                basicCrafting.OpenMenu();
+        }
 
-                basicCrafting.OpenMenu(); 
+
+
+        if (MenuManager.IsMenuOpen())
+        {   
+            // HOTBAR
+            if (Input.mouseScrollDelta.y < 0)
+            {
+                var itemToSelect = curSelectedItem + 1 >= hotbarUIObjects.Count ? 0 : curSelectedItem + 1;
+                SetSelected(itemToSelect);
+            }
+            else if (Input.mouseScrollDelta.y > 0)
+            {
+                var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
+                SetSelected(itemToSelect);
             }
         }
 
-        // HOTBAR
-        if (Input.mouseScrollDelta.y < 0)
-        {
-            var itemToSelect = curSelectedItem + 1 >= hotbarUIObjects.Count ? 0 : curSelectedItem + 1;
-            SetSelected(itemToSelect);
-        }
-        else if (Input.mouseScrollDelta.y > 0)
-        {
-            var itemToSelect = curSelectedItem - 1 < 0 ? hotbarUIObjects.Count - 1 : curSelectedItem - 1;
-            SetSelected(itemToSelect);
-        }
         // ITEM USAGE
         // used button pressed when not in the inventory
-        if(Input.GetMouseButtonDown(0) && !inventory.isInventoryOpen() && 
+        if(Input.GetMouseButtonDown(0) && MenuManager.IsMenuOpen() && 
             !EventSystem.current.IsPointerOverGameObject())
         {
             UseItem();

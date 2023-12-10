@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Stone Tree Farm
   recipeID: 12
-  time: 1
+  time: 10
   materials:
   - item: {fileID: 11400000, guid: b59fd04cc3caf6c4a9e047b3854d7b4a, type: 2}
     count: 200

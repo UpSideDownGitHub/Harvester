@@ -3,6 +3,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
@@ -79,10 +80,16 @@ public class FarmObject : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && inRange)
         {
-            if (UI.activeInHierarchy)
+            if (MenuManager.IsCurrentMenuClose(MenuID.FARM))
+            {
+                // Close
                 CloseMenu();
-            else
+            }
+            else if (MenuManager.CanOpenMenuSet(MenuID.FARM))
+            {
+                // Open
                 OpenMenu();
+            }
         }
 
         // only update all of the values if the owner of the object (this should mean it is only done once)
@@ -160,6 +167,7 @@ public class FarmObject : MonoBehaviour
     }
     public void CloseMenu()
     {
+        MenuManager.menuOpen = MenuID.NOTHING;
         UI.SetActive(false);
     }
 }

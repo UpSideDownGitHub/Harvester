@@ -569,7 +569,7 @@ MonoBehaviour:
   farm: {fileID: 0}
   areaBorders: []
   isNature: 0
-  spawnAreas: {fileID: 0}
+  spawner: {fileID: 0}
   spawnAreaID: 0
   itemSpawnRange: 1
 --- !u!61 &3706773040502825646
@@ -604,7 +604,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.499907, y: 0.55212784}
+  m_Offset: {x: 1.499907, y: 0.9547228}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -615,7 +615,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.999814, y: 1.1042557}
+  m_Size: {x: 2.999814, y: 1.9094456}
   m_EdgeRadius: 0
 --- !u!114 &1688224856362671231
 MonoBehaviour:
@@ -1051,6 +1051,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3673713549528680751}
     m_Modifications:
+    - target: {fileID: 190350338299808434, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 190350338299808434, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 336303128577436551, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -1081,11 +1089,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1342441478746479196, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 324.1712
+      value: 249.925
       objectReference: {fileID: 0}
     - target: {fileID: 1342441478746479196, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -44.0397
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645796891037517549, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645796891037517549, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699090965650084633, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699090965650084633, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699090965650084633, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1702214247296559283, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1094,6 +1122,18 @@ PrefabInstance:
     - target: {fileID: 1702214247296559283, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DecreaseCraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869812105816860481, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -4.149994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869812105816860481, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 88.0794
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869812105816860481, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 2000269847901485275, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1243,6 +1283,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5158979769980838718, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158979769980838718, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158979769980838718, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -17
+      objectReference: {fileID: 0}
     - target: {fileID: 5486755511764885090, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_Name
       value: CraftingStationCanvas
@@ -1335,6 +1387,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6844923414542838986, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7499934835542111422, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1358,6 +1414,10 @@ PrefabInstance:
     - target: {fileID: 7538173053614062757, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_SizeDelta.y
       value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538173053614062757, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00032400544
       objectReference: {fileID: 0}
     - target: {fileID: 7708508002134679848, guid: 39e78ad19d6d98c49a1199eb5f9d5bf8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

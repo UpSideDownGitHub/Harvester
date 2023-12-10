@@ -60,6 +60,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Image previousSelectedPlayerImage;
     public Image previousSelectedMapImage;
 
+
+    [Header("Menus")]
+    public GameObject lobbyCanvas;
+    public GameObject menuCanvas;
+    public void StartPressed()
+    {
+        lobbyCanvas.SetActive(true);
+        menuCanvas.SetActive(false);
+    }
+
     public void PlayerSelected(int ID, MenuPlayerID image)
     {
         if (previousSelectedPlayerImage != null)
@@ -68,6 +78,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         previousSelectedPlayerImage = currentSelectedPlayerImage;
         currentSelectedPlayerImage.color = selectedColour;
         currentSelectedPlayer = ID;
+        var pickedData = SaveManager.instance.LoadGeneralSaveData();
+        pickedData.playerID = currentSelectedPlayer;
+        SaveManager.instance.SaveGeneralData(pickedData);
         PhotonNetwork.NickName = SaveManager.instance.LoadPlayerSaveData().players[ID].playerName;
     }
     public void MapSelected(int ID, MenuMapID image)
@@ -78,6 +91,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         previousSelectedMapImage = currentSelectedMapImage;
         currentSelectedMapImage.color = selectedColour;
         currentSelectedMap = ID;
+        var pickedData = SaveManager.instance.LoadGeneralSaveData();
+        pickedData.mapID = currentSelectedMap;
+        SaveManager.instance.SaveGeneralData(pickedData);
     }
 
     public void DeletePlayer()
@@ -88,6 +104,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         currentPlayers.players.RemoveAt(currentSelectedPlayer);
         SaveManager.instance.SavePlayerData(currentPlayers);
         LoadSavedPlayers();
+
+        currentSelectedPlayer = -1;
     }
     public void DeleteMap()
     {
@@ -97,6 +115,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         currentMaps.maps.RemoveAt(currentSelectedMap);
         SaveManager.instance.SaveMapData(currentMaps);
         LoadSavedMaps();
+
+        currentSelectedMap = -1;
     }
 
     public void CancelPressed()
@@ -122,7 +142,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             return;
         var currentPlayers = SaveManager.instance.LoadPlayerSaveData();
         PlayerData newPlayer = new PlayerData(playerNameEntry.text);
+        // add the basic tools to the player inventory
         currentPlayers.players.Add(newPlayer);
+        currentPlayers.players[currentPlayers.players.Count - 1].inventory.Add(5, 1);
+        currentPlayers.players[currentPlayers.players.Count - 1].inventory.Add(6, 1);
+        currentPlayers.players[currentPlayers.players.Count - 1].inventory.Add(7, 1);
+        currentPlayers.players[currentPlayers.players.Count - 1].hotbar.Add(5, true);
+        currentPlayers.players[currentPlayers.players.Count - 1].hotbar.Add(6, true);
+        currentPlayers.players[currentPlayers.players.Count - 1].hotbar.Add(7, true);
         SaveManager.instance.SavePlayerData(currentPlayers);
         LoadSavedPlayers();
         playerCreationUI.SetActive(false);

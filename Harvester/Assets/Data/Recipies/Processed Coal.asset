@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Processed Coal
   recipeID: 2
-  time: 1
+  time: 0.25
   materials:
   - item: {fileID: 11400000, guid: 6f8ef34e5d798644fbbca7380f7416fc, type: 2}
-    count: 2
+    count: 1
   produces:
     item: {fileID: 11400000, guid: 6ff6b4a24ce5e544d9ec1c220bd64c33, type: 2}
     count: 1

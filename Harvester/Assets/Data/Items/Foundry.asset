@@ -15,12 +15,13 @@ MonoBehaviour:
   itemName: Foundry
   description: Used to Form Items
   itemID: 21
-  icon: {fileID: -750960460, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
+  icon: {fileID: 1327994004, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1
   placeableObjectID: 2
   consumable: 0
   consumableObjectID: 0
   tool: 0
   toolID: 0
+  toolLevel: 0
   boss: 0
   bossID: 0

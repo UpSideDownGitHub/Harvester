@@ -569,7 +569,7 @@ MonoBehaviour:
   farm: {fileID: 0}
   areaBorders: []
   isNature: 0
-  spawnAreas: {fileID: 0}
+  spawner: {fileID: 0}
   spawnAreaID: 0
   itemSpawnRange: 1
 --- !u!61 &3706773040502825646
@@ -604,7 +604,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.4896125, y: 0.5756391}
+  m_Offset: {x: 1.4896125, y: 1.4387702}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -615,7 +615,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.6514552, y: 1.1512783}
+  m_Size: {x: 2.6514552, y: 2.8775403}
   m_EdgeRadius: 0
 --- !u!114 &1688224856362671231
 MonoBehaviour:

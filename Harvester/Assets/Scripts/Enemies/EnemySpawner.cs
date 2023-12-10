@@ -14,6 +14,8 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Spawning")]
     public float spawnTime;
+    [Range(1f, 0f)]
+    public float spawnChance;
     private float _timeSinceLastSpawn;
     public float spawnSearchRadius = 5;
 
@@ -26,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void Update()
     {
-        if (Time.time > spawnTime + _timeSinceLastSpawn)
+        if (Time.time > spawnTime + _timeSinceLastSpawn && Random.value > spawnChance)
         {
             _timeSinceLastSpawn = Time.time;
             // check all available ares from the savedata

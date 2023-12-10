@@ -377,9 +377,27 @@ MonoBehaviour:
   craftingStation: {fileID: 0}
   isFarm: 0
   farm: {fileID: 0}
-  areaBorders: []
+  areaBorders:
+  - TL: {x: -14, y: 14, z: 0}
+    BR: {x: 14, y: -14, z: 0}
+  - TL: {x: 19, y: 14, z: 0}
+    BR: {x: 47, y: -14, z: 0}
+  - TL: {x: -14, y: -19, z: 0}
+    BR: {x: 14, y: -47, z: 0}
+  - TL: {x: -47, y: 14, z: 0}
+    BR: {x: -19, y: -14, z: 0}
+  - TL: {x: -14, y: 46, z: 0}
+    BR: {x: 14, y: 19, z: 0}
+  - TL: {x: 19, y: 46, z: 0}
+    BR: {x: 47, y: 19, z: 0}
+  - TL: {x: 19, y: -19, z: 0}
+    BR: {x: 47, y: -47, z: 0}
+  - TL: {x: -47, y: -19, z: 0}
+    BR: {x: -19, y: -47, z: 0}
+  - TL: {x: -47, y: 46, z: 0}
+    BR: {x: -19, y: 19, z: 0}
   isNature: 1
-  spawnAreas: {fileID: 11400000, guid: 116c204543ed6d34089411fa8dce0c82, type: 2}
+  spawner: {fileID: 0}
   spawnAreaID: 0
   itemSpawnRange: 1
 --- !u!61 &8905333771364045325
@@ -414,7 +432,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0.5}
+  m_Offset: {x: 0.5289965, y: 0.46479}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -425,7 +443,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.82602084, y: 0.83016324}
   m_EdgeRadius: 0
 --- !u!208 &-7158819081588386883
 NavMeshObstacle:

@@ -16,7 +16,6 @@ public struct areaSpawns
 {
     public int[] itemsToSpawn;
     public int maxItems;
-    public int currentItems;
     public float spawnTime;
     public float timeOfLastSpawn;
 }

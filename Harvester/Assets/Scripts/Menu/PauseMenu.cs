@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Management.Instrumentation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,13 +18,24 @@ public class PauseMenu : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            paused = !paused;
-            pauseMenuObject.SetActive(paused);
+            if (MenuManager.IsCurrentMenuClose(MenuID.PAUSE))
+            {
+                // Close
+                paused = false;
+                pauseMenuObject.SetActive(paused);
+            }
+            else if (MenuManager.CanOpenMenuSet(MenuID.PAUSE))
+            {
+                // Open
+                paused = true;
+                pauseMenuObject.SetActive(paused);
+            }
         }
     }
 
     public void ResumePressed()
     {
+        MenuManager.menuOpen = MenuID.NOTHING;
         paused = !paused;
         pauseMenuObject.SetActive(paused);
     }
@@ -46,6 +58,7 @@ public class PauseMenu : MonoBehaviourPunCallbacks
     }
     public void MainMenuPressed()
     {
+        MenuManager.menuOpen = MenuID.NOTHING;
         PhotonNetwork.LeaveRoom();
     }
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Etherium Axe
   recipeID: 26
-  time: 1
+  time: 30
   materials:
   - item: {fileID: 11400000, guid: b163bca02cb3f1344906adc64946a878, type: 2}
     count: 30

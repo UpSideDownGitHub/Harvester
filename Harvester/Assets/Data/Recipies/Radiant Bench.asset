@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Radiant Bench
   recipeID: 9
-  time: 1
+  time: 5
   materials:
   - item: {fileID: 11400000, guid: b59fd04cc3caf6c4a9e047b3854d7b4a, type: 2}
     count: 200

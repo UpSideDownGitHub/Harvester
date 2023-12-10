@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: All Mine
   recipeID: 14
-  time: 1
+  time: 10
   materials:
   - item: {fileID: 11400000, guid: 54051ae4813f505489c6710650a7b2c2, type: 2}
     count: 100

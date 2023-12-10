@@ -85,10 +85,16 @@ public class CraftingStationObject : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && inRange && !crafting)
         {
-            if (UI.activeInHierarchy)
+            if (MenuManager.IsCurrentMenuClose(MenuID.CRAFTING))
+            {
+                // Close
                 CloseMenu();
-            else
+            }
+            else if (MenuManager.CanOpenMenuSet(MenuID.CRAFTING))
+            {
+                // Open
                 OpenMenu();
+            }
         }
     }
 
@@ -115,6 +121,7 @@ public class CraftingStationObject : MonoBehaviour
     }
     public void CloseMenu()
     {
+        MenuManager.menuOpen = MenuID.NOTHING;
         UI.SetActive(false);
     }
 
