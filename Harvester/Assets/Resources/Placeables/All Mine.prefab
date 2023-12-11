@@ -1978,6 +1978,8 @@ MonoBehaviour:
   interactionUI: {fileID: 0}
   audioSource: {fileID: -8645045979836428497}
   collected: {fileID: 8300000, guid: 41c5c2b983676c14abbebce504e00d9a, type: 3}
+  closeMenu: {fileID: 8300000, guid: e8af9035f5758f44da37af4225a02619, type: 3}
+  openMenu: {fileID: 8300000, guid: 4e7ce19b0c9dda1458946554f940d3b8, type: 3}
 --- !u!208 &4712905910924756151
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2036,7 +2038,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 7.431517
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

@@ -15,6 +15,8 @@ public class PlayerAudiomanager : MonoBehaviour
     public AudioClip eat;
     public AudioClip loseHeart;
     public AudioClip pickup;
+    public AudioClip openMenu;
+    public AudioClip closeMenu;
 
     public void PlayHitAxe() { audioSource.PlayOneShot(hitAxe); }
     public void PlayHitPick() { audioSource.PlayOneShot(hitPick); }
@@ -22,5 +24,7 @@ public class PlayerAudiomanager : MonoBehaviour
     public void PlayDie() { audioSource.PlayOneShot(die); }
     public void PlayEat() { audioSource.PlayOneShot(eat); }
     public void PlayLoseHeart() { audioSource.PlayOneShot(loseHeart); }
-    public void PlayPickup() { audioSource.PlayOneShot(pickup, 0.5f); }
+    public void PlayPickup() { audioSource.PlayOneShot(pickup, 0.3f); }
+    public void PlayOpenMenu() { audioSource.PlayOneShot(openMenu); }
+    public void PlayCloseMenu() { audioSource.PlayOneShot(closeMenu); }
 }

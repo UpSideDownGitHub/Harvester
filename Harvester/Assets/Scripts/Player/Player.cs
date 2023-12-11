@@ -365,9 +365,15 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             if (MenuManager.IsCurrentMenuClose(MenuID.INSTANTCRAFTING))
-                basicCrafting.CloseMenu();
+            {
+                audioManager.PlayCloseMenu();    
+                basicCrafting.CloseMenu(); 
+            }
             else if (MenuManager.CanOpenMenuSet(MenuID.INSTANTCRAFTING))
-                basicCrafting.OpenMenu();
+            {
+                audioManager.PlayOpenMenu();
+                basicCrafting.OpenMenu(); 
+            }
         }
 
 

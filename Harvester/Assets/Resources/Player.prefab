@@ -453,6 +453,8 @@ MonoBehaviour:
   eat: {fileID: 8300000, guid: f6b0e0fe4d415b544a8eb0d96c11c088, type: 3}
   loseHeart: {fileID: 8300000, guid: b7b5a6156961bac44a67504d42ce6fcf, type: 3}
   pickup: {fileID: 8300000, guid: 41c5c2b983676c14abbebce504e00d9a, type: 3}
+  openMenu: {fileID: 8300000, guid: 4e7ce19b0c9dda1458946554f940d3b8, type: 3}
+  closeMenu: {fileID: 8300000, guid: e8af9035f5758f44da37af4225a02619, type: 3}
 --- !u!1 &2584169016033182437
 GameObject:
   m_ObjectHideFlags: 0

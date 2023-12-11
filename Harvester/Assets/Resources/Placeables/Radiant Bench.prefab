@@ -657,8 +657,11 @@ MonoBehaviour:
   crafting: 0
   items: 0000000000000000
   interactionUI: {fileID: 0}
-  audioSource: {fileID: -4317417117154089820, guid: 9070ba4daac303c4e9b236619901cece, type: 3}
+  audioSource: {fileID: 4515228417310094730}
   craftingFinished: {fileID: 8300000, guid: ebb03b2b009894845b81a64051a5c698, type: 3}
+  click: {fileID: 8300000, guid: 6c96f17621974ab469d71b6645c210ae, type: 3}
+  closeMenu: {fileID: 8300000, guid: e8af9035f5758f44da37af4225a02619, type: 3}
+  openMenu: {fileID: 8300000, guid: 4e7ce19b0c9dda1458946554f940d3b8, type: 3}
 --- !u!61 &2710106379216498539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -762,7 +765,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 5.9078426
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

@@ -1841,8 +1841,10 @@ MonoBehaviour:
   count: 00000000000000000000000000000000
   pickupItem: {fileID: 5406424375258037428, guid: f54cd20370977f444aff0a2972552ba3, type: 3}
   interactionUI: {fileID: 0}
-  audioSource: {fileID: -8645045979836428497, guid: 11fbf5e446ce3c14a9332e45cbec2dff, type: 3}
+  audioSource: {fileID: -6964358023272103804}
   collected: {fileID: 8300000, guid: 41c5c2b983676c14abbebce504e00d9a, type: 3}
+  closeMenu: {fileID: 8300000, guid: e8af9035f5758f44da37af4225a02619, type: 3}
+  openMenu: {fileID: 8300000, guid: 4e7ce19b0c9dda1458946554f940d3b8, type: 3}
 --- !u!208 &-5957882406431231900
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1901,7 +1903,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 9.97613
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

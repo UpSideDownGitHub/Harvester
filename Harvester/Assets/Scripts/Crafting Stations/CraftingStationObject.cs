@@ -55,6 +55,9 @@ public class CraftingStationObject : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip craftingFinished;
+    public AudioClip click;
+    public AudioClip closeMenu;
+    public AudioClip openMenu;
 
     void Start()
     {
@@ -97,11 +100,13 @@ public class CraftingStationObject : MonoBehaviour
             if (MenuManager.IsCurrentMenuClose(MenuID.CRAFTING))
             {
                 // Close
+                audioSource.PlayOneShot(closeMenu);
                 CloseMenu();
             }
             else if (MenuManager.CanOpenMenuSet(MenuID.CRAFTING))
             {
                 // Open
+                audioSource.PlayOneShot(openMenu);
                 OpenMenu();
             }
         }
@@ -141,6 +146,8 @@ public class CraftingStationObject : MonoBehaviour
 
     public void ItemPressed(int ID, int count = 1)
     {
+        audioSource.PlayOneShot(click);
+
         currentCraftCount = count;
         currentSelectedRecipieID = ID;
         craftCount.text = "x" + currentCraftCount.ToString();
@@ -174,6 +181,7 @@ public class CraftingStationObject : MonoBehaviour
         if (currentCraftCount > MaxCraftable() || currentCraftCount <= 0)
             return;
 
+        audioSource.PlayOneShot(click);
         // take off the given ammount of materials
         for (int i = 0; i < stationData.stations[stationID].recipies[currentSelectedRecipieID].materials.Length; i++)
         {
@@ -236,22 +244,26 @@ public class CraftingStationObject : MonoBehaviour
 
     public void SetToOne()
     {
+        audioSource.PlayOneShot(click);
         currentCraftCount = 1;
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
     public void SetMax()
     {
+        audioSource.PlayOneShot(click);
         var smallest = MaxCraftable();
         currentCraftCount = smallest <= 0 ? 1 : smallest;
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
     public void IncreaseCraft()
     {
+        audioSource.PlayOneShot(click);
         currentCraftCount++;
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
     public void DecreaseCraft()
     {
+        audioSource.PlayOneShot(click);
         currentCraftCount = currentCraftCount - 1 <= 0 ? 1 : currentCraftCount - 1;
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }

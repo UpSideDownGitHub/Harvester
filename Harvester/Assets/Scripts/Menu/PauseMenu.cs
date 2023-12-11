@@ -1,7 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using System.Management.Instrumentation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +11,11 @@ public class PauseMenu : MonoBehaviourPunCallbacks
     public GridManager gridManager;
     public Inventory inventory;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip closeMenu;
+    public AudioClip openMenu;
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -21,12 +23,14 @@ public class PauseMenu : MonoBehaviourPunCallbacks
             if (MenuManager.IsCurrentMenuClose(MenuID.PAUSE))
             {
                 // Close
+                audioSource.PlayOneShot(closeMenu);
                 paused = false;
                 pauseMenuObject.SetActive(paused);
             }
             else if (MenuManager.CanOpenMenuSet(MenuID.PAUSE))
             {
                 // Open
+                audioSource.PlayOneShot(openMenu);
                 paused = true;
                 pauseMenuObject.SetActive(paused);
             }

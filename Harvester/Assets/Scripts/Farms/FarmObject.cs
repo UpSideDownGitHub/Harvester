@@ -42,6 +42,8 @@ public class FarmObject : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip collected;
+    public AudioClip closeMenu;
+    public AudioClip openMenu;
 
     void Start()
     {
@@ -94,11 +96,13 @@ public class FarmObject : MonoBehaviour
             if (MenuManager.IsCurrentMenuClose(MenuID.FARM))
             {
                 // Close
+                audioSource.PlayOneShot(closeMenu);
                 CloseMenu();
             }
             else if (MenuManager.CanOpenMenuSet(MenuID.FARM))
             {
                 // Open
+                audioSource.PlayOneShot(openMenu);
                 OpenMenu();
             }
         }

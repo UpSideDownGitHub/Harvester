@@ -64,14 +64,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("Menus")]
     public GameObject lobbyCanvas;
     public GameObject menuCanvas;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+
     public void StartPressed()
     {
+        audioSource.PlayOneShot(clickSound);
         lobbyCanvas.SetActive(true);
         menuCanvas.SetActive(false);
     }
 
     public void PlayerSelected(int ID, MenuPlayerID image)
     {
+        audioSource.PlayOneShot(clickSound);
         if (previousSelectedPlayerImage != null)
             previousSelectedPlayerImage.color = defaultColour;
         currentSelectedPlayerImage = image.gameObject.GetComponent<Image>();
@@ -85,6 +92,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void MapSelected(int ID, MenuMapID image)
     {
+        audioSource.PlayOneShot(clickSound);
         if (previousSelectedMapImage != null)
             previousSelectedMapImage.color = defaultColour;
         currentSelectedMapImage = image.gameObject.GetComponent<Image>();
@@ -98,6 +106,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void DeletePlayer()
     {
+        audioSource.PlayOneShot(clickSound);
         if (currentSelectedPlayer == -1)
             return;
         var currentPlayers = SaveManager.instance.LoadPlayerSaveData();
@@ -109,6 +118,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void DeleteMap()
     {
+        audioSource.PlayOneShot(clickSound);
         if (currentSelectedMap == -1)
             return;
         var currentMaps = SaveManager.instance.LoadMapSaveData();
@@ -121,12 +131,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CancelPressed()
     {
+        audioSource.PlayOneShot(clickSound);
         playerCreationUI.SetActive(false);
         mapCreationUI.SetActive(false);
     }
 
     public void CreateMapPressed()
     {
+        audioSource.PlayOneShot(clickSound);
         if (mapNameEntry.text.Length <= 3)
             return;
         var currentMaps = SaveManager.instance.LoadMapSaveData();
@@ -138,6 +150,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void CreatePlayerPressed()
     {
+        audioSource.PlayOneShot(clickSound);
         if (playerNameEntry.text.Length <= 3)
             return;
         var currentPlayers = SaveManager.instance.LoadPlayerSaveData();
@@ -157,10 +170,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CreateNewPlayerPressed()
     {
+        audioSource.PlayOneShot(clickSound);
         playerCreationUI.SetActive(true);
     }
     public void CreateNewMapPressed()
     {
+        audioSource.PlayOneShot(clickSound);
         mapCreationUI.SetActive(true);
     }
 
@@ -243,12 +258,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void StartClicked()
     {
+        audioSource.PlayOneShot(clickSound);
         PhotonNetwork.LoadLevel("SampleScene");
     }
 
     public void CreateClicked()
     {
-        if(roomInput.text.Length >= 1 && currentSelectedMap != -1 && currentSelectedPlayer != -1)
+        audioSource.PlayOneShot(clickSound);
+        if (roomInput.text.Length >= 1 && currentSelectedMap != -1 && currentSelectedPlayer != -1)
         {
             PhotonNetwork.CreateRoom(roomInput.text, new Photon.Realtime.RoomOptions() { MaxPlayers = 3 , BroadcastPropsChangeToAll = true});
         }
@@ -317,6 +334,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void LeaveClicked()
     {
+        audioSource.PlayOneShot(clickSound);
         PhotonNetwork.LeaveRoom();
     }
 
