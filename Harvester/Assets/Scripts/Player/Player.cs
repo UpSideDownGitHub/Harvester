@@ -99,6 +99,9 @@ public class Player : MonoBehaviour
     [Header("Photon Things")]
     PhotonView photonView;
 
+    [Header("Audio")]
+    public PlayerAudiomanager audioManager;
+
     public void Start()
     {
         photonView = PhotonView.Get(this);
@@ -426,6 +429,8 @@ public class Player : MonoBehaviour
             print("Consumable");
             if (staminaSlider.value / staminaSlider.maxValue < maxStaminaToNotIncrease)
             {
+                audioManager.PlayEat();
+
                 var staminaIncreaseAmount = consumableData.consumables[itemType.consumableObjectID].staminaIncrease;
                 IncreaseStamina(staminaIncreaseAmount);
                 inventory.RemoveItem(itemType, 1, true);
@@ -534,6 +539,8 @@ public class Player : MonoBehaviour
     {
         if (dead)
             return;
+
+        audioManager.PlayLoseHeart();
         curHealth = curHealth - 1 < 0 ? 0 : curHealth - 1;
         UpdateHealthUI();
 
@@ -569,6 +576,7 @@ public class Player : MonoBehaviour
     [PunRPC]
     public void AddItemToInventory(int itemID, int count)
     {
+        audioManager.PlayPickup();
         if (inventory)
             inventory.AddItem(itemData.items[itemID], count);
     }

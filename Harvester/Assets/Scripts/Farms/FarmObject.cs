@@ -39,6 +39,10 @@ public class FarmObject : MonoBehaviour
     [Header("UI")]
     public GameObject interactionUI;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip collected;
+
     void Start()
     {
         _timeOfLastClose = Time.time;
@@ -55,6 +59,8 @@ public class FarmObject : MonoBehaviour
 
     public void CollectPressed()
     {
+        audioSource.PlayOneShot(collected);
+
         // collect the items
         for (int i = 0; i < count.Length; i++)
         {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Security.Policy;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -22,6 +23,13 @@ public class Inventory : MonoBehaviour
     public GameObject hotbarItemPrefab;
     public List<GameObject> currentHotbarItems = new();
     public Player player;
+
+    [Header("Sound")]
+    public AudioSource audioSource;
+    public AudioClip open;
+    public AudioClip close;
+    public AudioClip click;
+    public AudioClip pin;
 
     public bool isInventoryOpen()
     {
@@ -183,6 +191,7 @@ public class Inventory : MonoBehaviour
 
     public void PinToHotbar(Item itemToPin)
     {
+        audioSource.PlayOneShot(pin);
         if (hotbar.ContainsKey(itemToPin))
         {
             hotbar.TryGetValue(itemToPin, out bool val);
@@ -194,13 +203,20 @@ public class Inventory : MonoBehaviour
         UpdateHotbarUI();
     }
 
+    public void playClickSound()
+    {
+        audioSource.PlayOneShot(click);
+    }
+
     public void OpenInventory()
     {
+        audioSource.PlayOneShot(open);
         inventoryCanvas.SetActive(true);
         UpdateUI();
     }
     public void CloseInventory()
     {
+        audioSource.PlayOneShot(close);
         inventoryCanvas.SetActive(false);
     }
 }

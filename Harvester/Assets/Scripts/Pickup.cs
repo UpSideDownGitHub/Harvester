@@ -5,6 +5,7 @@ using UnityEngine;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Security.Policy;
 
 public class Pickup : MonoBehaviour
 {
@@ -50,7 +51,8 @@ public class Pickup : MonoBehaviour
             var dist = Vector2.Distance(transform.position, player.transform.position);
             if (dist < pickupDistance)
             {
-                print("ADDED THE OBJCT TO INVENTORY: " + count);
+
+                //print("ADDED THE OBJCT TO INVENTORY: " + count);
                 inRange = false;
 
                 PhotonView playerView = PhotonView.Get(player);

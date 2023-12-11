@@ -29,6 +29,7 @@ public class InventoryInfo : MonoBehaviour
     {
         item = givenItem;
         canPin = true;
+        inventory.playClickSound();
     }
 
     public void PinPressed()

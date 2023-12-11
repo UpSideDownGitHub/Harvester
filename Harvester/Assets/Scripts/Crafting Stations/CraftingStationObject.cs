@@ -52,6 +52,10 @@ public class CraftingStationObject : MonoBehaviour
     [Header("UI")]
     public GameObject interactionUI;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip craftingFinished;
+
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
@@ -218,7 +222,7 @@ public class CraftingStationObject : MonoBehaviour
                 yield return null;
             }
 
-
+            audioSource.PlayOneShot(craftingFinished);
             GameObject drop = PhotonNetwork.Instantiate(pickupPrefab.name, itemSpawnPosition.position, Quaternion.identity, 0);
             PhotonView photonView = PhotonView.Get(drop);
             photonView.RPC("SetPickup", RpcTarget.All, stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.itemID,

@@ -30,6 +30,10 @@ public class GridManager : MonoBehaviour
     [Header("NavMesh")]
     public NavMeshManager navMeshmanager;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip placeItem;
+
     public void Start()
     {
         PhotonView photonView = PhotonView.Get(this);
@@ -142,6 +146,8 @@ public class GridManager : MonoBehaviour
     {
         if (PhotonNetwork.CurrentRoom != null)
         {
+            audioSource.PlayOneShot(placeItem);
+
             // need to convert gridPosiions to object[]
             object[] dataToSend = new object[gridPositions.Count];
             for (int i = 0; i < gridPositions.Count; i++)

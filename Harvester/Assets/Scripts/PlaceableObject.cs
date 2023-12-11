@@ -34,9 +34,14 @@ public class PlaceableObject : MonoBehaviour
     [Header("Better Item Spawning")]
     public float itemSpawnRange = 0.5f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip destroyed;
+
     public void Start()
     {
         spawner = GameObject.FindGameObjectWithTag("ItemSpawner").GetComponent<ItemSpawner>();
+        audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
 
         currentHealth = placeable.health;
         healthSlider.minValue = 0;
@@ -83,6 +88,8 @@ public class PlaceableObject : MonoBehaviour
         {
             if (!PhotonNetwork.IsMasterClient)
                 return;
+
+            audioSource.PlayOneShot(destroyed);
 
             if (isNature)
             {

@@ -400,6 +400,8 @@ MonoBehaviour:
   spawner: {fileID: 0}
   spawnAreaID: 0
   itemSpawnRange: 1
+  audioSource: {fileID: 0}
+  destroyed: {fileID: 8300000, guid: e5ecc98ff40556543b77c8c2aa090822, type: 3}
 --- !u!61 &8905333771364045325
 BoxCollider2D:
   m_ObjectHideFlags: 0
