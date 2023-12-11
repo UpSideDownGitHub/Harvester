@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NavMeshPlus.Components;
 using Photon.Pun;
+using System.Security.Policy;
 
 public class BossManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class BossManager : MonoBehaviour
     public GameObject[] areaBlockers;
 
     public PhotonView photonView;
+
+    [Header("Final Boss Killed Menu")]
+    public float showTime;
+    public GameObject gameBeatenScreen;
 
     public void Start()
     {
@@ -74,7 +79,18 @@ public class BossManager : MonoBehaviour
             save.maps[currentData.mapID].section4Unlocked = true;
             photonView.RPC("UnlockArea", RpcTarget.All, 3);
         }
+        else if (bossID == 4)
+        {
+            StartCoroutine(ShowMenu());
+        }
         SaveManager.instance.SaveMapData(save);
+    }
+
+    public IEnumerator ShowMenu()
+    {
+        gameBeatenScreen.SetActive(true);
+        yield return new WaitForSeconds(showTime);
+        gameBeatenScreen.SetActive(false);
     }
 
 

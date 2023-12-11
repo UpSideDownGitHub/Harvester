@@ -1641,7 +1641,7 @@ MonoBehaviour:
   farm: {fileID: 8718631473687218450}
   areaBorders: []
   isNature: 0
-  spawnAreas: {fileID: 0}
+  spawner: {fileID: 0}
   spawnAreaID: 0
   itemSpawnRange: 1
 --- !u!61 &3706773040502825646
@@ -1761,6 +1761,7 @@ MonoBehaviour:
   generationTime: 1
   count: 000000000000000000000000
   pickupItem: {fileID: 5406424375258037428, guid: f54cd20370977f444aff0a2972552ba3, type: 3}
+  interactionUI: {fileID: 0}
 --- !u!208 &-5359907061506497535
 NavMeshObstacle:
   m_ObjectHideFlags: 0

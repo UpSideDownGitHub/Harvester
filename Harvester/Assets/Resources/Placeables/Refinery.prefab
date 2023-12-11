@@ -653,6 +653,7 @@ MonoBehaviour:
   itemIcon: {fileID: 4555873015575824926}
   crafting: 0
   items: 0000000000000000
+  interactionUI: {fileID: 0}
 --- !u!61 &2710106379216498539
 BoxCollider2D:
   m_ObjectHideFlags: 0

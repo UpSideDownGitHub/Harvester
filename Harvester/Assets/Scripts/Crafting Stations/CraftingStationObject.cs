@@ -17,6 +17,7 @@ public class CraftingStationObject : MonoBehaviour
     public GameObject UI;
     public Button closeMenuButton;
     public bool inRange;
+    private string _interactedPlayer;
 
     [Header("Station ID")]
     public CraftingStationData stationData;
@@ -48,9 +49,13 @@ public class CraftingStationObject : MonoBehaviour
     public bool crafting;
     public int[] items = new int[2]{ 0, 0 };
 
+    [Header("UI")]
+    public GameObject interactionUI;
+
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
+        interactionUI = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>().interactUI;
 
         // spawn and set all of the information
         // station name
@@ -100,17 +105,22 @@ public class CraftingStationObject : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !inRange)
         {
             inRange = true;
+            _interactedPlayer = collision.name;
+            interactionUI.SetActive(true);
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && _interactedPlayer.Equals(collision.name))
         {
             inRange = false;
+            _interactedPlayer = null;
+            interactionUI.SetActive(false);
             UI.SetActive(false);
+            MenuManager.menuOpen = MenuID.NOTHING;
         }
     }
 

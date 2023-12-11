@@ -18,6 +18,7 @@ public class FarmObject : MonoBehaviour
     public Button closeMenuButton;
     public Button collectButton;
     public bool inRange;
+    private string _interactedPlayer;
 
     [Header("Station ID")]
     public FarmData farmData;
@@ -35,11 +36,15 @@ public class FarmObject : MonoBehaviour
     [Header("Dropping Items")]
     public GameObject pickupItem;
 
+    [Header("UI")]
+    public GameObject interactionUI;
+
     void Start()
     {
         _timeOfLastClose = Time.time;
 
         inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
+        interactionUI = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>().interactUI;
 
         // farm name
         stationName.text = farmData.Farms[farmID].farmName;
@@ -146,17 +151,22 @@ public class FarmObject : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !inRange)
         {
             inRange = true;
+            _interactedPlayer = collision.name;
+            interactionUI.SetActive(true);
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && _interactedPlayer.Equals(collision.name))
         {
             inRange = false;
+            _interactedPlayer = null;
+            interactionUI.SetActive(false);
             UI.SetActive(false);
+            MenuManager.menuOpen = MenuID.NOTHING;
         }
     }
 
