@@ -564,8 +564,12 @@ public class Player : MonoBehaviourPunCallbacks
             PlayAnimation();
             dead = true;
             _timeOfDeath = Time.time;
-            PhotonView miscView = PhotonView.Get(miscManager.gameObject);
-            miscView.RPC("SetPlayers", RpcTarget.MasterClient, true, false);
+
+            if (photonView.IsMine)
+            {
+                PhotonView miscView = PhotonView.Get(miscManager.gameObject);
+                miscView.RPC("SetPlayers", RpcTarget.MasterClient, true, false);
+            }
             if (miscManager)
                 miscManager.deathUI.SetActive(true);
             return;
