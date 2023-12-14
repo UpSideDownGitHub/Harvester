@@ -43,7 +43,7 @@ public class Player : MonoBehaviourPunCallbacks
     public Color defaultColor;
 
     [Header("Eating Consumables")]
-    [Range(0,1)]
+    [Range(0, 1)]
     public float maxStaminaToNotIncrease;
 
     [Header("Placing Consumables")]
@@ -106,6 +106,12 @@ public class Player : MonoBehaviourPunCallbacks
         PhotonView miscView = PhotonView.Get(miscManager.gameObject);
         miscView.RPC("SetPlayers", RpcTarget.MasterClient, true, false);
         miscView.RPC("SetPlayers", RpcTarget.MasterClient, false, false);
+    }
+
+    [PunRPC]
+    public void SetName(string givenName)
+    {
+        this.name = givenName;
     }
 
     public void Start()

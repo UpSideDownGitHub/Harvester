@@ -13,6 +13,7 @@ public class PlayerSpawner : MonoBehaviour
     public void Start()
     {
         var tempPlayer = PhotonNetwork.Instantiate(player.name, spawnPos.position, Quaternion.identity, 0);
-        tempPlayer.name = tempPlayer.GetInstanceID().ToString();
+        PhotonView view = PhotonView.Get(tempPlayer);
+        view.RPC("SetName", RpcTarget.All, tempPlayer.GetInstanceID().ToString());
     }
 }

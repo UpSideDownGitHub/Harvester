@@ -134,6 +134,7 @@ public class Enemy : MonoBehaviour
         if (collision.CompareTag("Player") && targetTransform == null)
         {
             print("ENTERED AREA");
+            print(collision.name);
             try
             {
                 photonView.RPC("SetTarget", RpcTarget.All, (Vector2)collision.transform.position, collision.name);
@@ -157,6 +158,7 @@ public class Enemy : MonoBehaviour
     {
         this.target = givenTarget;
         this.targetName = targetName;
+        print(targetName);
         if (!string.IsNullOrEmpty(targetName))
         {
             var temp = GameObject.Find(targetName);
