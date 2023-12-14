@@ -4,7 +4,6 @@ using UnityEngine;
 using NavMeshPlus.Components;
 using Photon.Pun;
 using UnityEngine.AI;
-
 public class NavMeshManager : MonoBehaviour
 {
     public NavMeshSurface Surface2D;

@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
             despawn();
 
         PlayAnimation();
-        if (targetTransform == null && Time.time > wanderTime + _timeSinceLastWander)
+        if (targetTransform == null && Time.time > wanderTime + _timeSinceLastWander && gameObject.activeInHierarchy && gameObject != null)
         {
             _timeSinceLastWander = Time.time;
             Vector3 randomDirection = Random.insideUnitCircle * wanderDistance;
@@ -77,7 +77,7 @@ public class Enemy : MonoBehaviour
             try { agent.SetDestination(navHit.position); }
             catch { despawn();  }
         }
-        else if (targetTransform != null)
+        else if (targetTransform != null && gameObject.activeInHierarchy && gameObject != null)
         {
             target = targetTransform.position;
             agent.SetDestination(target);

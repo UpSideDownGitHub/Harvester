@@ -7,8 +7,9 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.Playables;
 using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviourPunCallbacks
 {
     public string playerName;
 
@@ -96,15 +97,19 @@ public class Player : MonoBehaviour
     public MiscManager miscManager;
     public NavMeshManager navMeshManager;
 
-    [Header("Photon Things")]
-    PhotonView photonView;
-
     [Header("Audio")]
     public PlayerAudiomanager audioManager;
 
+    // when the player leaves change the amount of players that are left to show this
+    public override void OnLeftRoom()
+    {
+        PhotonView miscView = PhotonView.Get(miscManager.gameObject);
+        miscView.RPC("SetPlayers", RpcTarget.MasterClient, true, false);
+        miscView.RPC("SetPlayers", RpcTarget.MasterClient, false, false);
+    }
+
     public void Start()
     {
-        photonView = PhotonView.Get(this);
         if (photonView.IsMine)
         {
             isOwner = true;
@@ -117,8 +122,9 @@ public class Player : MonoBehaviour
             bossManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BossManager>();
             miscManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>();
             navMeshManager = GameObject.FindGameObjectWithTag("NavMesh").GetComponent<NavMeshManager>();
-            miscManager.currentAlivePlayers++;
-            miscManager.currentPlayers++;
+            PhotonView miscView = PhotonView.Get(miscManager.gameObject);
+            miscView.RPC("SetPlayers", RpcTarget.MasterClient, true, true);
+            miscView.RPC("SetPlayers", RpcTarget.MasterClient, false, true);
             curHealth = maxHealth;
             staminaSlider.value = maxStamina;
             currentStamina = maxStamina;
@@ -351,7 +357,8 @@ public class Player : MonoBehaviour
                 die = false;
                 curHealth = maxHealth;
                 currentStamina = maxStamina;
-                miscManager.currentAlivePlayers++;
+                PhotonView miscView = PhotonView.Get(miscManager.gameObject);
+                miscView.RPC("SetPlayers", RpcTarget.MasterClient, true, true);
                 UpdateHealthUI();
                 print(curHealth + " Current Health");
                 miscManager.deathUI.SetActive(false);
@@ -557,7 +564,8 @@ public class Player : MonoBehaviour
             PlayAnimation();
             dead = true;
             _timeOfDeath = Time.time;
-            miscManager.currentAlivePlayers--;
+            PhotonView miscView = PhotonView.Get(miscManager.gameObject);
+            miscView.RPC("SetPlayers", RpcTarget.MasterClient, true, false);
             if (miscManager)
                 miscManager.deathUI.SetActive(true);
             return;

@@ -56,6 +56,11 @@ MonoBehaviour:
   - SetName
   - UnlockArea
   - AddItem
+  - IncreaseCurrentPlayers
+  - DecreaseCurrentPlayers
+  - SetPlayers
+  - SetValues
+  - SetAlivePlayers
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
