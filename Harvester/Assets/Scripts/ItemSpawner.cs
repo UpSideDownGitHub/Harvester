@@ -15,7 +15,13 @@ public class ItemSpawner : MonoBehaviour
 
     public int[] currentSpawns;
 
-
+/// <summary>
+/// Initializes the item spawner by loading map and general save data, setting up spawn information, and disabling the component for non-local players.
+/// </summary>
+/// <remarks>
+/// This method loads map and general save data to set up spawn information, initializes spawn counters, and disables the ItemSpawner component
+/// for non-local players using PhotonView.
+/// </remarks>
     public void Start()
     {
         var mapSaveData = SaveManager.instance.LoadMapSaveData();
@@ -31,6 +37,13 @@ public class ItemSpawner : MonoBehaviour
             gameObject.GetComponent<ItemSpawner>().enabled = false;
     }
 
+/// <summary>
+/// Updates the item spawner by checking spawn conditions and attempting to spawn items within defined areas.
+/// </summary>
+/// <remarks>
+/// This method iterates through spawn areas, checks spawn conditions, and attempts to spawn items randomly within the specified areas.
+/// It utilizes gridManager to place objects and updates spawn counters based on successful spawns.
+/// </remarks>
     public void Update()
     {
         for (int i = 0; i < spawns.spawns.Length; i++)

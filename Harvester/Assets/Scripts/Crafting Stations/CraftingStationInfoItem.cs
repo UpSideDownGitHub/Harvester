@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* The CraftingStationInfoItem class represents an item in a crafting station with UI elements such as
+an icon, item name, and item count. */
 public class CraftingStationInfoItem : MonoBehaviour
 {
     [Header("UI")]

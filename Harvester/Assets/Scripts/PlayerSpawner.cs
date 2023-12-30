@@ -10,6 +10,13 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject player;
     public Transform spawnPos;
 
+/// <summary>
+/// Initializes the local player by instantiating it in the networked environment and setting its name.
+/// </summary>
+/// <remarks>
+/// This method is called when the local player starts. It instantiates the player object in the networked environment
+/// at the specified spawn position and sets its name using a Photon RPC (Remote Procedure Call).
+/// </remarks>
     public void Start()
     {
         var tempPlayer = PhotonNetwork.Instantiate(player.name, spawnPos.position, Quaternion.identity, 0);

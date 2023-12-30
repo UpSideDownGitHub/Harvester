@@ -5,6 +5,15 @@ public class Timer : MonoBehaviour
     public float timeRemaining = 10;
     public TMP_Text timeText;
 
+/// <summary>
+/// Manages a countdown timer and updates a UI text component to display the remaining time.
+/// </summary>
+/// <remarks>
+/// This class is responsible for tracking time in seconds and formatting it into a user-friendly
+/// format (minutes, seconds, and milliseconds). It specifically targets a Unity UI text component
+/// for displaying the countdown. The countdown is initiated upon instantiation, and the text is
+/// continuously updated in the Update method.
+/// </remarks>
     void Update()
     {
         timeRemaining -= Time.deltaTime;

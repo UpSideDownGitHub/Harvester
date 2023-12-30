@@ -12,7 +12,6 @@ public class CraftingStationObject : MonoBehaviour
 {
     [Header("Inventory")]
     public Inventory inventory;
-
     [Header("World Object")]
     public GameObject UI;
     public Button closeMenuButton;
@@ -59,21 +58,27 @@ public class CraftingStationObject : MonoBehaviour
     public AudioClip closeMenu;
     public AudioClip openMenu;
 
+    /// <summary>
+    /// The Start function initializes and sets up the crafting station menu by spawning recipe items
+    /// and setting their information.
+    /// </summary>
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Manager").GetComponent<Inventory>();
         interactionUI = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>().interactUI;
 
-        // spawn and set all of the information
-        // station name
         stationName.text = stationData.stations[stationID].stationName;
-
+        /* The code is destroying all the child game objects of the `recipeTransform` transform. It
+        iterates through each child of `recipeTransform` using a for loop and destroys each child
+        game object using the `Destroy()` method. This code is used to remove any existing recipe
+        items before spawning new ones in the crafting station menu. */
         for (int i = 0; i < recipeTransform.childCount; i++)
         {
             Destroy(recipeTransform.GetChild(i).gameObject);
         }
 
-        // station recipies
+        /* This code block is responsible for spawning and setting up the recipe items in the crafting
+        station menu. */
         for (int i = 0; i < stationData.stations[stationID].recipies.Length; i++)
         {
             var spawnedObject = Instantiate(itemRecipePrefab, recipeTransform);
@@ -85,16 +90,33 @@ public class CraftingStationObject : MonoBehaviour
         }
         ItemPressed(0);
 
+
+        /* `closeMenuButton.onClick.AddListener(() => CloseMenu());` is adding a listener to the
+        `onClick` event of the `closeMenuButton` button. When the button is clicked, the
+        `CloseMenu()` method will be called. */
         closeMenuButton.onClick.AddListener(() => CloseMenu());
     }
 
+    /// <summary>
+    /// The Update function checks if a certain condition is met and then either starts a coroutine or
+    /// checks for input to open or close a menu.
+    /// </summary>
     public void Update()
     {
+        /* This code block checks if the `items` array at index 1 is equal to 1 and if the `crafting`
+        variable is false. If both conditions are true, it starts a coroutine called
+        `AnimateSliderOverTime` with the parameters
+        `stationData.stations[stationID].recipies[currentSelectedRecipieID].time` and `items[0]`. */
         if (items[1] == 1 && !crafting)
         {
             StartCoroutine(AnimateSliderOverTime(stationData.stations[stationID].recipies[currentSelectedRecipieID].time, items[0]));
         }
 
+        /* this code code is checking for a key press event (specifically the "E" key) and two boolean
+        conditions (inRange and crafting). If all conditions are met, it checks if the current menu
+        is close to the crafting menu. If it is, it plays a sound effect and closes the menu. If the
+        current menu is not close to the crafting menu, it checks if the crafting menu can be
+        opened. If it can, it plays a sound effect and opens the menu. */
         if (Input.GetKeyDown(KeyCode.E) && inRange && !crafting)
         {
             if (MenuManager.IsCurrentMenuClose(MenuID.CRAFTING))
@@ -112,6 +134,14 @@ public class CraftingStationObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The OnTriggerEnter2D function checks if the collision is with a player and if the player is not
+    /// already in range, then it sets inRange to true, stores the name of the player, and activates the
+    /// interactionUI.
+    /// </summary>
+    /// <param name="Collider2D">The parameter "Collider2D" is the collider component attached to the
+    /// game object that triggered the trigger event. It represents the collider that the player object
+    /// collided with.</param>
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !inRange)
@@ -121,6 +151,14 @@ public class CraftingStationObject : MonoBehaviour
             interactionUI.SetActive(true);
         }
     }
+    /// <summary>
+    /// The OnTriggerExit2D function checks if the collision is with the player and if so, sets inRange
+    /// to false, hides the interaction UI and menu UI, and sets the MenuManager's menuOpen variable to
+    /// NOTHING.
+    /// </summary>
+    /// <param name="Collider2D">The Collider2D parameter represents the collider component attached to
+    /// the game object that triggered the event. It is used to detect collisions with other objects in
+    /// the game world.</param>
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && _interactedPlayer.Equals(collision.name))
@@ -133,17 +171,33 @@ public class CraftingStationObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The OpenMenu function sets the UI game object to active and calls the ItemPressed function with
+    /// an argument of 0.
+    /// </summary>
     public void OpenMenu()
     {
         UI.SetActive(true);
         ItemPressed(0);
     }
+    /// <summary>
+    /// The CloseMenu function sets the menuOpen variable to NOTHING and deactivates the UI.
+    /// </summary>
     public void CloseMenu()
     {
         MenuManager.menuOpen = MenuID.NOTHING;
         UI.SetActive(false);
     }
 
+    /// <summary>
+    /// The function "ItemPressed" updates the UI elements based on the selected item's ID and count,
+    /// and displays the required materials and their quantities for crafting.
+    /// </summary>
+    /// <param name="ID">The ID parameter represents the ID of the item that was pressed. It is used to
+    /// identify the specific recipe that needs to be displayed.</param>
+    /// <param name="count">The "count" parameter is an optional parameter with a default value of 1. It
+    /// represents the number of items to be crafted. If no value is provided for "count" when calling
+    /// the method, it will default to 1.</param>
     public void ItemPressed(int ID, int count = 1)
     {
         audioSource.PlayOneShot(click);
@@ -151,6 +205,9 @@ public class CraftingStationObject : MonoBehaviour
         currentCraftCount = count;
         currentSelectedRecipieID = ID;
         craftCount.text = "x" + currentCraftCount.ToString();
+        /* This code block is destroying all the child game objects of the "itemAmountParent" object. It
+        iterates through each child using a for loop and calls the Destroy() function on each child
+        game object to remove them from the scene. */
         for (int i = 0; i < itemAmountParent.childCount; i++)
         {
             Destroy(itemAmountParent.GetChild(i).gameObject);
@@ -160,6 +217,10 @@ public class CraftingStationObject : MonoBehaviour
         itemName.text = stationData.stations[stationID].recipies[ID].recipeName;
         icon.sprite = stationData.stations[stationID].recipies[ID].produces.item.icon;
 
+        /* This code block is iterating through the materials required for a recipe in a crafting
+        station. For each material, it instantiates a prefab called "itemAmountPrefab" and sets its
+        properties based on the material's information. It sets the icon sprite, item name, and the
+        count of how many of the material the player has versus how many are needed for the recipe. */
         for (int i = 0; i < stationData.stations[stationID].recipies[ID].materials.Length; i++)
         {
             var spawnedObject = Instantiate(itemAmountPrefab, itemAmountParent);
@@ -176,6 +237,15 @@ public class CraftingStationObject : MonoBehaviour
     }
 
     
+    /// <summary>
+    /// The Craft function is used to craft items by removing the required materials from the inventory
+    /// and adding the produced items, either instantly or through a networked RPC call.
+    /// </summary>
+    /// <returns>
+    /// If the condition `currentCraftCount > MaxCraftable() || currentCraftCount <= 0` is true, then
+    /// nothing is being returned. The `return` statement will exit the method and no further code will
+    /// be executed.
+    /// </returns>
     public void Craft()
     {
         if (currentCraftCount > MaxCraftable() || currentCraftCount <= 0)
@@ -204,12 +274,26 @@ public class CraftingStationObject : MonoBehaviour
         ItemPressed(currentSelectedRecipieID);
     }
 
+    /// <summary>
+    /// The function "setItems" sets the value of the "items" array to be an array with two elements,
+    /// where the first element is the given "itemCount" and the second element is always 1.
+    /// </summary>
+    /// <param name="itemCount">The parameter "itemCount" is an integer that represents the number of
+    /// items.</param>
     [PunRPC]
     public void setItems(int itemCount)
     {
         items = new int[] { itemCount, 1 };
     }
 
+    /// <summary>
+    /// The function "AnimateSliderOverTime" animates a slider over a specified duration and performs
+    /// certain actions at each iteration.
+    /// </summary>
+    /// <param name="seconds">The number of seconds it takes for the slider animation to
+    /// complete.</param>
+    /// <param name="count">The parameter "count" is an integer that represents the number of times the
+    /// animation should run.</param>
     IEnumerator AnimateSliderOverTime(float seconds, int count)
     {
         crafting = true;
@@ -242,12 +326,22 @@ public class CraftingStationObject : MonoBehaviour
         items = new int[] { 0, 0 };
     }
 
+    /// <summary>
+    /// The function "SetToOne" plays a sound effect, sets the currentCraftCount variable to 1, and
+    /// calls the ItemPressed function with the currentSelectedRecipieID and currentCraftCount as
+    /// arguments.
+    /// </summary>
     public void SetToOne()
     {
         audioSource.PlayOneShot(click);
         currentCraftCount = 1;
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
+    /// <summary>
+    /// The SetMax function plays a click sound, determines the smallest possible craftable count, sets
+    /// the current craft count to that value (or 1 if it's less than or equal to 0), and calls the
+    /// ItemPressed function with the current selected recipe ID and craft count as arguments.
+    /// </summary>
     public void SetMax()
     {
         audioSource.PlayOneShot(click);
@@ -255,12 +349,21 @@ public class CraftingStationObject : MonoBehaviour
         currentCraftCount = smallest <= 0 ? 1 : smallest;
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
+    /// <summary>
+    /// The function "IncreaseCraft" increases the craft count, plays a click sound, and calls the
+    /// "ItemPressed" function with the current selected recipe ID and craft count as parameters.
+    /// </summary>
     public void IncreaseCraft()
     {
         audioSource.PlayOneShot(click);
         currentCraftCount++;
         ItemPressed(currentSelectedRecipieID, currentCraftCount);
     }
+    /// <summary>
+    /// The DecreaseCraft function decreases the currentCraftCount by 1, unless it would result in a
+    /// value less than or equal to 0, in which case it sets the value to 1, and then calls the
+    /// ItemPressed function with the currentSelectedRecipieID and currentCraftCount as arguments.
+    /// </summary>
     public void DecreaseCraft()
     {
         audioSource.PlayOneShot(click);
@@ -269,9 +372,9 @@ public class CraftingStationObject : MonoBehaviour
     }
 
     /// <summary>
-    /// return the maximum craftable of the current selected recipie
+    /// Calculates the maximum number of times the currently selected recipe can be crafted based on available materials.
     /// </summary>
-    /// <returns>smallest - whichever ingredient is lacking the most as this will effect the max amount craftable</returns>
+    /// <returns>The maximum craftable quantity.</returns>
     public int MaxCraftable()
     {
         var smallest = 9999;

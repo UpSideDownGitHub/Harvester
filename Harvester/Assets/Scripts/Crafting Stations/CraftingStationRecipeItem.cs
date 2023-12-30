@@ -15,6 +15,9 @@ public class CraftingStationRecipeItem : MonoBehaviour
     public Button button;
     public CraftingStationObject craftingManager;
 
+    /// <summary>
+    /// Initializes a button click event to trigger the associated method in the CraftingManager when the button is clicked.
+    /// </summary>
     public void Start()
     {
         button.onClick.AddListener(() => craftingManager.ItemPressed(ID));

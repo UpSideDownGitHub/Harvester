@@ -19,6 +19,13 @@ public class EnemySpawner : MonoBehaviour
     private float _timeSinceLastSpawn;
     public float spawnSearchRadius = 5;
 
+/// <summary>
+/// Initialization method called when the object is started.
+/// </summary>
+/// <remarks>
+/// This method retrieves the PhotonView component for network synchronization.
+/// If the current instance is not the owner (IsMine is false), it disables the EnemySpawner component on the object.
+/// </remarks>
     public void Start()
     {
         PhotonView photonView = PhotonView.Get(this);
@@ -26,6 +33,14 @@ public class EnemySpawner : MonoBehaviour
             gameObject.GetComponent<EnemySpawner>().enabled = false;
     }
 
+/// <summary>
+/// Update method called each frame to manage enemy spawning behavior.
+/// </summary>
+/// <remarks>
+/// This method checks if it's time to spawn a new enemy based on spawn time and chance.
+/// It then calculates the number of unlocked areas from the saved data and selects a random area to spawn the enemy.
+/// The enemy is instantiated within the selected area with a random position on the NavMesh.
+/// </remarks>
     public void Update()
     {
         if (Time.time > spawnTime + _timeSinceLastSpawn && Random.value > spawnChance)

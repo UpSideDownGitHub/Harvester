@@ -15,11 +15,22 @@ public class PlayerMovement : MonoBehaviour
     public float lerpSpeed;
     public Vector3 offset;
 
+/// <summary>
+/// Initializes the camera reference during the start of the script execution.
+/// </summary>
     public void Start()
     {
         cam = Camera.main;    
     }
 
+/// <summary>
+/// Updates the player's movement and camera position in FixedUpdate.
+/// </summary>
+/// <remarks>
+/// This method is called once per frame in FixedUpdate. It checks if the script's PhotonView is owned by the local player,
+/// and if the camera and player are valid and alive. It then updates the player's movement based on input and adjusts the
+/// camera position using Slerp interpolation.
+/// </remarks>
     // Update is called once per frame
     void FixedUpdate()
     {

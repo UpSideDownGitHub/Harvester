@@ -17,7 +17,14 @@ public class SaveManager : MonoBehaviour
     // public variables
     public static SaveManager instance;
 
-    // called when the object is being loaded
+/// <summary>
+/// Initializes the singleton instance of the script and ensures that only one instance exists.
+/// Also performs additional setup such as creating test save data and logging the persistent data path.
+/// </summary>
+/// <remarks>
+/// This method sets up the singleton instance and performs additional setup actions, such as creating test save data in debug mode
+/// and logging the application's persistent data path.
+/// </remarks>
     void Awake()
     {
         // Make Singleton
@@ -39,23 +46,39 @@ public class SaveManager : MonoBehaviour
         Debug.Log(Application.persistentDataPath);
     }
 
-    // save the current data to the file
+/// <summary>
+/// Saves the provided general data to the general save data file.
+/// </summary>
+/// <param name="data">The general data to be saved.</param>
     public void SaveGeneralData(GeneralSaveData data)
     {
         string temp = JsonConvert.SerializeObject(data);
         File.WriteAllText(Application.persistentDataPath + "/generalSaveData.json", temp);
     }
+/// <summary>
+/// Saves the provided map data to the map save data file.
+/// </summary>
+/// <param name="data">The map data to be saved.</param>
     public void SaveMapData(MapSaveData data)
     {
         string temp = JsonConvert.SerializeObject(data);
         File.WriteAllText(Application.persistentDataPath + "/mapSaveData.json", temp);
     }
+/// <summary>
+/// Saves the provided player data to the player save data file.
+/// </summary>
+/// <param name="data">The player data to be saved.</param>
     public void SavePlayerData(PlayerSaveData data)
     {
         string temp = JsonConvert.SerializeObject(data);
         File.WriteAllText(Application.persistentDataPath + "/playerSaveData.json", temp);
     }
 
+/// <summary>
+/// Loads the general save data from the general save data file.
+/// If the file doesn't exist, creates a new general save data file.
+/// </summary>
+/// <returns>The loaded or newly created general save data.</returns>
     public GeneralSaveData LoadGeneralSaveData()
     {
         if (!FileExists(Application.persistentDataPath + "/generalSaveData.json"))
@@ -63,6 +86,11 @@ public class SaveManager : MonoBehaviour
         string temp = File.ReadAllText(Application.persistentDataPath + "/generalSaveData.json");
         return JsonConvert.DeserializeObject<GeneralSaveData>(temp);
     }
+/// <summary>
+/// Loads the map save data from the map save data file.
+/// If the file doesn't exist, creates a new map save data file.
+/// </summary>
+/// <returns>The loaded or newly created map save data.</returns>
     public MapSaveData LoadMapSaveData()
     {
         if (FileExists(Application.persistentDataPath + "/mapSaveData.json"))
@@ -75,6 +103,11 @@ public class SaveManager : MonoBehaviour
         SaveMapData(new MapSaveData());
         return LoadMapSaveData();
     }
+/// <summary>
+/// Loads the player save data from the player save data file.
+/// If the file doesn't exist, creates a new player save data file.
+/// </summary>
+/// <returns>The loaded or newly created player save data.</returns>
     public PlayerSaveData LoadPlayerSaveData()
     {
         if (FileExists(Application.persistentDataPath + "/playerSaveData.json"))
@@ -103,6 +136,11 @@ public class SaveManager : MonoBehaviour
 
     }
 
+/// <summary>
+/// Checks if the specified file exists.
+/// </summary>
+/// <param name="file">The path to the file.</param>
+/// <returns>True if the file exists; false otherwise.</returns>
     public bool FileExists(string file) { return File.Exists(file); }
 }
 

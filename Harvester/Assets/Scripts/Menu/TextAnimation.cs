@@ -20,6 +20,14 @@ public class TextAnimation : MonoBehaviour
     public float value8 = 0f;
     public float value9 = 0f;
 
+/// <summary>
+/// Handles the dynamic animation of text vertices in the UI.
+/// </summary>
+/// <remarks>
+/// This method forces a mesh update on the TextMeshProUGUI component and iterates through each character,
+/// modifying the vertices based on a time-dependent sinusoidal function with specified parameters.
+/// The updated mesh information is then applied to the text to achieve the animated effect.
+/// </remarks>
     public void Update()
     {
         text.ForceMeshUpdate();

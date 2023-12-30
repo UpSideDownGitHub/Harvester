@@ -16,6 +16,10 @@ public class BossManager : MonoBehaviour
     public float showTime;
     public GameObject gameBeatenScreen;
 
+    /// <summary>
+    /// Start method that checks if the current player is the master client in a PhotonNetwork game.
+    /// If true, it loads save data and unlocks corresponding map sections for all players using PhotonRPC calls.
+    /// </summary>
     public void Start()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -44,12 +48,20 @@ public class BossManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// PhotonRPC method to unlock a specific map area by deactivating its corresponding blocker GameObject.
+    /// </summary>
+    /// <param name="areaID">The identifier of the area to be unlocked.</param>
     [PunRPC]
     public void UnlockArea(int areaID)
     {
         areaBlockers[areaID].SetActive(false);
     }
 
+    /// <summary>
+    /// Handles the event of a boss being killed.
+    /// </summary>
+    /// <param name="bossID">The identifier of the defeated boss.</param>
     public void BossKilled(int bossID)
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -86,6 +98,10 @@ public class BossManager : MonoBehaviour
         SaveManager.instance.SaveMapData(save);
     }
 
+    /// <summary>
+    /// Coroutine to display the game beaten screen and hide it after a specified time delay.
+    /// </summary>
+    /// <returns>An IEnumerator used for coroutine functionality.</returns>
     public IEnumerator ShowMenu()
     {
         gameBeatenScreen.SetActive(true);
@@ -93,7 +109,10 @@ public class BossManager : MonoBehaviour
         gameBeatenScreen.SetActive(false);
     }
 
-
+    /// <summary>
+    /// Checks if a boss is currently alive in the scene.
+    /// </summary>
+    /// <returns>True if a boss is alive, false otherwise.</returns>
     public bool isBossAlive()
     {
         return GameObject.FindGameObjectWithTag(bossTag) != null ? true : false;

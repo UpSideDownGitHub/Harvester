@@ -45,6 +45,13 @@ public class FarmObject : MonoBehaviour
     public AudioClip closeMenu;
     public AudioClip openMenu;
 
+/// <summary>
+/// Initialization method called when the object is started.
+/// </summary>
+/// <remarks>
+/// This method initializes variables and UI elements, such as setting the farm name, 
+/// configuring button listeners, and retrieving references to the inventory and interaction UI components.
+/// </remarks>
     void Start()
     {
         _timeOfLastClose = Time.time;
@@ -59,6 +66,13 @@ public class FarmObject : MonoBehaviour
         collectButton.onClick.AddListener(() => CollectPressed());
     }
 
+/// <summary>
+/// Handles the button press event for collecting items.
+/// </summary>
+/// <remarks>
+/// This method plays the collected sound effect, adds items to the inventory based on the farm's configuration, 
+/// updates the UI, and synchronizes the item count across the network using a Photon RPC.
+/// </remarks>
     public void CollectPressed()
     {
         audioSource.PlayOneShot(collected);
@@ -74,6 +88,10 @@ public class FarmObject : MonoBehaviour
         photonView.RPC("SetCount", RpcTarget.All, count);
     }
 
+/// <summary>
+/// RPC method to set the item count and update the UI.
+/// </summary>
+/// <param name="value">The new item count values to set.</param>
     [PunRPC]
     public void SetCount(int[] value)
     {
@@ -81,6 +99,9 @@ public class FarmObject : MonoBehaviour
         UpdateUI();
     }
 
+/// <summary>
+/// Updates the UI elements to display the current item counts.
+/// </summary>
     public void UpdateUI()
     {
         for (int i = 0; i < count.Length; i++)
@@ -89,6 +110,15 @@ public class FarmObject : MonoBehaviour
         }
     }
 
+/// <summary>
+/// Update method called each frame to handle player input and update object values.
+/// </summary>
+/// <remarks>
+/// This method checks for the "E" key input and whether the player is in range.
+/// If the conditions are met, it toggles between opening and closing the farm menu based on its current state.
+/// Additionally, it only updates values for the owner of the object, ensuring it is done only once per frame.
+/// The method also triggers the periodic increase of item counts and synchronization across the network.
+/// </remarks>
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && inRange)
@@ -121,22 +151,12 @@ public class FarmObject : MonoBehaviour
         }
     }
 
-    /*
-    public void calculateNumbers()
-    {
-        PhotonView photonView = PhotonView.Get(this);
-        var currentTime = Time.time;
-        int totalItemCount = (int)((currentTime - _timeOfLastClose) / generationTime);
-        for (int i = 0; i < totalItemCount; i++)
-        {
-            photonView.RPC("AddItem", RpcTarget.MasterClient);
-        }
-        UpdateUI();
-        photonView.RPC("SetCount", RpcTarget.All, count);
-        _timeOfLastClose = Time.time;
-    }
-    */
-
+/// <summary>
+/// RPC method to add a randomly selected item to the inventory.
+/// </summary>
+/// <remarks>
+/// This method is invoked remotely to add a randomly selected item to the inventory based on predefined chances.
+/// </remarks>
     [PunRPC]
     public void AddItem()
     {
@@ -156,9 +176,17 @@ public class FarmObject : MonoBehaviour
                 break;
             }
         }
-
     }
 
+/// <summary>
+/// Triggered when another Collider2D enters this object's trigger zone.
+/// </summary>
+/// <param name="collision">The Collider2D entering the trigger zone.</param>
+/// <remarks>
+/// This method checks if the entering collider has the "Player" tag and if the object is not already in range.
+/// If the conditions are met, it sets the object as in range, records the interacting player's name, 
+/// and activates the interaction UI.
+/// </remarks>
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !inRange)
@@ -168,6 +196,15 @@ public class FarmObject : MonoBehaviour
             interactionUI.SetActive(true);
         }
     }
+/// <summary>
+/// Triggered when another Collider2D exits this object's trigger zone.
+/// </summary>
+/// <param name="collision">The Collider2D exiting the trigger zone.</param>
+/// <remarks>
+/// This method checks if the exiting collider has the "Player" tag and if it matches the previously recorded interacting player.
+/// If the conditions are met, it sets the object as out of range, clears the recorded interacting player, 
+/// deactivates the interaction UI and associated UI elements, and updates the global menu state.
+/// </remarks>
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && _interactedPlayer.Equals(collision.name))
@@ -180,11 +217,17 @@ public class FarmObject : MonoBehaviour
         }
     }
 
+/// <summary>
+/// Opens the farm menu.
+/// </summary>
     public void OpenMenu()
     {
         //calculateNumbers();
         UI.SetActive(true);
     }
+/// <summary>
+/// Closes the farm menu.
+/// </summary>
     public void CloseMenu()
     {
         MenuManager.menuOpen = MenuID.NOTHING;

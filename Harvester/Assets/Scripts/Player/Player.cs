@@ -100,7 +100,12 @@ public class Player : MonoBehaviourPunCallbacks
     [Header("Audio")]
     public PlayerAudiomanager audioManager;
 
-    // when the player leaves change the amount of players that are left to show this
+/// <summary>
+/// Called when the local player leaves the room.
+/// </summary>
+/// <remarks>
+/// This method sets player states and communicates with the master client using Photon RPCs.
+/// </remarks>
     public override void OnLeftRoom()
     {
         PhotonView miscView = PhotonView.Get(miscManager.gameObject);
@@ -108,12 +113,26 @@ public class Player : MonoBehaviourPunCallbacks
         miscView.RPC("SetPlayers", RpcTarget.MasterClient, false, false);
     }
 
+/// <summary>
+/// Sets the player's name.
+/// </summary>
+/// <param name="givenName">The name to set for the player.</param>
+/// <remarks>
+/// This method sets the player's name using a Photon RPC.
+/// </remarks>
     [PunRPC]
     public void SetName(string givenName)
     {
         this.name = givenName;
     }
 
+/// <summary>
+/// Initializes the player's properties and components when the game starts.
+/// </summary>
+/// <remarks>
+/// This method initializes various properties and components of the player such as UI, inventory, crafting, and more.
+/// It also loads player data from a save, if available.
+/// </remarks>
     public void Start()
     {
         if (photonView.IsMine)
@@ -147,6 +166,13 @@ public class Player : MonoBehaviourPunCallbacks
             isOwner = false;
     }
 
+/// <summary>
+/// Plays the appropriate animation based on the player's current state and actions.
+/// </summary>
+/// <remarks>
+/// This method manages the player's animations for actions like walking, attacking, mining, and others.
+/// It uses an animation manager to handle the animation states.
+/// </remarks>
     public void PlayAnimation()
     {
         var velo = rb.velocity;
@@ -296,6 +322,14 @@ public class Player : MonoBehaviourPunCallbacks
         if (moving)
             previousVelocity = velo;
     }
+/// <summary>
+/// Determines the player's movement direction based on the provided movement vector.
+/// </summary>
+/// <param name="movement">The movement vector indicating the direction of movement.</param>
+/// <returns>An integer representing the movement direction: 0 (Down), 1 (Right), 2 (Up), 3 (Left).</returns>
+/// <remarks>
+/// This function compares the magnitudes of the movement vector components and returns the corresponding direction.
+/// </remarks>
     public int MovingDirection(Vector2 movement)
     {
         if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y)) // moving in X
@@ -314,6 +348,16 @@ public class Player : MonoBehaviourPunCallbacks
         }
     }
 
+/// <summary>
+/// Updates the player's hotbar with the given dictionary of items, UI objects, and an optional flag to keep the current selection.
+/// </summary>
+/// <param name="newHotbar">The dictionary representing the new hotbar items and their availability status.</param>
+/// <param name="UIObjects">The list of UI objects corresponding to the hotbar items.</param>
+/// <param name="keepSelected">Flag indicating whether to keep the currently selected item.</param>
+/// <remarks>
+/// This function clears the current hotbar, populates it with available items from the provided dictionary,
+/// and updates the UI representation of the hotbar. It also allows keeping the current selected item if specified.
+/// </remarks>
     public void currentHotbarItems(Dictionary<Item, bool> newHotbar, List<GameObject> UIObjects, bool keepSelected = false)
     {
         var previousSelected = curSelectedItem;
@@ -336,7 +380,13 @@ public class Player : MonoBehaviourPunCallbacks
         objectIcon.sprite = hotbar[curSelectedItem].icon;
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
-
+/// <summary>
+/// Sets the selected item in the hotbar and updates the UI representation.
+/// </summary>
+/// <param name="itemToSelect">The index of the item to select in the hotbar.</param>
+/// <remarks>
+/// This function changes the selected item in the hotbar and updates the UI representation accordingly.
+/// </remarks>
     public void SetSelected(int itemToSelect)
     {
         if (hotbarUIObjects.Count == 0)
@@ -348,6 +398,13 @@ public class Player : MonoBehaviourPunCallbacks
         objectIcon.sprite = hotbar[curSelectedItem].icon;
         hotbarUIObjects[curSelectedItem].GetComponent<Image>().color = selectedColor;
     }
+/// <summary>
+/// Updates the player's state and performs various actions such as handling menus, hotbar selection, and item usage.
+/// </summary>
+/// <remarks>
+/// This function checks the player's state, handles menu interactions, updates the hotbar selection,
+/// and triggers item usage based on player input. It also manages stamina and health mechanics.
+/// </remarks>
     public void Update()
     {
         if (!isOwner)
@@ -438,6 +495,15 @@ public class Player : MonoBehaviourPunCallbacks
         }
     }
 
+/// <summary>
+/// Uses the currently selected item from the player's hotbar, performing various actions based on the item type.
+/// </summary>
+/// <remarks>
+/// If the selected item is consumable, it checks the player's stamina level and increases it if below a certain threshold.
+/// If the selected item is placeable, it attempts to place the object on the grid and removes the item from the inventory if successful.
+/// If the selected item is a tool (e.g., sword, pickaxe, axe), it triggers corresponding actions (e.g., attacking, mining) and handles interactions with enemies or objects.
+/// If the selected item is a boss spawn item, it checks if a boss is already alive before spawning a new one.
+/// </remarks>
     public void UseItem()
     {
         if (hotbar.Count == 0)
@@ -531,6 +597,15 @@ public class Player : MonoBehaviourPunCallbacks
         }
     }
 
+/// <summary>
+/// Spawns a boss enemy based on the provided boss ID at the specified world position.
+/// </summary>
+/// <param name="bossID">The identifier of the boss enemy.</param>
+/// <param name="bossSpawnPosition">The screen position where the boss should spawn.</param>
+/// <remarks>
+/// This function converts the screen position to world position, finds the closest NavMesh position,
+/// and instantiates a boss enemy using PhotonNetwork.
+/// </remarks>
     public void SpawnBoss(int bossID, Vector3 bossSpawnPosition)
     {
         var worldPosision = Camera.main.ScreenToWorldPoint(bossSpawnPosition);
@@ -538,21 +613,49 @@ public class Player : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate("Enemies/" + bosses.bosses[bossID].bossObject.name, spawnPos, Quaternion.identity, 0);
     }
 
+/// <summary>
+/// Increases the player's stamina by the specified amount.
+/// </summary>
+/// <param name="amount">The amount by which to increase the stamina.</param>
+/// <remarks>
+/// This function increments the current stamina, ensuring it does not exceed the maximum stamina.
+/// </remarks>
     public void IncreaseStamina(float amount)
     {
         currentStamina = currentStamina + amount > maxStamina ? maxStamina : currentStamina + amount;
     }
+/// <summary>
+/// Decreases the player's stamina by the specified amount.
+/// </summary>
+/// <param name="amount">The amount by which to decrease the stamina.</param>
+/// <remarks>
+/// This function decrements the current stamina, ensuring it does not go below zero.
+/// </remarks>
     public void DecreaseStamina(float amount)
     {
         currentStamina = currentStamina - amount < 0 ? 0 : currentStamina - amount;
     }
 
+/// <summary>
+/// Increases the player's health by one unit.
+/// </summary>
+/// <remarks>
+/// This function increments the current health by one, ensuring it does not exceed the maximum health.
+/// It also updates the health UI after the increase.
+/// </remarks>
     [PunRPC]
     public void IncreaseHealth()
     {
         curHealth = curHealth + 1 >= maxHealth ? maxHealth : curHealth + 1;
         UpdateHealthUI();
     }
+/// <summary>
+/// Decreases the player's health by one unit, plays a lose heart sound, and updates the health UI.
+/// </summary>
+/// <remarks>
+/// If the player is already dead, the function returns without further processing.
+/// If the health drops to zero, the player is considered dead, and various game-related actions are performed.
+/// </remarks>
     [PunRPC]
     public void DecreaseHealth()
     {
@@ -584,6 +687,12 @@ public class Player : MonoBehaviourPunCallbacks
         hit = true;
         PlayAnimation();
     }
+/// <summary>
+/// Updates the player's health UI based on the current health.
+/// </summary>
+/// <remarks>
+/// This function iterates through health icons, setting them to full or empty based on the player's current health.
+/// </remarks>
     public void UpdateHealthUI()
     {
         if (!isOwner)
@@ -596,7 +705,14 @@ public class Player : MonoBehaviourPunCallbacks
                 healthIcons[i].sprite = heartEmptyIcon;
         }
     }
-
+/// <summary>
+/// Adds an item to the player's inventory based on the provided item ID and count.
+/// </summary>
+/// <param name="itemID">The identifier of the item to add.</param>
+/// <param name="count">The quantity of the item to add.</param>
+/// <remarks>
+/// This function plays a pickup sound and adds the specified item to the player's inventory if the inventory is available.
+/// </remarks>
     [PunRPC]
     public void AddItemToInventory(int itemID, int count)
     {

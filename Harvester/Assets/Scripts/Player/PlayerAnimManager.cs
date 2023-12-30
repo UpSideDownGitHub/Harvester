@@ -55,7 +55,14 @@ public class PlayerAnimManager : MonoBehaviour
 
     public const string Pickup = "Pickup";
 
-
+/// <summary>
+/// Changes the player's animation state and synchronizes it across the network.
+/// </summary>
+/// <param name="newState">The new animation state to set.</param>
+/// <remarks>
+/// This method compares the current animation state with the new state and uses Photon RPCs to synchronize the change
+/// across the network for all players.
+/// </remarks>
     public void ChangeAnimationState(string newState)
     {
         if (currentState == newState)
@@ -64,6 +71,16 @@ public class PlayerAnimManager : MonoBehaviour
         photonView.RPC("PlayAnimation", RpcTarget.All, newState);
     }
 
+/// <summary>
+/// Changes the player's animation state if the current state is not in the list of similar states.
+/// </summary>
+/// <param name="newState">The new animation state to set.</param>
+/// <param name="similar">A list of similar states that prevent the change if the current state matches any of them.</param>
+/// <returns>True if the animation state is changed; false otherwise.</returns>
+/// <remarks>
+/// This method checks if the current animation state is in the list of similar states. If not, it changes the state
+/// and synchronizes the change across the network using Photon RPCs.
+/// </remarks>
     public bool ChangeAnimationState(string newState, List<string> similar)
     {
         for (int i = 0; i < similar.Count; i++)
@@ -76,6 +93,13 @@ public class PlayerAnimManager : MonoBehaviour
         return true;
     }
 
+/// <summary>
+/// Plays the specified animation state for the player and synchronizes it across the network.
+/// </summary>
+/// <param name="state">The animation state to play.</param>
+/// <remarks>
+/// This method uses Photon RPCs to synchronize the animation state change across the network for all players.
+/// </remarks>
     [PunRPC]
     public void PlayAnimation(string state)
     {
@@ -83,6 +107,14 @@ public class PlayerAnimManager : MonoBehaviour
         anim.Play(state);
     }
 
+/// <summary>
+/// Checks if the specified animation state has finished playing.
+/// </summary>
+/// <param name="name">The name of the animation state to check.</param>
+/// <returns>True if the animation state has finished playing; false otherwise.</returns>
+/// <remarks>
+/// This method checks if the specified animation state has finished playing based on the normalized time.
+/// </remarks>
     public bool finished(string name)
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName(name) &&

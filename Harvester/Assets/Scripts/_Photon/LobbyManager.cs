@@ -10,6 +10,8 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
+/* This class manages the lobby of the game allowing the user to create new maps and players as well as 
+allowing them to create, join and view lobbys*/
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public TMP_InputField roomInput;
@@ -69,6 +71,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public AudioSource audioSource;
     public AudioClip clickSound;
 
+    /// <summary>
+    /// The StartPressed function plays a click sound, activates the lobby canvas, and deactivates the
+    /// menu canvas.
+    /// </summary>
     public void StartPressed()
     {
         audioSource.PlayOneShot(clickSound);
@@ -76,6 +82,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         menuCanvas.SetActive(false);
     }
 
+    /// <summary>
+    /// The function "PlayerSelected" is used to handle the selection of a player in a menu, updating
+    /// the UI and saving the selected player's data.
+    /// </summary>
+    /// <param name="ID">The ID parameter is an integer that represents the selected player's ID. It is
+    /// used to identify the player in the game.</param>
+    /// <param name="MenuPlayerID">MenuPlayerID is an enum that represents the different player images
+    /// available in the menu.</param>
     public void PlayerSelected(int ID, MenuPlayerID image)
     {
         audioSource.PlayOneShot(clickSound);
@@ -90,6 +104,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         SaveManager.instance.SaveGeneralData(pickedData);
         PhotonNetwork.NickName = SaveManager.instance.LoadPlayerSaveData().players[ID].playerName;
     }
+    /// <summary>
+    /// The function MapSelected takes an ID and an image, plays a click sound, changes the color of the
+    /// selected map image, updates the current selected map ID, and saves the general data with the
+    /// updated map ID.
+    /// </summary>
+    /// <param name="ID">The ID parameter is an integer that represents the selected map's ID. It is
+    /// used to identify the specific map that was selected.</param>
+    /// <param name="MenuMapID">MenuMapID is an enum type that represents the different map images in
+    /// the menu.</param>
     public void MapSelected(int ID, MenuMapID image)
     {
         audioSource.PlayOneShot(clickSound);
@@ -104,6 +127,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         SaveManager.instance.SaveGeneralData(pickedData);
     }
 
+    /// <summary>
+    /// The DeletePlayer function removes a player from the list of saved players and updates the UI.
+    /// </summary>
+    /// <returns>
+    /// If the condition `if (currentSelectedPlayer == -1)` is true, then nothing is being returned and
+    /// the method will exit. If the condition is false, then the method will continue executing the
+    /// remaining code without returning anything.
+    /// </returns>
     public void DeletePlayer()
     {
         audioSource.PlayOneShot(clickSound);
@@ -116,6 +147,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         currentSelectedPlayer = -1;
     }
+    /// <summary>
+    /// The DeleteMap function deletes a selected map from a list of saved maps and updates the UI.
+    /// </summary>
+    /// <returns>
+    /// If the condition `if (currentSelectedMap == -1)` is true, then nothing is being returned and the
+    /// method will exit. If the condition is false, then the method will continue executing the code
+    /// below and nothing will be explicitly returned.
+    /// </returns>
     public void DeleteMap()
     {
         audioSource.PlayOneShot(clickSound);
@@ -129,6 +168,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         currentSelectedMap = -1;
     }
 
+    /// <summary>
+    /// The CancelPressed function plays a click sound and deactivates the playerCreationUI and
+    /// mapCreationUI game objects.
+    /// </summary>
     public void CancelPressed()
     {
         audioSource.PlayOneShot(clickSound);
@@ -136,6 +179,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         mapCreationUI.SetActive(false);
     }
 
+    /// <summary>
+    /// The CreateMapPressed function adds a new map to the current maps list, saves the updated map
+    /// data, and hides the map creation UI.
+    /// </summary>
+    /// <returns>
+    /// If the length of the text in the mapNameEntry is less than or equal to 3, then nothing is being
+    /// returned. The return statement is used to exit the method early and prevent the rest of the code
+    /// from executing.
+    /// </returns>
     public void CreateMapPressed()
     {
         audioSource.PlayOneShot(clickSound);
@@ -148,6 +200,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         LoadSavedMaps();
         mapCreationUI.SetActive(false);
     }
+    
+    /// <summary>
+    /// The function creates a new player, adds basic tools to their inventory and hotbar, saves the
+    /// player data, and hides the player creation UI.
+    /// </summary>
+    /// <returns>
+    /// If the length of the player name entry is less than or equal to 3, the function will return and
+    /// not execute the rest of the code.
+    /// </returns>
     public void CreatePlayerPressed()
     {
         audioSource.PlayOneShot(clickSound);
@@ -168,17 +229,27 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         playerCreationUI.SetActive(false);
     }
 
+    /// <summary>
+    /// The function "CreateNewPlayerPressed" plays a click sound and activates the player creation UI.
+    /// </summary>
     public void CreateNewPlayerPressed()
     {
         audioSource.PlayOneShot(clickSound);
         playerCreationUI.SetActive(true);
     }
+    /// <summary>
+    /// The function "CreateNewMapPressed" plays a click sound and activates the mapCreationUI object.
+    /// </summary>
     public void CreateNewMapPressed()
     {
         audioSource.PlayOneShot(clickSound);
         mapCreationUI.SetActive(true);
     }
 
+    /// <summary>
+    /// The function "LoadSavedPlayers" loads saved player data and creates menu player objects with
+    /// corresponding information.
+    /// </summary>
     public void LoadSavedPlayers()
     {
         for (int i = 0; i < loadedPlayers.Count; i++)
@@ -205,6 +276,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             loadedPlayers.Add(tempPlayer.gameObject);
         }
     }
+    /// <summary>
+    /// The function "LoadSavedMaps" loads saved map data and creates menu map objects based on the
+    /// saved data.
+    /// </summary>
     public void LoadSavedMaps()
     {
         currentSelectedMap = -1;
@@ -239,6 +314,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// The Start function joins the Photon lobby, initializes variables for the selected map and
+    /// player, and loads saved player and map data.
+    /// </summary>
     public void Start()
     {
         PhotonNetwork.JoinLobby();
@@ -248,6 +327,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         LoadSavedMaps();
     }
 
+    /// <summary>
+    /// The Update function checks if the current client is the master client in a Photon Network game
+    /// and activates or deactivates a start button accordingly.
+    /// </summary>
     public void Update()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -256,12 +339,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             startButton.SetActive(false);
     }
 
+    /// <summary>
+    /// The StartClicked function plays a click sound and loads the "SampleScene" level in
+    /// PhotonNetwork.
+    /// </summary>
     public void StartClicked()
     {
         audioSource.PlayOneShot(clickSound);
         PhotonNetwork.LoadLevel("SampleScene");
     }
 
+    /// <summary>
+    /// The function "CreateClicked" plays a click sound and creates a room in Photon Network if the
+    /// room name, selected map, and selected player are valid.
+    /// </summary>
     public void CreateClicked()
     {
         audioSource.PlayOneShot(clickSound);
@@ -271,6 +362,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// The function "OnJoinedRoom" is called when the player successfully joins a room, and it updates
+    /// the UI to display the room name and player list.
+    /// </summary>
     public override void OnJoinedRoom()
     {
         lobbyPanel.SetActive(false);
@@ -279,6 +374,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         UpdatePlayerList();
     }
 
+    /// <summary>
+    /// The function "OnRoomListUpdate" checks if enough time has passed since the last update and then
+    /// updates the room list.
+    /// </summary>
+    /// <param name="list">The "list" parameter is a List of RoomInfo objects. It represents the updated
+    /// list of rooms available in the network.</param>
     public override void OnRoomListUpdate(List<RoomInfo> list)
     {
         if (Time.time > roomListUpdateDelay + _timeOfLastUpdate)
@@ -288,6 +389,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// The function updates the list of rooms by destroying the current room items and creating new ones
+    /// based on the provided list of room information.
+    /// </summary>
+    /// <param name="list">A list of RoomInfo objects that contains information about each room.</param>
     public void UpdateRoomList(List<RoomInfo> list)
     {
         foreach (RoomItem item in currentRooms)
@@ -303,6 +409,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             currentRooms.Add(tempRoom);
         }
     }
+
+    /// <summary>
+    /// The function updates the player list by destroying existing player items, clearing the list, and
+    /// then creating new player items based on the current players in the PhotonNetwork room.
+    /// </summary>
+    /// <returns>
+    /// If the condition `if (PhotonNetwork.CurrentRoom == null)` is true, then the method will return and
+    /// no further code will be executed. If the condition is false, then the method will continue executing
+    /// the code inside the foreach loop.
+    /// </returns>
     public void UpdatePlayerList()
     {
         foreach (PlayerItem item in currentPlayers)
@@ -326,32 +442,52 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 
+    /// <summary>
+    /// The JoinRoom function checks if a map and player have been selected, and if so, it joins the
+    /// specified room.
+    /// </summary>
+    /// <param name="roomName">The room name is a string that represents the name of the room that the
+    /// player wants to join.</param>
     public void JoinRoom(string roomName)
     {
         if (currentSelectedMap != -1 && currentSelectedPlayer != -1)
             PhotonNetwork.JoinRoom(roomName);
     }
 
+    /// <summary>
+    /// The function "LeaveClicked" plays a click sound and then leaves the current Photon room.
+    /// </summary>
     public void LeaveClicked()
     {
         audioSource.PlayOneShot(clickSound);
         PhotonNetwork.LeaveRoom();
     }
 
+    /// <summary>
+    /// The function "OnConnectedToMaster" is called when the player successfully connects to the Photon
+    /// server, and it then joins the lobby.
+    /// </summary>
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
     }
 
+    /// <summary>
+    /// The function OnLeftRoom() hides the roomPanel and shows the lobbyPanel.
+    /// </summary>
     public override void OnLeftRoom()
     {
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(true);
     }
 
+    /// <summary>
+    /// The function "OnPlayerEnteredRoom" is called when a new player enters the room and it updates
+    /// the player list.
+    /// </summary>
+    /// <param name="newPlayer">The new player who entered the room.</param>
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         UpdatePlayerList();
     }
-
 }

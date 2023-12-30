@@ -30,6 +30,15 @@ public class Pickup : MonoBehaviour
     public float waitTime;
     private float _timeOfSpawn;
 
+/// <summary>
+/// Sets the pickup object with the specified item and count, updating its appearance and properties.
+/// </summary>
+/// <param name="item">The ID of the item to assign to the pickup object.</param>
+/// <param name="count">The count of the item to assign to the pickup object.</param>
+/// <remarks>
+/// This method is a PunRPC (Photon Unity Networking Remote Procedure Call) that sets the pickup object with the specified item and count.
+/// It updates the pickup object's item, count, and sprite, making it visually represent the assigned item.
+/// </remarks>
     [PunRPC]
     public void SetPickup(int item, int count)
     {
@@ -38,11 +47,25 @@ public class Pickup : MonoBehaviour
         spriteRenderer.sprite = items.items[item].icon;
     }
 
+/// <summary>
+/// Initializes the pickup object by setting the time of spawn.
+/// </summary>
+/// <remarks>
+/// This method initializes the pickup object by setting the time of spawn to the current time.
+/// It is typically called when the pickup object is instantiated.
+/// </remarks>
     public void Start()
     {
         _timeOfSpawn = Time.time;
     }
 
+/// <summary>
+/// Updates the pickup object's behavior, moving towards the player and triggering item pickup when in range.
+/// </summary>
+/// <remarks>
+/// This method updates the pickup object's behavior, moving towards the player and triggering item pickup when in range.
+/// It uses Photon RPCs to synchronize the item pickup action among all clients in a multiplayer environment.
+/// </remarks>
     void Update()
     {
         if (inRange && Time.time > _timeOfSpawn + waitTime)
@@ -64,12 +87,27 @@ public class Pickup : MonoBehaviour
         }
     }
 
+/// <summary>
+/// Destroys the pickup object, removing it from the scene.
+/// </summary>
+/// <remarks>
+/// This method is a PunRPC (Photon Unity Networking Remote Procedure Call) that destroys the pickup object, removing it from the scene.
+/// It is typically called after the item has been successfully picked up by a player.
+/// </remarks>
     [PunRPC]
     public void DestroyObject()
     {
         Destroy(gameObject);
     }
 
+/// <summary>
+/// Handles the behavior when another Collider enters the trigger zone of the pickup object.
+/// </summary>
+/// <param name="collision">The Collider of the object entering the trigger zone.</param>
+/// <remarks>
+/// This method is called when another Collider enters the trigger zone of the pickup object.
+/// It sets the player variable and triggers the inRange flag, indicating that the pickup object is in range of a player.
+/// </remarks>
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

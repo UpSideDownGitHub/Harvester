@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// ScriptableObject class representing an in-game item.
+/// </summary>
 [CreateAssetMenu(menuName = "Data Objects/Item")]
 public class Item : ScriptableObject
 {

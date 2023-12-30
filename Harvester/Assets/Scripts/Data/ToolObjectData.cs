@@ -6,11 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// ScriptableObject class representing a collection of ToolObjects.
+/// </summary>
 [CreateAssetMenu(menuName= "Data Objects/Tool Object")]
 public class ToolObjectData : ScriptableObject
 {
     public List<ToolObjects> Tools;
 }
+/// <summary>
+/// Serializable structure defining a tool with various properties.
+/// </summary>
 [Serializable]
 public struct ToolObjects
 {
@@ -22,6 +28,9 @@ public struct ToolObjects
     public ToolType type;
 
 }
+/// <summary>
+/// Enumeration representing different types of tools.
+/// </summary>
 [Serializable]
 public enum ToolType
 {
