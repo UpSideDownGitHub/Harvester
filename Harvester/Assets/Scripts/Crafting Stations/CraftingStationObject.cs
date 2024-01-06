@@ -221,7 +221,7 @@ public class CraftingStationObject : MonoBehaviour
         }
     }
 
-    
+
     /// <summary>
     /// The Craft function is used to craft items by removing the required materials from the inventory
     /// and adding the produced items, either instantly or through a networked RPC call.
@@ -252,8 +252,7 @@ public class CraftingStationObject : MonoBehaviour
         else
         {
             PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("setItems", RpcTarget.All, currentCraftCount);
-
+            photonView.RPC("setItems", RpcTarget.All, currentCraftCount, currentSelectedRecipieID);
         }
 
         ItemPressed(currentSelectedRecipieID);
@@ -266,9 +265,10 @@ public class CraftingStationObject : MonoBehaviour
     /// <param name="itemCount">The parameter "itemCount" is an integer that represents the number of
     /// items.</param>
     [PunRPC]
-    public void setItems(int itemCount)
+    public void setItems(int itemCount, int selected)
     {
         items = new int[] { itemCount, 1 };
+        currentSelectedRecipieID = selected;
     }
 
     /// <summary>
@@ -286,10 +286,8 @@ public class CraftingStationObject : MonoBehaviour
         craftingUI.SetActive(true);
         itemIcon.sprite = stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.icon;
 
-        print("Should Run: " + count + " Times");
         for (int i = 0; i < count; i++)
         {
-            print("RUN: " + i);
             float animationTime = 0f;
             while (animationTime < seconds)
             {
@@ -298,12 +296,14 @@ public class CraftingStationObject : MonoBehaviour
                 craftTimeSlider.value = Mathf.Lerp(0, 1, lerpValue);
                 yield return null;
             }
-
-            audioSource.PlayOneShot(craftingFinished);
-            GameObject drop = PhotonNetwork.Instantiate(pickupPrefab.name, itemSpawnPosition.position, Quaternion.identity, 0);
-            PhotonView photonView = PhotonView.Get(drop);
-            photonView.RPC("SetPickup", RpcTarget.All, stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.itemID,
-                stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count);
+            if (PhotonNetwork.IsMasterClient) // if master spawn item
+            {
+                audioSource.PlayOneShot(craftingFinished);
+                GameObject drop = PhotonNetwork.Instantiate(pickupPrefab.name, itemSpawnPosition.position, Quaternion.identity, 0);
+                PhotonView photonView = PhotonView.Get(drop);
+                photonView.RPC("SetPickup", RpcTarget.All, stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.item.itemID,
+                    stationData.stations[stationID].recipies[currentSelectedRecipieID].produces.count);
+            }
             yield return null;
         }
         craftingUI.SetActive(false);
