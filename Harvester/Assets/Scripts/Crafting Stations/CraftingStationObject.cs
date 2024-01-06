@@ -68,17 +68,11 @@ public class CraftingStationObject : MonoBehaviour
         interactionUI = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>().interactUI;
 
         stationName.text = stationData.stations[stationID].stationName;
-        /* The code is destroying all the child game objects of the `recipeTransform` transform. It
-        iterates through each child of `recipeTransform` using a for loop and destroys each child
-        game object using the `Destroy()` method. This code is used to remove any existing recipe
-        items before spawning new ones in the crafting station menu. */
         for (int i = 0; i < recipeTransform.childCount; i++)
         {
             Destroy(recipeTransform.GetChild(i).gameObject);
         }
 
-        /* This code block is responsible for spawning and setting up the recipe items in the crafting
-        station menu. */
         for (int i = 0; i < stationData.stations[stationID].recipies.Length; i++)
         {
             var spawnedObject = Instantiate(itemRecipePrefab, recipeTransform);
@@ -91,9 +85,6 @@ public class CraftingStationObject : MonoBehaviour
         ItemPressed(0);
 
 
-        /* `closeMenuButton.onClick.AddListener(() => CloseMenu());` is adding a listener to the
-        `onClick` event of the `closeMenuButton` button. When the button is clicked, the
-        `CloseMenu()` method will be called. */
         closeMenuButton.onClick.AddListener(() => CloseMenu());
     }
 
@@ -103,20 +94,11 @@ public class CraftingStationObject : MonoBehaviour
     /// </summary>
     public void Update()
     {
-        /* This code block checks if the `items` array at index 1 is equal to 1 and if the `crafting`
-        variable is false. If both conditions are true, it starts a coroutine called
-        `AnimateSliderOverTime` with the parameters
-        `stationData.stations[stationID].recipies[currentSelectedRecipieID].time` and `items[0]`. */
         if (items[1] == 1 && !crafting)
         {
             StartCoroutine(AnimateSliderOverTime(stationData.stations[stationID].recipies[currentSelectedRecipieID].time, items[0]));
         }
 
-        /* this code code is checking for a key press event (specifically the "E" key) and two boolean
-        conditions (inRange and crafting). If all conditions are met, it checks if the current menu
-        is close to the crafting menu. If it is, it plays a sound effect and closes the menu. If the
-        current menu is not close to the crafting menu, it checks if the crafting menu can be
-        opened. If it can, it plays a sound effect and opens the menu. */
         if (Input.GetKeyDown(KeyCode.E) && inRange && !crafting)
         {
             if (MenuManager.IsCurrentMenuClose(MenuID.CRAFTING))
@@ -205,9 +187,6 @@ public class CraftingStationObject : MonoBehaviour
         currentCraftCount = count;
         currentSelectedRecipieID = ID;
         craftCount.text = "x" + currentCraftCount.ToString();
-        /* This code block is destroying all the child game objects of the "itemAmountParent" object. It
-        iterates through each child using a for loop and calls the Destroy() function on each child
-        game object to remove them from the scene. */
         for (int i = 0; i < itemAmountParent.childCount; i++)
         {
             Destroy(itemAmountParent.GetChild(i).gameObject);
@@ -217,10 +196,6 @@ public class CraftingStationObject : MonoBehaviour
         itemName.text = stationData.stations[stationID].recipies[ID].recipeName;
         icon.sprite = stationData.stations[stationID].recipies[ID].produces.item.icon;
 
-        /* This code block is iterating through the materials required for a recipe in a crafting
-        station. For each material, it instantiates a prefab called "itemAmountPrefab" and sets its
-        properties based on the material's information. It sets the icon sprite, item name, and the
-        count of how many of the material the player has versus how many are needed for the recipe. */
         for (int i = 0; i < stationData.stations[stationID].recipies[ID].materials.Length; i++)
         {
             var spawnedObject = Instantiate(itemAmountPrefab, itemAmountParent);

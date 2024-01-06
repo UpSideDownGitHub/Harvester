@@ -341,11 +341,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     /// <summary>
     /// The StartClicked function plays a click sound and loads the "SampleScene" level in
-    /// PhotonNetwork.
+    /// PhotonNetwork. as well as making the current room invisable to other players.
     /// </summary>
     public void StartClicked()
     {
         audioSource.PlayOneShot(clickSound);
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel("SampleScene");
     }
 
