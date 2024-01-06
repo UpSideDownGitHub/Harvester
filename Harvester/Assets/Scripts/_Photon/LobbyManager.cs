@@ -406,9 +406,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         foreach (RoomInfo room in list)
         {
-            RoomItem tempRoom = Instantiate(roomItem, spawnArea).GetComponent<RoomItem>();
-            tempRoom.SetRoomName(room.Name);
-            currentRooms.Add(tempRoom);
+            if (room.IsVisible && room.IsOpen)
+            {
+                RoomItem tempRoom = Instantiate(roomItem, spawnArea).GetComponent<RoomItem>();
+                tempRoom.SetRoomName(room.Name);
+                currentRooms.Add(tempRoom);
+            }
         }
     }
 
@@ -489,6 +492,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     /// </summary>
     /// <param name="newPlayer">The new player who entered the room.</param>
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        UpdatePlayerList();
+    }
+
+    /// <summary>
+    /// The function "OnPlayerLeftRoom" is called when a player leaves the room and it updates
+    /// the player list.
+    /// </summary>
+    /// <param name="newPlayer">The new player who left the room.</param>
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         UpdatePlayerList();
     }

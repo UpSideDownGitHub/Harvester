@@ -37,10 +37,8 @@ public class GridManager : MonoBehaviour
 
     public void Start()
     {
-        PhotonView photonView = PhotonView.Get(this);
-
-        if (!photonView.IsMine)
-            GetComponent<GridManager>().enabled = false;
+        if (!PhotonNetwork.IsMasterClient)
+            return;
 
         // go through the list of items and spawn them all
         var pickedData = SaveManager.instance.LoadGeneralSaveData();
