@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Foundry
   m_EditorClassIdentifier: 
   itemName: Foundry
-  description: Used to Form Items
+  description: Used to Craft Tools
   itemID: 21
   icon: {fileID: 1327994004, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1

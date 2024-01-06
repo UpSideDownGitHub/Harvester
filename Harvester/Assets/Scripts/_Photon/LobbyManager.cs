@@ -69,6 +69,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("Menus")]
     public GameObject lobbyCanvas;
     public GameObject menuCanvas;
+    public GameObject tutorialCanvas;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -83,6 +84,39 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         audioSource.PlayOneShot(clickSound);
         lobbyCanvas.SetActive(true);
         menuCanvas.SetActive(false);
+    }
+
+    /// <summary>
+    /// The CloseLobbyPressed function plays a click sound, deactivates the lobby canvas, and activates the
+    /// menu canvas.
+    /// </summary>
+    public void CloseLobbyPressed()
+    {
+        audioSource.PlayOneShot(clickSound);
+        lobbyCanvas.SetActive(false);
+        menuCanvas.SetActive(true);
+    }
+
+    /// <summary>
+    /// The TutorialPressed function plays a click sound, deactivates the menu canvas, and activates the
+    /// tutorial Canvas.
+    /// </summary>
+    public void TutorialPressed()
+    {
+        audioSource.PlayOneShot(clickSound);
+        menuCanvas.SetActive(false);
+        tutorialCanvas.SetActive(true);
+    }
+
+    /// <summary>
+    /// The CloseTutorialPressed function plays a click sound, actiavates the menu canvas, and deactivates the
+    /// tutorial Canvas.
+    /// </summary>
+    public void CloseTutorialPressed()
+    {
+        audioSource.PlayOneShot(clickSound);
+        menuCanvas.SetActive(true);
+        tutorialCanvas.SetActive(false);
     }
 
     /// <summary>

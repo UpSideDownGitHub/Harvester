@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Furnace
   m_EditorClassIdentifier: 
   itemName: Furnace
-  description: Used to Smelt Items
+  description: Used to Craft Items
   itemID: 20
   icon: {fileID: 616766363, guid: 15679089e6589164ba0c6a77db8bcbf3, type: 3}
   placeable: 1
@@ -22,5 +22,6 @@ MonoBehaviour:
   consumableObjectID: 0
   tool: 0
   toolID: 0
+  toolLevel: 0
   boss: 0
   bossID: 0
