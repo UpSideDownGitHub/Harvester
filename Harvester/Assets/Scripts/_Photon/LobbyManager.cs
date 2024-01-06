@@ -1,11 +1,14 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Odbc;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
@@ -21,7 +24,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     [Header("Rooms")]
     public GameObject roomItem;
-    public List<RoomItem> currentRooms = new();
+    private Dictionary<string, RoomItem> cachedRoomList = new Dictionary<string, RoomItem>();
     public Transform spawnArea;
     public float roomListUpdateDelay;
     private float _timeOfLastUpdate;
@@ -321,6 +324,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void Start()
     {
         PhotonNetwork.JoinLobby();
+        cachedRoomList.Clear();
         currentSelectedMap = -1;
         currentSelectedPlayer = -1;
         LoadSavedPlayers();
@@ -387,7 +391,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Time.time > roomListUpdateDelay + _timeOfLastUpdate)
         {
             _timeOfLastUpdate = Time.time;
-            UpdateRoomList(list); 
+            UpdateRoomList(list);
         }
     }
 
@@ -398,19 +402,22 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     /// <param name="list">A list of RoomInfo objects that contains information about each room.</param>
     public void UpdateRoomList(List<RoomInfo> list)
     {
-        foreach (RoomItem item in currentRooms)
+        for (int i = 0; i < list.Count; i++)
         {
-            Destroy(item.gameObject);
-        }
-        currentRooms.Clear();
-
-        foreach (RoomInfo room in list)
-        {
-            if (room.IsVisible && room.IsOpen)
+            RoomInfo info = list[i];
+            if (info.RemovedFromList)
             {
-                RoomItem tempRoom = Instantiate(roomItem, spawnArea).GetComponent<RoomItem>();
-                tempRoom.SetRoomName(room.Name);
-                currentRooms.Add(tempRoom);
+                Destroy(cachedRoomList[info.Name].gameObject);
+                cachedRoomList.Remove(info.Name);
+            }
+            else
+            {
+                if (!cachedRoomList.ContainsKey(info.Name))
+                {
+                    RoomItem tempRoom = Instantiate(roomItem, spawnArea).GetComponent<RoomItem>();
+                    tempRoom.SetRoomName(info.Name);
+                    cachedRoomList[info.Name] = tempRoom;
+                }
             }
         }
     }
@@ -475,6 +482,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
+        cachedRoomList.Clear();
     }
 
     /// <summary>
