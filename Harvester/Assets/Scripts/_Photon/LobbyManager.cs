@@ -360,7 +360,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         audioSource.PlayOneShot(clickSound);
         if (roomInput.text.Length >= 1 && currentSelectedMap != -1 && currentSelectedPlayer != -1)
         {
-            PhotonNetwork.CreateRoom(roomInput.text, new Photon.Realtime.RoomOptions() { MaxPlayers = 3 , BroadcastPropsChangeToAll = true});
+            PhotonNetwork.CreateRoom(roomInput.text, new Photon.Realtime.RoomOptions() { MaxPlayers = 4 , BroadcastPropsChangeToAll = true});
         }
     }
 

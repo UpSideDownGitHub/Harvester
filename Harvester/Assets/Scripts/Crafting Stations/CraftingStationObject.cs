@@ -126,11 +126,16 @@ public class CraftingStationObject : MonoBehaviour
     /// collided with.</param>
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !inRange)
+        PhotonView view = PhotonView.Get(collision);
+        if (view.IsMine)
         {
-            inRange = true;
-            _interactedPlayer = collision.name;
-            interactionUI.SetActive(true);
+            if (collision.CompareTag("Player") && !inRange)
+            {
+
+                inRange = true;
+                _interactedPlayer = collision.name;
+                interactionUI.SetActive(true);
+            }
         }
     }
     /// <summary>
@@ -143,13 +148,18 @@ public class CraftingStationObject : MonoBehaviour
     /// the game world.</param>
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && _interactedPlayer.Equals(collision.name))
+        PhotonView view = PhotonView.Get(collision);
+        if (view.IsMine)
         {
-            inRange = false;
-            _interactedPlayer = null;
-            interactionUI.SetActive(false);
-            UI.SetActive(false);
-            MenuManager.menuOpen = MenuID.NOTHING;
+            if (collision.CompareTag("Player") && _interactedPlayer.Equals(collision.name))
+            {
+
+                inRange = false;
+                _interactedPlayer = null;
+                interactionUI.SetActive(false);
+                UI.SetActive(false);
+                MenuManager.menuOpen = MenuID.NOTHING;
+            }
         }
     }
 
