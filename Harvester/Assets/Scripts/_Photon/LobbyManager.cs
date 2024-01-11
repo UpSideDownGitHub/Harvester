@@ -76,6 +76,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public AudioClip clickSound;
 
     /// <summary>
+    /// The ExitPressed function will exit the application, which has the effect of the game closing
+    /// </summary>
+    public void ExitPressed()
+    {
+        Application.Quit();
+    }
+
+    /// <summary>
     /// The StartPressed function plays a click sound, activates the lobby canvas, and deactivates the
     /// menu canvas.
     /// </summary>
@@ -439,19 +447,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < list.Count; i++)
         {
             RoomInfo info = list[i];
-            if (info.RemovedFromList)
+            if (info.RemovedFromList && cachedRoomList.ContainsKey(info.Name))
             {
                 Destroy(cachedRoomList[info.Name].gameObject);
                 cachedRoomList.Remove(info.Name);
             }
-            else
+            else if (!cachedRoomList.ContainsKey(info.Name))
             {
-                if (!cachedRoomList.ContainsKey(info.Name))
-                {
-                    RoomItem tempRoom = Instantiate(roomItem, spawnArea).GetComponent<RoomItem>();
-                    tempRoom.SetRoomName(info.Name);
-                    cachedRoomList[info.Name] = tempRoom;
-                }
+
+                RoomItem tempRoom = Instantiate(roomItem, spawnArea).GetComponent<RoomItem>();
+                tempRoom.SetRoomName(info.Name);
+                cachedRoomList[info.Name] = tempRoom;
             }
         }
     }
