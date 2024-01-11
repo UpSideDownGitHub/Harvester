@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     public float attackTime;
     public float attackChance;
     private float _timeOfLastAttack;
+    [Range(0f, 1f)]
+    public float chanceToChangeTarget;
 
     [Header("Wandering")]
     public float wanderDistance;
@@ -28,6 +30,8 @@ public class Enemy : MonoBehaviour
     public float curHealth;
     public Slider healthSlider;
     public float maxHealth;
+    public float despawnTime = 25;
+    private float _timeOfDespawn;
 
 
     [Header("Animation")]
@@ -48,9 +52,9 @@ public class Enemy : MonoBehaviour
     [Header("Photon")]
     public PhotonView photonView;
 
-/// <summary>
-/// Initialization method called when the object is started.
-/// </summary>
+    /// <summary>
+    /// Initialization method called when the object is started.
+    /// </summary>
     private void Start()
     {
         photonView = PhotonView.Get(this);
@@ -63,17 +67,17 @@ public class Enemy : MonoBehaviour
         miscManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<MiscManager>();
     }
 
-/// <summary>
-/// Update method responsible for managing the dynamic behavior of the object.
-/// </summary>
-/// <remarks>
-/// This method checks for the presence of active players and triggers the despawn mechanism if none are found.
-/// It also handles the wandering behavior when there is no specified target, randomly setting a destination within a defined distance.
-/// When a target is set, the object moves toward it and initiates attacks based on distance and a randomized chance.
-/// </remarks>
+    /// <summary>
+    /// Update method responsible for managing the dynamic behavior of the object.
+    /// </summary>
+    /// <remarks>
+    /// This method checks for the presence of active players and triggers the despawn mechanism if none are found.
+    /// It also handles the wandering behavior when there is no specified target, randomly setting a destination within a defined distance.
+    /// When a target is set, the object moves toward it and initiates attacks based on distance and a randomized chance.
+    /// </remarks>
     void Update()
     {
-        if (miscManager.currentAlivePlayers == 0)
+        if (miscManager.currentAlivePlayers == 0 || _timeOfDespawn > Time.time)
             despawn();
 
         PlayAnimation();
@@ -85,7 +89,7 @@ public class Enemy : MonoBehaviour
             NavMeshHit navHit;
             NavMesh.SamplePosition(randomDirection, out navHit, wanderDistance, -1);
             try { agent.SetDestination(navHit.position); }
-            catch { despawn();  }
+            catch { despawn(); }
         }
         else if (targetTransform != null && gameObject.activeInHierarchy && gameObject != null)
         {
@@ -102,16 +106,19 @@ public class Enemy : MonoBehaviour
                 // attack the player
                 _timeOfLastAttack = Time.time;
                 attack = true;
-                PhotonView playerPhotonView = PhotonView.Get(targetTransform.gameObject);
-                playerPhotonView.RPC("DecreaseHealth", RpcTarget.All);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonView playerPhotonView = PhotonView.Get(targetTransform.gameObject);
+                    playerPhotonView.RPC("DecreaseHealth", RpcTarget.All);
+                }
             }
         }
     }
 
-/// <summary>
-/// RPC method to apply damage to the object.
-/// </summary>
-/// <param name="damage">The amount of damage to be applied.</param>
+    /// <summary>
+    /// RPC method to apply damage to the object.
+    /// </summary>
+    /// <param name="damage">The amount of damage to be applied.</param>
     [PunRPC]
     public void TakeDamage(float damage)
     {
@@ -123,7 +130,7 @@ public class Enemy : MonoBehaviour
         {
             die = true;
             if (boss)
-            { 
+            {
                 if (PhotonNetwork.IsMasterClient)
                     bossManager.BossKilled(bossID);
             }
@@ -131,55 +138,60 @@ public class Enemy : MonoBehaviour
         }
     }
 
-/// <summary>
-/// Initiates the despawning process for the object.
-/// </summary>
-    public void despawn() 
+    /// <summary>
+    /// Initiates the despawning process for the object.
+    /// </summary>
+    public void despawn()
     {
         PhotonView view = PhotonView.Get(this);
         view.RPC("DestroyAll", RpcTarget.All);
     }
 
-/// <summary>
-/// RPC method to destroy the object for all networked players.
-/// </summary>
+    /// <summary>
+    /// RPC method to destroy the object for all networked players.
+    /// </summary>
     [PunRPC]
     public void DestroyAll()
     {
         Destroy(gameObject);
     }
 
-/// <summary>
-/// Triggered when another Collider2D enters this object's trigger zone.
-/// </summary>
-/// <param name="collision">The Collider2D entering the trigger zone.</param>
-/// <remarks>
-/// This method checks if the entering collider has the "Player" tag and if the object has no existing target.
-/// If the conditions are met, it prints debug information, retrieves the player's position and name, and initiates the SetTarget RPC for all players.
-/// </remarks>
+    /// <summary>
+    /// Triggered when another Collider2D enters this object's trigger zone.
+    /// </summary>
+    /// <param name="collision">The Collider2D entering the trigger zone.</param>
+    /// <remarks>
+    /// This method checks if the entering collider has the "Player" tag and if the object has no existing target.
+    /// If the conditions are met, it prints debug information, retrieves the player's position and name, and initiates the SetTarget RPC for all players.
+    /// This also has a chance to change the target player for the enemy when a new player enters the enemys target area.
+    /// </remarks>
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && targetTransform == null)
+        if (collision.CompareTag("Player"))
         {
-            print("ENTERED AREA");
-            print(collision.name);
-            try
+            _timeOfDespawn = Time.time + despawnTime;
+            if (targetTransform == null)
             {
-                photonView.RPC("SetTarget", RpcTarget.All, (Vector2)collision.transform.position, collision.name);
+                try { photonView.RPC("SetTarget", RpcTarget.All, (Vector2)collision.transform.position, collision.name); }
+                catch { /*Player Might Kill The Enemy*/ }
             }
-            catch { /*NOTHING*/ }
+            else if (Random.value > chanceToChangeTarget)
+            {
+                try { photonView.RPC("SetTarget", RpcTarget.All, (Vector2)collision.transform.position, collision.name); }
+                catch { /*Player Might Kill The Enemy*/ }
+            }
         }
     }
 
-/// <summary>
-/// Triggered when another Collider2D exits this object's trigger zone.
-/// </summary>
-/// <param name="collision">The Collider2D exiting the trigger zone.</param>
-/// <remarks>
-/// This method checks if the exiting collider has the "Player" tag and if the object has an existing target.
-/// If the conditions are met, it prints debug information, compares the exiting player's name with the current target's name, 
-/// and initiates the SetTarget RPC for all players if there is a match.
-/// </remarks>
+    /// <summary>
+    /// Triggered when another Collider2D exits this object's trigger zone.
+    /// </summary>
+    /// <param name="collision">The Collider2D exiting the trigger zone.</param>
+    /// <remarks>
+    /// This method checks if the exiting collider has the "Player" tag and if the object has an existing target.
+    /// If the conditions are met, it prints debug information, compares the exiting player's name with the current target's name, 
+    /// and initiates the SetTarget RPC for all players if there is a match.
+    /// </remarks>
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && targetTransform != null)
@@ -187,19 +199,19 @@ public class Enemy : MonoBehaviour
             print("LEFT AREA");
             if (targetName == collision.name)
                 photonView.RPC("SetTarget", RpcTarget.All, Vector2.zero, "");
-        } 
+        }
     }
 
-/// <summary>
-/// RPC method to set the target and associated properties for the object.
-/// </summary>
-/// <param name="givenTarget">The new target position.</param>
-/// <param name="targetName">The name of the target.</param>
-/// <remarks>
-/// This method is invoked remotely to update the object's target position and name.
-/// It also attempts to find the GameObject corresponding to the target name and sets the target transform accordingly.
-/// If no valid target name is provided, the target transform is set to null.
-/// </remarks>
+    /// <summary>
+    /// RPC method to set the target and associated properties for the object.
+    /// </summary>
+    /// <param name="givenTarget">The new target position.</param>
+    /// <param name="targetName">The name of the target.</param>
+    /// <remarks>
+    /// This method is invoked remotely to update the object's target position and name.
+    /// It also attempts to find the GameObject corresponding to the target name and sets the target transform accordingly.
+    /// If no valid target name is provided, the target transform is set to null.
+    /// </remarks>
     [PunRPC]
     public void SetTarget(Vector2 givenTarget, string targetName)
     {
@@ -218,14 +230,14 @@ public class Enemy : MonoBehaviour
             targetTransform = null;
     }
 
-/// <summary>
-/// Plays the appropriate animation based on the object's current state.
-/// </summary>
-/// <remarks>
-/// This method determines the object's state, such as moving, attacking, being hit, or dying, 
-/// and plays the corresponding animation using the associated animation controller.
-/// The movement direction is also updated, and the previous velocity is stored for non-moving states.
-/// </remarks>
+    /// <summary>
+    /// Plays the appropriate animation based on the object's current state.
+    /// </summary>
+    /// <remarks>
+    /// This method determines the object's state, such as moving, attacking, being hit, or dying, 
+    /// and plays the corresponding animation using the associated animation controller.
+    /// The movement direction is also updated, and the previous velocity is stored for non-moving states.
+    /// </remarks>
     public void PlayAnimation()
     {
         var velo = agent.velocity;
@@ -261,14 +273,14 @@ public class Enemy : MonoBehaviour
         if (moving)
             previousVelocity = velo;
     }
-/// <summary>
-/// Sets the facing direction of the object based on the provided movement vector.
-/// </summary>
-/// <param name="movement">The movement vector indicating the object's direction.</param>
-/// <remarks>
-/// This method adjusts the object's scale to reflect the facing direction, 
-/// flipping it horizontally when moving left and keeping it as is when moving right.
-/// </remarks>
+    /// <summary>
+    /// Sets the facing direction of the object based on the provided movement vector.
+    /// </summary>
+    /// <param name="movement">The movement vector indicating the object's direction.</param>
+    /// <remarks>
+    /// This method adjusts the object's scale to reflect the facing direction, 
+    /// flipping it horizontally when moving left and keeping it as is when moving right.
+    /// </remarks>
     public void SetMovingDirection(Vector2 movement)
     {
         if (movement.x < 0) // LEFT
