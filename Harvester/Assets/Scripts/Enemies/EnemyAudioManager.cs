@@ -10,12 +10,12 @@ public class EnemyAudioManager : MonoBehaviour
     public AudioClip attack;
     public AudioClip die;
 
-/// <summary>
-/// Plays the attack sound effect using the object's audio source.
-/// </summary>
+    /// <summary>
+    /// Plays the attack sound effect using the object's audio source.
+    /// </summary>
     public void PlayAttack() { audioSource.PlayOneShot(attack); }
-/// <summary>
-/// Plays the die sound effect using the object's audio source.
-/// </summary>
+    /// <summary>
+    /// Plays the die sound effect using the object's audio source.
+    /// </summary>
     public void PlayDie() { audioSource.PlayOneShot(die); }
 }
